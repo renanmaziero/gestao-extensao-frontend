@@ -1,0 +1,32 @@
+.mat-h1 {
+    text-align: left;
+}
+
+.form {
+    margin-right: 20px;
+    width: flex;
+}
+
+.main-div{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .toolbar-spacer {
+    flex: 1 1 auto;
+  }
+
+  .grid-container {
+    margin: 20px;
+  }
+
+  .input-label {
+      width: 350px;
+  }
+
+  .mat-progress-bar {
+    height: 15px;
+  }
+  

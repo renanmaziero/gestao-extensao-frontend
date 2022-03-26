@@ -1,0 +1,73 @@
+<div class="grid-container">
+  <h1 class="mat-h1">Atividades</h1>
+
+  <mat-form-field style="width: 100%;" appearance="outline">
+    <mat-label>Filtrar</mat-label>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar">
+  </mat-form-field>
+
+  <div class="mat-elevation-z8">
+  
+    <table mat-table [dataSource]="autorizacoes" matSort class="full-width-table">
+      <!-- Position Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+        <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="dataCriacao">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Criado em</th>
+        <td mat-cell *matCellDef="let element"> {{element.dataCriacao | date:"dd/MM/yyyy" }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="docente">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Solicitante</th>
+        <td mat-cell *matCellDef="let element"> {{ element.docente }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="urgente">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Urgente</th>
+        <td mat-cell *matCellDef="let element"> {{ (element.urgente ? 'SIM' : 'NÃO') }} </td>
+      </ng-container>
+
+      
+      <ng-container matColumnDef="tipoAtividade">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Tipo</th>
+        <td mat-cell *matCellDef="let element"> {{ element.tipoAtividade }} </td>
+      </ng-container>
+      
+      
+      <ng-container matColumnDef="acoes">
+        <th mat-header-cell *matHeaderCellDef>Ações</th>
+        <td mat-cell *matCellDef="let element"> 
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="consultarDetalheAutorizacao(element)">
+              <mat-icon>visibility</mat-icon>
+              <span>Detalhes</span>
+            </button>
+            <button mat-menu-item (click)="openConfirmationDialog(element.atividadeId, 'Deseja excluir a atividade?')">
+              <mat-icon>delete</mat-icon>
+              <span>Excluir atividade</span>
+            </button>
+          </mat-menu>
+        </td>
+
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[20, 30, 40]" showFirstLastButtons></mat-paginator>
+  </div>
+</div>

@@ -1,0 +1,292 @@
+<div class="grid-container">
+    <h1 mat-dialog-title>
+        <button mat-icon-button (click)="voltar()">
+            <mat-icon aria-hidden="false" aria-label="edit icon">keyboard_backspace</mat-icon>
+        </button>
+        Solicitação de Atividade #{{ atividade.id }} - Regência Concomitante
+    </h1>
+    <form name="form" [formGroup]="regenciaForm" #f="ngForm">
+        <div class="row">
+            <div class="col">
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Nome do curso</mat-label>
+                    <input [(ngModel)]="atividade.curso" formControlName="curso" matInput placeholder="Nome do curso">
+                    <mat-error *ngIf="regenciaForm.controls['curso'].hasError('required')">
+                        Nome do curso <strong>obrigatório</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Instituição de Ensino Vinculada</mat-label>
+                    <input [(ngModel)]="atividade.instituicao" formControlName="instituicao" matInput
+                        placeholder="Instituição vinculada">
+                    <mat-error *ngIf="regenciaForm.controls['instituicao'].hasError('required')">
+                        Nome da instituição <strong>obrigatório</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col">
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Coordenador(a) </mat-label>
+                    <input [(ngModel)]="atividade.coordenador" formControlName="coordenador" matInput
+                        placeholder="Coordenador(a)">
+                    <mat-error *ngIf="regenciaForm.controls['coordenador'].hasError('required')">
+                        Nome do coordenador(a) <strong>obrigatório</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <mat-label style="margin-right: 20px;">Nível: </mat-label>
+            <mat-radio-group [(ngModel)]="atividade.nivel" formControlName="nivel" aria-label="Select an option">
+                <mat-radio-button value="GRADUACAO">Graduação</mat-radio-button>
+                <mat-radio-button value="POS_GRADUACAO">Pós-Graduação</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div class="row">
+            <mat-label style="margin-right: 20px;">Será o responsável pela disciplina: </mat-label>
+            <mat-radio-group [(ngModel)]="atividade.responsavel" formControlName="responsavel"
+                aria-label="Select an option">
+                <mat-radio-button [value]="true">Sim</mat-radio-button>
+                <mat-radio-button [value]="false">Não</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div class="row">
+            <mat-label style="margin-right: 20px;">Será o único docente da disciplina: </mat-label>
+            <mat-radio-group [(ngModel)]="atividade.unicoDocente" formControlName="unicoDocente"
+                aria-label="Select an option">
+                <mat-radio-button [value]="true">Sim</mat-radio-button>
+                <mat-radio-button [value]="false">Não</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div class="row" style="margin-top: 5px;">
+            <div class="col">
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Disciplina de participação</mat-label>
+                    <input [(ngModel)]="atividade.disciplinaParticipacao" formControlName="disciplinaParticipacao"
+                        matInput placeholder="Disciplina">
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Carga horária total de aulas</mat-label>
+                    <input [(ngModel)]="atividade.totalHorasMinistradas" matInput maxlength="5" min="1"
+                        placeholder="Carga horária total ministrada" type="number" formControlName="totalHorasMinistradas">
+                </mat-form-field>
+            </div>
+            <div class="col">
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Carga horária de outras atividades (preparação)</mat-label>
+                    <input [(ngModel)]="atividade.totalHorasOutrasAtividades" matInput maxlength="5" min="1"
+                        placeholder="Carga horária outras atividades" type="number" formControlName="totalHorasOutrasAtividades">
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Valor bruto por hora (R$)</mat-label>
+                    <input [(ngModel)]="atividade.valorBrutoHora" matInput maxlength="5"
+                        placeholder="Valor bruto hora-aula" type="number" formControlName="valorBrutoHora">
+                </mat-form-field>
+            </div>
+            <div class="col">
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Valor bruto total (R$)</mat-label>
+                    <input [(ngModel)]="atividade.valorBrutoTotal" matInput maxlength="5"
+                        placeholder="Valor bruto total aulas" type="number" formControlName="valorBrutoTotal">
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Data Inicio</mat-label>
+                    <input [(ngModel)]="atividade.dataInicio" matInput [matDatepicker]="picker4"
+                        formControlName="dataInicio" placeholder="Selecionar data" required>
+                    <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+                    <mat-datepicker #picker4></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="col">
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Data Fim</mat-label>
+                    <input [(ngModel)]="atividade.dataFim" matInput [matDatepicker]="picker5" formControlName="dataFim"
+                        placeholder="Selecionar data" required>
+                    <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
+                    <mat-datepicker #picker5></mat-datepicker>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Dias Trabalhados Unicamp</mat-label>
+                    <input [(ngModel)]="atividade.diasTrabalhadosUnicamp" matInput
+                        placeholder="Dias Trabalhados Unicamp" formControlName="diasTrabalhadosUnicamp">
+                </mat-form-field>
+            </div>
+            <div class="col">
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Dias trabalhados em outra instituicao</mat-label>
+                    <input [(ngModel)]="atividade.diasTrabalhadosOutraInstituicao" matInput
+                        placeholder="Dias trabalhados em outra instituicao"
+                        formControlName="diasTrabalhadosOutraInstituicao">
+                </mat-form-field>
+            </div>
+        </div>
+        <h1 mat-dialog-title>Docente</h1>
+        <div class="row">
+            <div class="col">
+                <mat-form-field appearance="outline" style="width: 100%">
+                    <mat-label>Nome</mat-label>
+                    <input matInput [(ngModel)]="atividade.docente" formControlName="docente" placeholder="Nome Docente"
+                       readonly  />
+                </mat-form-field>
+            </div>
+        </div>
+
+        <h3>Alocações solicitadas por ano e semestre</h3>
+        <div class="row">
+            <div class="col">
+                <div class="mat-elevation-z1">
+                    <table mat-table [dataSource]="alocacoes" multiTemplateDataRows matSort class="full-width-table">              
+                          <ng-container matColumnDef="semestre">
+                            <th mat-header-cell *matHeaderCellDef>Semestre</th>
+                            <td mat-cell *matCellDef="let row">{{ row.semestre }}</td>
+                          </ng-container>
+              
+                          <ng-container matColumnDef="ano">
+                            <th mat-header-cell *matHeaderCellDef>Ano</th>
+                            <td mat-cell *matCellDef="let row">{{ row.ano }}</td>
+                          </ng-container>
+              
+                          <ng-container matColumnDef="horasSolicitadas">
+                            <th mat-header-cell *matHeaderCellDef>Horas Solicitadas</th>
+                            <td mat-cell *matCellDef="let row">
+                              {{ row.horasSolicitadas }} h
+                            </td>
+                          </ng-container>
+              
+                          <ng-container matColumnDef="status">
+                            <th mat-header-cell *matHeaderCellDef>Status</th>
+                            <td mat-cell *matCellDef="let row">{{ row.status }}</td>
+                          </ng-container>
+
+                        <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+                        <ng-container matColumnDef="expandedDetail">
+                            <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+                                <div class="example-element-detail"
+                                    [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                                    <div class="row">
+                                        <div class="col">
+                                            <mat-form-field appearance="outline" style="width: 100%">
+                                                <mat-label>Horas aprovadas em convênios</mat-label>
+                                                <input matInput [(value)]="element.horasAprovadasConvenio" name="element.horasAprovadasConvenio" placeholder="Horas aprovadas convênios" readonly />
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col">
+                                            <mat-form-field appearance="outline" style="width: 100%">
+                                                <mat-label>Horas aprovadas em regência</mat-label>
+                                                <input matInput [(value)]="element.horasAprovadasRegencia" name="element.horasAprovadasRegencia" placeholder="Horas aprovadas regência" readonly />
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col">
+                                            <mat-form-field appearance="outline" style="width: 100%">
+                                                <mat-label>Horas aprovadas em cursos</mat-label>
+                                                <input matInput [(value)]="element.horasAprovadasCurso" name="element.horasAprovadasCurso" placeholder="Horas aprovadas cursos" readonly />
+                                            </mat-form-field>
+                                        </div>
+                                        <button [disabled]="element.status=='APROVADO'" mat-icon-button color="warn" (click)="openDialog(element)" *ngIf="!admin">
+                                            <mat-icon aria-label="edit icon">edit</mat-icon>
+                                          </button>
+                                    </div>
+                                </div>
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+                        <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row"
+                            [class.example-expanded-row]="expandedElement === element"
+                            (click)="expandedElement = expandedElement === element ? null : element">
+                        </tr>
+                        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <br />
+
+        <h1 mat-dialog-title>Observações</h1>
+        <div class="row">
+            <div class="col">
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Comentário docente</mat-label>
+                    <textarea matInput [(ngModel)]="atividade.observacao" formControlName="observacao"
+                        ></textarea>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Itens a revisar</mat-label>
+                    <textarea matInput [(ngModel)]="atividade.revisao" formControlName="revisao" readonly></textarea>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row" *ngIf="(fileInfos$ | async)?.length > 0;">
+            <div class="col">
+                <div class="card">
+                    <h1 mat-dialog-title>Anexos</h1>
+                    <ul class="list-group list-group-flush" *ngFor="let file of fileInfos$ | async">
+                        <li class="list-group-item">
+                            {{ file.nome }} <button mat-button (click)="downloadArquivo(file, atividade)" *ngIf="admin">
+                                <mat-icon aria-hidden="false" aria-label="download">download</mat-icon>
+                                <mat-icon *ngIf="arquivo$  && loading$ | async">
+                                    <mat-spinner color="accent" diameter="20"> </mat-spinner>
+                                </mat-icon>
+                            </button>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div mat-dialog-actions style="float: right">
+                    <button [disabled]="atividade.autorizado && !regenciaForm.valid" mat-button
+                        (click)="openConfirmationDialog(atividade, 'Deseja atualizar os dados da atividade?', true, 'update')" *ngIf="!admin">
+                        <mat-icon aria-hidden="false" aria-label="edit icon">cached</mat-icon>
+                        Atualizar dados
+                    </button>
+                    <button [disabled]="atividade.autorizado" mat-button
+                    (click)="openConfirmationDialog(atividade, 'Deseja confirmar autorização?', true, 'aceitar')"
+                    *ngIf="admin">
+                        <mat-icon aria-hidden="false" aria-label="edit icon">check</mat-icon>
+                        Aceitar
+                    </button>
+                    <button mat-button (click)="devolverAtividade(atividade.id)" color="warn" *ngIf="admin">
+                        <mat-icon aria-hidden="false" aria-label="edit icon">cancel</mat-icon>
+                        Devolver
+                    </button>
+                    <button mat-button (click)="extrairRelatorioPDF(atividade)">
+                        <mat-icon aria-hidden="false" aria-label="edit icon">save</mat-icon>
+                        PDF
+                        <mat-icon *ngIf="pdf$ && loading$ | async">
+                            <mat-spinner color="accent" diameter="20"> </mat-spinner>
+                        </mat-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
