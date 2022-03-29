@@ -95,8 +95,16 @@ export class CadastroComponent implements OnInit {
         this.router.navigate(['/login']);
       },
       error => {
-        console.log(error);
-        this.toast.error(error.mensagem);
+        console.log(error);        
+        //this.openSnackBar(error, 'OK');
+        if(error.error == "{\"error\":\"Bad Request\",\"mensagem\":\"Usuário já está em uso.\"}"){
+          this.toast.error('Usuername já existe. Escolha um diferente.');
+        }
+
+        else if(error.error == "{\"error\":\"Bad Request\",\"mensagem\":\"Email já está em uso.\"}"){
+          this.toast.error('E-mail já está em uso. Escolha um diferente.');
+        }
+        
       }
     );
   }
