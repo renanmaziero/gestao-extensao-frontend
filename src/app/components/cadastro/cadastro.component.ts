@@ -31,8 +31,8 @@ export class CadastroComponent implements OnInit {
 
   @ViewChild(FormGroupDirective, { static: true }) form: FormGroupDirective;
   @ViewChild('stepper') stepper: MatStepper;
-  constructor(private formBuilder: FormBuilder, private authService: AuthService, 
-    private router: Router, private snackBar: MatSnackBar, private validateBrService: ValidateBrService, 
+  constructor(private formBuilder: FormBuilder, private authService: AuthService,
+    private router: Router, private snackBar: MatSnackBar, private validateBrService: ValidateBrService,
     private toast: ToastrService, private loader: LoaderService) { }
 
   ngOnInit(): void {
@@ -65,7 +65,7 @@ export class CadastroComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
-  openSnackBar(message: string, action: string): void{
+  openSnackBar(message: string, action: string): void {
     this.snackBar.open(message, action, {
       duration: 15000,
       horizontalPosition: this.horizontalPosition
@@ -95,16 +95,33 @@ export class CadastroComponent implements OnInit {
         this.router.navigate(['/login']);
       },
       error => {
-        console.log(error);        
-        //this.openSnackBar(error, 'OK');
-        if(error.error == "{\"error\":\"Bad Request\",\"mensagem\":\"Usuário já está em uso.\"}"){
-          this.toast.error('Usuername já existe. Escolha um diferente.');
+        //console.log(error);
+        //this.toast.error(error.mensagem);
+        if (error.error == "{\"error\":\"Bad Request\",\"mensagem\":\"Usuário já está em uso.\"}") {
+          this.toast.error('Username "' + this.formularioCadastro.get('usuario').value + '" já existe.');
+          this.formularioCadastro.controls['usuario'].setErrors({ 'incorrect': true });
+          this.move(0);
+
         }
 
-        else if(error.error == "{\"error\":\"Bad Request\",\"mensagem\":\"Email já está em uso.\"}"){
-          this.toast.error('E-mail já está em uso. Escolha um diferente.');
+        if (error.error == "{\"error\":\"Bad Request\",\"mensagem\":\"Email já está em uso.\"}") {
+          this.toast.error('E-mail "' + this.formularioCadastro.get('email').value + '" já existe.');
+          this.formularioCadastro.controls['email'].setErrors({ 'incorrect': true });
+          this.formularioCadastro.controls['emailConfirmacao'].setErrors({ 'incorrect': true });
+          this.move(0);
         }
-        
+
+        if (error.error == "{\"error\":\"Bad Request\",\"mensagem\":\"CPF já está em uso.\"}") {
+          this.toast.error('CPF "' + this.formularioCadastro.get('cpf').value + '" já existe.');
+          this.formularioCadastro.controls['cpf'].setErrors({ 'incorrect': true });
+          this.move(1);
+        }
+
+        if (error.error == "{\"error\":\"Bad Request\",\"mensagem\":\"Matrícula já está em uso.\"}") {
+          this.toast.error('Matrícula "' + this.formularioCadastro.get('rf').value + '" já existe.');
+          this.formularioCadastro.controls['rf'].setErrors({ 'incorrect': true });
+          this.move(1);
+        }        
       }
     );
   }

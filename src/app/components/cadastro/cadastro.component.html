@@ -17,16 +17,19 @@
           <mat-form-field class="input-label" appearance="outline">
             <mat-label>Username</mat-label>
             <input matInput placeholder="Username" formControlName="usuario" id="username" required>
-            <mat-error *ngIf="formularioCadastro.controls['usuario'].hasError('required')">
-              Username <strong>obrigatório</strong>
+            <mat-error *ngIf="formularioCadastro.get('usuario').errors">
+              Username <strong>obrigatório</strong> ou <strong>já existe.</strong>
             </mat-error>
           </mat-form-field>
           <br>
           <mat-form-field class="input-label" appearance="outline">
             <mat-label>Email</mat-label>
             <input matInput placeholder="Email" formControlName="email" required>
-            <mat-error *ngIf="formularioCadastro.controls['email'].hasError('required')">
+         <!--    <mat-error *ngIf="formularioCadastro.controls['email'].hasError('required')">
               Email <strong>obrigatório</strong>
+            </mat-error> -->
+            <mat-error *ngIf="formularioCadastro.get('email').errors">
+              E-mail <strong>obrigatório</strong> ou <strong>já existe.</strong>
             </mat-error>
           </mat-form-field>
           <mat-form-field class="input-label" style="flex: auto; margin-left: 20px;" appearance="outline">
@@ -79,19 +82,19 @@
             <mat-label>CPF</mat-label>
             <input matInput [textMask] = "{mask: cpfMascara}" formControlName="cpf" placeholder="Ex. XXX.XXX.XXX-XX" required>
             <mat-error *ngIf="formularioCadastro.get('cpf').errors">
-              CPF <strong>inválido</strong>
+              CPF <strong>inválido</strong> ou <strong>já existe.</strong>
             </mat-error>
           </mat-form-field>
           <br>
           <mat-form-field appearance="outline">
             <mat-label>Matricula</mat-label>
-            <input matInput maxlength="6" formControlName="rf" placeholder="Matricula" required>
-            <mat-error *ngIf="formularioCadastro.controls['rf'].hasError('required')">
-              Matricula <strong>obrigatória</strong>
+            <input matInput maxlength="6" formControlName="rf" placeholder="Matricula" required pattern="[0-9]{6}" title="Nro. da matrícula com 6 números de 0 a 9.">
+            <mat-error *ngIf="formularioCadastro.get('rf').errors">
+              Matricula <strong>obrigatória</strong> ou <strong>já existe.</strong>
             </mat-error>
           </mat-form-field>
           <br>
-          <mat-form-field appearance="outline">
+         <!--  <mat-form-field appearance="outline">
             <mat-label>Título</mat-label>
             <mat-select formControlName="titulo">
                 <mat-option value="Nenhum">Nenhum</mat-option>
@@ -103,7 +106,12 @@
                 <mat-option value="MS-6">MS-6</mat-option>
             </mat-select>
         </mat-form-field>
-        <br>
+        <br> -->
+
+        <!-- <mat-select formControlName="titulo" hidden>
+          <mat-option value="Nenhum" selected>Nenhum</mat-option>
+          </mat-select> -->
+          
         
           <div>
             <button mat-button matStepperPrevious>Voltar</button>
