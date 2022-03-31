@@ -15,10 +15,10 @@
         <form [formGroup]="formularioCadastro" name="form" #f="ngForm">
           <ng-template matStepLabel>Username, email e senha</ng-template>
           <mat-form-field class="input-label" appearance="outline">
-            <mat-label>Username</mat-label>
-            <input matInput placeholder="Username" formControlName="usuario" id="username" required>
+            <mat-label>Username (apenas letras minúsculas. mín. 4 dígitos.)</mat-label>
+            <input matInput placeholder="Username" formControlName="usuario" pattern="[a-z]{4,}" id="username" required>
             <mat-error *ngIf="formularioCadastro.get('usuario').errors">
-              Username <strong>obrigatório</strong> ou <strong>já existe.</strong>
+              Username <strong>inválido.</strong>
             </mat-error>
           </mat-form-field>
           <br>
@@ -29,29 +29,29 @@
               Email <strong>obrigatório</strong>
             </mat-error> -->
             <mat-error *ngIf="formularioCadastro.get('email').errors">
-              E-mail <strong>obrigatório</strong> ou <strong>já existe.</strong>
+              E-mail <strong>inválido.</strong>
             </mat-error>
           </mat-form-field>
           <mat-form-field class="input-label" style="flex: auto; margin-left: 20px;" appearance="outline">
             <mat-label>Confirmar email</mat-label>
             <input matInput placeholder="Confirmar email" formControlName="emailConfirmacao" required>
             <mat-error *ngIf="formularioCadastro.controls.emailConfirmacao.errors?.equalTo">
-              Erro ao confirmar email
+              Erro ao confirmar email. Não batem.
             </mat-error>
           </mat-form-field>
           <br>
           <mat-form-field class="input-label" style="flex: auto;" appearance="outline">
-            <mat-label>Senha</mat-label>
+            <mat-label>Senha (mín. 6 dígitos)</mat-label>
             <input type="password" matInput placeholder="Senha" formControlName="senha" required>
             <mat-error *ngIf="formularioCadastro.controls['senha'].hasError('required')">
-              Senha <strong>obrigatório</strong>
+              Senha <strong>obrigatória.</strong>
             </mat-error>
           </mat-form-field>
           <mat-form-field class="input-label" style="flex: auto; margin-left: 20px;" appearance="outline">
-            <mat-label>Confirmar senha</mat-label>
+            <mat-label>Confirmar senha (mín. 6 dígitos)</mat-label>
             <input type="password" matInput placeholder="Confirmar senha" formControlName="confirmarSenha" required>
             <mat-error *ngIf="formularioCadastro.controls.confirmarSenha.errors?.equalTo">
-              Erro ao confirmar senha
+              Erro ao confirmar senha. Não batem.
             </mat-error>
           </mat-form-field>
           <div>
@@ -63,34 +63,34 @@
         <form [formGroup]="formularioCadastro" name="form" #f="ngForm">
           <ng-template matStepLabel>Dados pessoais</ng-template>
           <mat-form-field class="input-label" appearance="outline">
-            <mat-label>Nome Completo</mat-label>
-            <input matInput formControlName="nome_completo" placeholder="Nome Completo" required>
+            <mat-label>Nome Completo (apenas letras. mín. 4 dígitos.)</mat-label>
+            <input matInput formControlName="nome_completo" placeholder="Nome Completo" required pattern="[a-zA-Z ]{4,}">
             <mat-error *ngIf="formularioCadastro.controls['nome_completo'].hasError('required')">
-              Nome completo é <strong>obrigatório</strong>
+              Nome completo é <strong>obrigatório.</strong>
             </mat-error>
           </mat-form-field>
           <br>
           <mat-form-field appearance="outline">
             <mat-label>Telefone</mat-label>
-            <input matInput formControlName="telefone" placeholder="Ex. (DDD) 9XXXX-XXXX" [textMask] = "{mask: telefoneMascara}" required>
+            <input matInput formControlName="telefone" placeholder="(19) 90000-0000" [textMask] = "{mask: telefoneMascara}" required type="tel">
             <mat-error *ngIf="formularioCadastro.controls['telefone'].hasError('required')">
-              Telefone <strong>obrigatório</strong>
+              Telefone é <strong>obrigatório.</strong>
             </mat-error>
           </mat-form-field>
           <br>
           <mat-form-field appearance="outline">
             <mat-label>CPF</mat-label>
-            <input matInput [textMask] = "{mask: cpfMascara}" formControlName="cpf" placeholder="Ex. XXX.XXX.XXX-XX" required>
+            <input matInput [textMask] = "{mask: cpfMascara}" formControlName="cpf" placeholder="406.278.984-25" required>
             <mat-error *ngIf="formularioCadastro.get('cpf').errors">
-              CPF <strong>inválido</strong> ou <strong>já existe.</strong>
+              CPF <strong>inválido.</strong>
             </mat-error>
           </mat-form-field>
           <br>
           <mat-form-field appearance="outline">
-            <mat-label>Matricula</mat-label>
+            <mat-label>Matricula (apenas números)</mat-label>
             <input matInput maxlength="6" formControlName="rf" placeholder="Matricula" required pattern="[0-9]{6}" title="Nro. da matrícula com 6 números de 0 a 9.">
             <mat-error *ngIf="formularioCadastro.get('rf').errors">
-              Matricula <strong>obrigatória</strong> ou <strong>já existe.</strong>
+              Matricula <strong>inválida.</strong>
             </mat-error>
           </mat-form-field>
           <br>

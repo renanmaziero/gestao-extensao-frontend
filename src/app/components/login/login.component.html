@@ -15,15 +15,15 @@
         <form name="form" (ngSubmit)="f.form.valid" #f="ngForm">
             <div class="form-group">
                 <mat-form-field appearance="outline" style="width: 100%;">
-                    <mat-label>Matricula</mat-label>
-                    <input matInput type="number" placeholder="Matricula" [(ngModel)]="form.matricula" name="matricula"
-                        #username="ngModel" required pattern="[0-9]{6}" title="Nro. da matrícula com 6 números de 0 a 9.">
+                    <mat-label>Matricula (apenas números)</mat-label>
+                    <input matInput placeholder="Matricula" [(ngModel)]="form.matricula" name="matricula"
+                        #username="ngModel" required type="number" maxlength="6" pattern=".{6}" title="Nro. da matrícula com 6 números de 0 a 9.">
                 </mat-form-field>
             </div>
             <div>
                 <mat-form-field appearance="outline" style="width: 100%;">
-                    <mat-label>Password</mat-label>
-                    <input matInput type="password" placeholder="Password" [(ngModel)]="form.password" name="password"
+                    <mat-label>Senha</mat-label>
+                    <input matInput type="password" placeholder="Senha" [(ngModel)]="form.password" name="password"
                         #password="ngModel" required minlength="6" required>
                 </mat-form-field>                
             </div>
