@@ -12,35 +12,35 @@
       <!-- Position Column -->
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
-        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        <td mat-cell *matCellDef="let element" (click)="consultarDetalheAutorizacao(element)"> {{element.id}} </td>
       </ng-container>
 
       <!-- Name Column -->
       <ng-container matColumnDef="status">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
-        <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+        <td mat-cell *matCellDef="let element" (click)="consultarDetalheAutorizacao(element)"> {{element.status}} </td>
       </ng-container>
 
       <!-- Weight Column -->
       <ng-container matColumnDef="dataCriacao">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Criado em</th>
-        <td mat-cell *matCellDef="let element"> {{element.dataCriacao | date:"dd/MM/yyyy" }} </td>
+        <td mat-cell *matCellDef="let element" (click)="consultarDetalheAutorizacao(element)"> {{element.dataCriacao | date:"dd/MM/yyyy" }} </td>
       </ng-container>
 
       <ng-container matColumnDef="docente">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Solicitante</th>
-        <td mat-cell *matCellDef="let element"> {{ element.docente }} </td>
+        <td mat-cell *matCellDef="let element" (click)="consultarDetalheAutorizacao(element)"> {{ element.docente }} </td>
       </ng-container>
 
       <ng-container matColumnDef="urgente">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Urgente</th>
-        <td mat-cell *matCellDef="let element"> {{ (element.urgente ? 'SIM' : 'NÃO') }} </td>
+        <td mat-cell *matCellDef="let element" (click)="consultarDetalheAutorizacao(element)"> {{ (element.urgente ? 'SIM' : 'NÃO') }} </td>
       </ng-container>
 
       
       <ng-container matColumnDef="tipoAtividade">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Tipo</th>
-        <td mat-cell *matCellDef="let element"> {{ element.tipoAtividade }} </td>
+        <td mat-cell *matCellDef="let element" (click)="consultarDetalheAutorizacao(element)"> {{ element.tipoAtividade }} </td>
       </ng-container>
       
       
@@ -64,8 +64,8 @@
 
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns" ></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" style="cursor: pointer;"></tr>
     </table>
 
     <mat-paginator [pageSizeOptions]="[20, 30, 40]" showFirstLastButtons></mat-paginator>
