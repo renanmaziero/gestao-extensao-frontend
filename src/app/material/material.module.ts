@@ -25,7 +25,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatTooltipModule} from '@angular/material/tooltip';
-
+import {MAT_DATE_LOCALE} from '@angular/material/core';
 
 const MODULES = [
   MatToolbarModule,
@@ -55,6 +55,9 @@ const MODULES = [
 ];
 
 @NgModule({
+  providers: [
+    {provide: MAT_DATE_LOCALE, useValue: 'pt-br'},
+  ],
   declarations: [],
   imports: [
     CommonModule, MODULES
