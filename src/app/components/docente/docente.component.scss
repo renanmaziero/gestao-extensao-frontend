@@ -10,3 +10,8 @@
 .grid-container {
   margin: 20px;
 }
+
+#custom:hover{
+  box-shadow: -1px -15px 20px 0px inset #80808026;
+  transition: 250ms ease;
+}
