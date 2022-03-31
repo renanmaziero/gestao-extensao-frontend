@@ -35,6 +35,9 @@ const routes: Routes = [
     path: 'autorizacoes', component: AutorizacaoComponent, canActivate: [AuthGuardService]
   },
   {
+    path: 'autorizacoes/filtro/:filtro', component: AutorizacaoComponent, canActivate: [AuthGuardService]
+  },
+  {
     path: 'relatorio', component: RelatorioComponent, canActivate: [AuthGuardService]
   },
   {

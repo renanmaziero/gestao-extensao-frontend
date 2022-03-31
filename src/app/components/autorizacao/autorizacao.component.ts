@@ -5,7 +5,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+//import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AtividadeService } from 'src/app/services/atividade/atividade.service';
 import { MatSnackBar, MatSnackBarHorizontalPosition } from '@angular/material/snack-bar';
 import { ConfirmacaoDialogueComponent } from 'src/app/shared/confirmacao-dialogue/confirmacao-dialogue.component';
@@ -29,14 +30,18 @@ export class AutorizacaoComponent implements OnInit {
   errorMsg: string;
   displayedColumns = ['id', 'status', 'dataCriacao', 'docente', 'urgente', 'tipoAtividade', 'acoes'];
   dataGrid: Autorizacao[];
+  filtro: string;
 
   constructor(private autorizacaoService: AutorizacaoService, public dialog: MatDialog, private router: Router, private atividadeService: AtividadeService,
-    private snackBar: MatSnackBar) {
+    private snackBar: MatSnackBar, private route: ActivatedRoute) {
       this.autorizacoes = new MatTableDataSource(this.dataGrid);
      }
 
   ngOnInit(): void {
     this.getAutorizacoes();
+    this.filtro = this.route.snapshot.params['filtro'];
+    console.log("recebido = " + this.filtro);
+    this.applyFilter('pendente');
   }
 
   getAutorizacoes(): void {

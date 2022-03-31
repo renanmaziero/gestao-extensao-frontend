@@ -8,7 +8,7 @@
             {{card.title}}
           </mat-card-title>
         </mat-card-header>
-         <mat-card-content class="dashboard-card-content" *ngIf="card.title=='Autorizações'">
+         <mat-card-content class="dashboard-card-content" *ngIf="card.title=='Autorizações'" (click)="filtraPendente()" style="cursor: pointer;">
           <div style="font-size: xxx-large; color: red;">{{dashboard.autorizacoesPendentes}} pendentes</div>
         </mat-card-content>
         <mat-card-content class="dashboard-card-content" *ngIf="card.title=='Atividades'">

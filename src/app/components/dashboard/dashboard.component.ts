@@ -5,6 +5,7 @@ import { DashboardService } from './../../services/dashboard/dashboard.service';
 import { Autorizacao } from './../../models/autorizacao.model';
 import { Atividade } from './../../models/atividade.model';
 import { Docente } from './../../models/docente.model';
+import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
@@ -23,21 +24,25 @@ export class DashboardComponent {
     map(({ matches }) => {
       if (matches) {
         return [
-          { title: 'Atividades', cols: 1, rows: 1 },
-          { title: 'Autorizações', cols: 1, rows: 1 },
-          { title: 'Docentes', cols: 1, rows: 1 },
+
+          { title: 'Autorizações', cols: 1, rows: 1 }
+
         ];
       }
 
       return [
-        { title: 'Atividades', cols: 2, rows: 1 },
-        { title: 'Autorizações', cols: 1, rows: 1 },
-        { title: 'Docentes', cols: 1, rows: 1 },
+
+        { title: 'Autorizações', cols: 1, rows: 1 }
+
       ];
     })
   );
 
-  constructor(private breakpointObserver: BreakpointObserver, private dashboardService: DashboardService, private toast: ToastrService) { }
+   filtraPendente(): void {
+    this.router.navigate(['/autorizacoes/filtro/pendente']);    
+  }
+
+  constructor(private breakpointObserver: BreakpointObserver, private dashboardService: DashboardService, private toast: ToastrService, private router: Router) { }
 
   ngOnInit() {
     this.getDadosDashboard();
