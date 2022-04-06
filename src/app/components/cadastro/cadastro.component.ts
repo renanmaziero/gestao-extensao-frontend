@@ -91,7 +91,7 @@ export class CadastroComponent implements OnInit {
       data => {
         console.log(data);
         this.form.resetForm();
-        this.openSnackBar('Enviado um email para confirmação. Verifique spam.', 'OK');
+        this.openSnackBar('Enviado um email para confirmação. Verifique seu spam.', 'OK');
         this.router.navigate(['/login']);
       },
       error => {
