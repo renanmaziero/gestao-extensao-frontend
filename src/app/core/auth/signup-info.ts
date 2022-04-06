@@ -20,6 +20,6 @@ export class SignUpInfo {
         this.rf = rf;
         this.endereco = endereco;
         this.telefone = telefone;
-        this.titulo = titulo;
+        this.titulo = "NENHUM";
     }
 }
