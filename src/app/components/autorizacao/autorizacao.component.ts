@@ -39,9 +39,7 @@ export class AutorizacaoComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAutorizacoes();
-    this.filtro = this.route.snapshot.params['filtro'];
-    console.log("recebido = " + this.filtro);
-    this.applyFilter('pendente');
+     this.filtro = this.route.snapshot.params['filtro'];    
   }
 
   getAutorizacoes(): void {

@@ -3,7 +3,7 @@
 
   <mat-form-field style="width: 100%;" appearance="outline">
     <mat-label>Filtrar</mat-label>
-    <input matInput (focus)="applyFilter(filtro)" placeholder="Filtrar" value="{{filtro}}">
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar">
   </mat-form-field>
 
   <div class="mat-elevation-z8">
