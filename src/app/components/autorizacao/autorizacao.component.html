@@ -8,7 +8,7 @@
 
   <div class="mat-elevation-z8">
   
-    <table mat-table [dataSource]="autorizacoes" matSort class="full-width-table">
+    <table mat-table [dataSource]="autorizacoes" matSort matSortActive="status" matSortDirection="desc" matSortDisableClear class="full-width-table">
       <!-- Position Column -->
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
