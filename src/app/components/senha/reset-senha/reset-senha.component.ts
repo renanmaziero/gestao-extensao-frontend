@@ -4,6 +4,7 @@ import { MatSnackBar, MatSnackBarHorizontalPosition } from '@angular/material/sn
 import { Router } from '@angular/router';
 import { Senha } from 'src/app/models/senha.model';
 import { SenhaService } from 'src/app/services/senha/senha.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-reset-senha',
@@ -16,7 +17,7 @@ export class ResetSenhaComponent implements OnInit {
   senha: Senha;
   formEmail: FormGroup;
 
-  constructor(public router: Router, private fbuilder: FormBuilder, private senhaService: SenhaService, private snackBar: MatSnackBar) { }
+  constructor(public router: Router, private fbuilder: FormBuilder, private senhaService: SenhaService, private snackBar: MatSnackBar, private toast: ToastrService) { }
 
   ngOnInit(): void {
     this.senha = new Senha();
@@ -34,10 +35,18 @@ export class ResetSenhaComponent implements OnInit {
     this.senha.email = this.formEmail.get('email').value;
     this.senhaService.resetarSenha(request).subscribe(
       data => {
-        this.openSnackBar('Verifique seu email', 'OK');
+        console.log(data);
+        this.openSnackBar('Verifique sua caixa de entrada e spam', 'OK');
         this.loadLogin();
       },
-      erro => console.log(erro)
+      error => {      
+        this.toast.error('E-mail não existe.');
+        
+        /* if (error.error == "{\"error\":\"Not Found\",\"mensagem\":\"User not found\"}") {
+          //this.openSnackBar('E-mail "' + this.formEmail.get('email').value + '" não existe.', 'OK');
+          this.toast.error('E-mail não existe.');
+        }        */
+      }
     );
   }
 

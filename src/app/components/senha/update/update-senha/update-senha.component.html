@@ -8,13 +8,19 @@
         <form name="form" [formGroup]="senhaForm">
             <div class="form-group">
                 <mat-form-field appearance="outline" style="width: 100%;">
-                    <mat-label>Nova senha</mat-label>
-                    <input [(ngModel)]="model.senha" type="password" formControlName="senha" matInput placeholder="Nova senha" />
+                    <mat-label>Nova Senha (mín. 6 dígitos)</mat-label>
+                    <input [(ngModel)]="model.senha" type="password" formControlName="senha" matInput placeholder="Nova senha" required />
+                    <mat-error *ngIf="senhaForm.controls['senha'].hasError('required')">
+                        Senha <strong>obrigatória.</strong>
+                      </mat-error>
                 </mat-form-field>
                 <br>
                 <mat-form-field appearance="outline" style="width: 100%;">
-                    <mat-label>Confirmar senha</mat-label>
-                    <input formControlName="confirmarSenha" type="password" matInput placeholder="Confirmar senha" />
+                    <mat-label>Confirmar nova senha (mín. 6 dígitos)</mat-label>
+                    <input formControlName="confirmarSenha" type="password" matInput placeholder="Confirmar senha" required />
+                    <mat-error *ngIf="senhaForm.controls.confirmarSenha.errors?.equalTo">
+                        Erro ao confirmar senha. Não batem.
+                      </mat-error>
                 </mat-form-field>
             </div>
             <div class="form-group">

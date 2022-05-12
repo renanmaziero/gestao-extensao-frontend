@@ -9,7 +9,10 @@
             <div class="form-group">
                 <mat-form-field appearance="outline" style="width: 100%;">
                     <mat-label>Email</mat-label>
-                    <input [(ngModel)]="senha.email" formControlName="email" matInput placeholder="Email" />
+                    <input [(ngModel)]="senha.email" formControlName="email" matInput placeholder="Email" required />
+                    <mat-error *ngIf="formEmail.get('email').errors">
+                        E-mail <strong>inválido.</strong>
+                      </mat-error>
                 </mat-form-field>
             </div>
             <div class="form-group">

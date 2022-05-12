@@ -6,6 +6,7 @@ import { CustomValidators } from 'ng2-validation';
 import { error } from 'selenium-webdriver';
 import { Senha } from 'src/app/models/senha.model';
 import { SenhaService } from 'src/app/services/senha/senha.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-update-senha',
@@ -19,7 +20,7 @@ export class UpdateSenhaComponent implements OnInit {
   senhaForm: FormGroup;
   token: string;
 
-  constructor(public router: Router, private fbuilder: FormBuilder, private senhaService: SenhaService, private route: ActivatedRoute, private snackBar: MatSnackBar) { }
+  constructor(public router: Router, private fbuilder: FormBuilder, private senhaService: SenhaService, private route: ActivatedRoute, private snackBar: MatSnackBar, private toast: ToastrService) { }
 
   ngOnInit(): void {
     this.token = this.route.snapshot.params['token'];
@@ -57,8 +58,9 @@ export class UpdateSenhaComponent implements OnInit {
         this.loadLogin();
       },
       error => {
-        this.openSnackBar('Não foi possível alterar a senha', 'OK');
-        this.loadLogin();
+        this.toast.error('Não foi possível alterar a senha.');
+        //this.openSnackBar('Não foi possível alterar a senha', 'OK');
+        //this.loadLogin();
       }
     )
   }
