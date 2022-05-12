@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar, MatSnackBarHorizontalPosition } from '@angular/material/snack-bar';
@@ -24,7 +25,7 @@ export class ConfiguracaoComponent implements OnInit {
   senhaModel: Senha;
 
   constructor(private docenteService: DocenteService, private tokenService: TokenStorageService, private fbuilder: FormBuilder,
-    private snackBar: MatSnackBar) { }
+    private snackBar: MatSnackBar, private toast: ToastrService) { }
 
   ngOnInit(): void {
     this.usuario = new Docente();
@@ -71,7 +72,8 @@ export class ConfiguracaoComponent implements OnInit {
          this.openSnackBar('Senha alterada com sucesso!', 'OK');
       },
       error => {
-         this.openSnackBar('Não foi possível alterar a senha', 'OK');
+        this.toast.error('Senha atual incorreta.');
+         //this.openSnackBar('Não foi possível alterar a senha', 'OK');
       }
     )
   }
@@ -86,7 +88,8 @@ export class ConfiguracaoComponent implements OnInit {
          this.openSnackBar('Dados alterados com sucesso!', 'OK');
       },
       error => {
-         this.openSnackBar('Não foi possível alterar a senha', 'OK');
+        this.toast.error('Senha atual incorreta.');
+         //this.openSnackBar('Não foi possível alterar a senha', 'OK');
       }
     );
   }

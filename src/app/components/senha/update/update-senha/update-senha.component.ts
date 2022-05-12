@@ -58,7 +58,7 @@ export class UpdateSenhaComponent implements OnInit {
         this.loadLogin();
       },
       error => {
-        this.toast.error('Não foi possível alterar a senha.');
+        this.toast.error('Senha atual incorreta.');
         //this.openSnackBar('Não foi possível alterar a senha', 'OK');
         //this.loadLogin();
       }
