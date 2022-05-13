@@ -18,7 +18,7 @@ export class DocenteComponent implements OnInit {
   docente: Docente = new Docente();
   docentes: MatTableDataSource<any>;
   errorMsg: string;
-  displayedColumns: string[] = ['matricula', 'nome', 'email', 'alocacoes'];
+  displayedColumns: string[] = ['matricula', 'nome', 'email', 'telefone', 'alocacoes'];
   currentYear: number;
   dataGrid: Docente[];
 
