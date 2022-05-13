@@ -13,16 +13,16 @@
         </div>
         <div class="row">
             <div class="col">
-                <mat-form-field appearance="outline" style="width: 100%">
+                <mat-form-field appearance="outline" style="width: 100%; opacity: 0.5; cursor: not-allowed;">
                     <mat-label>Matricula</mat-label>
-                    <input [(ngModel)]="usuario.matricula" formControlName="matricula" matInput placeholder="Matricula"
-                        readonly />
+                    <input style="cursor: not-allowed;" [(ngModel)]="usuario.matricula" formControlName="matricula" matInput placeholder="Matricula"
+                        readonly disabled />
                 </mat-form-field>
             </div>
             <div class="col">
-                <mat-form-field appearance="outline" style="width: 100%">
+                <mat-form-field appearance="outline" style="width: 100%" style="width: 100%; opacity: 0.5; cursor: not-allowed;">
                     <mat-label>Email</mat-label>
-                    <input [(ngModel)]="usuario.email" formControlName="email" matInput placeholder="Email" readonly />
+                    <input [(ngModel)]="usuario.email" formControlName="email" matInput placeholder="Email" readonly style="cursor: not-allowed;"/>
                 </mat-form-field>
             </div>
             <div class="col">
@@ -46,14 +46,14 @@
                 </mat-form-field>
             </div>
         </div>
-        <div class="row">
+       <!--  <div class="row">
             <div class="col">
                 <mat-form-field appearance="outline" style="width: 100%">
                     <mat-label>Endereço</mat-label>
                     <input [(ngModel)]="usuario.endereco" formControlName="endereco" matInput placeholder="Endereco" />
                 </mat-form-field>
             </div>
-        </div>
+        </div> -->
         <div class="row">
             <div class="col">
                 <div mat-dialog-actions>
