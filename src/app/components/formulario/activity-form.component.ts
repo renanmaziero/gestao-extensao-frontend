@@ -18,6 +18,11 @@ import { AtividadeService } from 'src/app/services/atividade/atividade.service';
 })
 export class ActivityFormComponent implements OnInit{
 
+  hoje = new Date();  
+  minDateIni = new Date(this.hoje.getFullYear(), this.hoje.getMonth(), this.hoje.getDate()+7);
+  maxDateIni = new Date(this.hoje.getFullYear(), this.hoje.getMonth()+1, this.hoje.getDate());
+  minDateFim = new Date(this.hoje.getFullYear(), this.hoje.getMonth()+1, this.hoje.getDate()+7);
+  maxDateFim = new Date(this.hoje.getFullYear()+2, this.hoje.getMonth(), this.hoje.getDate());
   @ViewChild('fileInput') fileInput: ElementRef;
 
   convenioForm: FormGroup;
@@ -54,8 +59,8 @@ export class ActivityFormComponent implements OnInit{
       instituicao: [null, Validators.required],
       projeto: [null, Validators.required],
       coordenador: [null, Validators.required],
-      horaSemanal: [null, Validators.required],
-      horaMensal: [null, Validators.required],
+      horaSemanal: [null, Validators.max(12)],
+      horaMensal: [null, Validators.max(48)],
       descricao: [null, Validators.required],
       dataInicio: [null, Validators.required],
       dataFim: [null, Validators.required],
@@ -63,7 +68,7 @@ export class ActivityFormComponent implements OnInit{
       observacao: [null],
       ano: [null, Validators.required],
       semestre: [null, Validators.required],
-      horasSolicitadas: [null, Validators.required],
+      horasSolicitadas: [null, Validators.max(48)],
       ano1: [null],
       semestre1: [null],
       horasSolicitadas1: [null],

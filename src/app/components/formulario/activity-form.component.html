@@ -15,7 +15,7 @@
               <div class="row">
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Titulo do Projeto</mat-label>
+                    <mat-label>Titulo do Projeto (obrigatório):</mat-label>
                     <input matInput placeholder="Titulo do Projeto" formControlName="projeto" />
                     <mat-error *ngIf="
                         convenioForm.controls['projeto'].hasError('required')
@@ -28,7 +28,7 @@
               <div class="row">
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Instituição de Ensino</mat-label>
+                    <mat-label>Instituição de Ensino (obrigatório):</mat-label>
                     <input matInput placeholder="Instituição de Ensino" formControlName="instituicao" />
                     <mat-error *ngIf="
                         convenioForm.controls['instituicao'].hasError(
@@ -41,7 +41,7 @@
                 </div>
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Coordenador(a) </mat-label>
+                    <mat-label>Coordenador(a) (obrigatório):</mat-label>
                     <input matInput placeholder="Coordenador(a)" formControlName="coordenador" />
                     <mat-error *ngIf="
                         convenioForm.controls['coordenador'].hasError(
@@ -54,7 +54,7 @@
                 </div>
               </div>
               <div class="row">
-                <mat-label style="margin-right: 20px">Participação em:
+                <mat-label style="margin-right: 20px">Participação (obrigatório):
                 </mat-label>
                 <mat-radio-group aria-label="Select an option" formControlName="tipoAtividadeSimultanea">
                   <mat-radio-button value="PESQUISA">Pesquisa</mat-radio-button>
@@ -65,7 +65,7 @@
               <div class="row">
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Descrição</mat-label>
+                    <mat-label>Descrição (obrigatório):</mat-label>
                     <input matInput placeholder="A participação no projeto consistirá de..."
                       formControlName="descricao" />
                   </mat-form-field>
@@ -73,18 +73,20 @@
               </div>
               <div class="row">
                 <div class="col">
-                  <mat-form-field appearance="outline" class="full-width">
-                    <mat-label>Data Inicio</mat-label>
-                    <input matInput [matDatepicker]="picker" formControlName="dataInicio" placeholder="Selecionar data"
+              <span><strong>Data Início</strong><br> Mín. uma semana de antecedência para Direção avaliar.</span>
+                  <mat-form-field appearance="outline" class="full-width">                    
+                    <mat-label>Data Inicio (obrigatório):</mat-label>
+                    <input matInput [min]="minDateIni" [max]="maxDateIni" [matDatepicker]="picker" formControlName="dataInicio" placeholder="Selecionar data"
                       required />
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                   </mat-form-field>
                 </div>
-                <div class="col">
+                <div class="col">                  
+                  <span><strong>Data Fim</strong><br> Mín. uma semana de permanência. (máx. 2 anos)</span>
                   <mat-form-field appearance="outline" class="full-width">
-                    <mat-label>Data Fim</mat-label>
-                    <input matInput [matDatepicker]="picker1" formControlName="dataFim" placeholder="Selecionar data"
+                    <mat-label>Data Fim (obrigatório):</mat-label>
+                    <input matInput [min]="minDateFim" [max]="maxDateFim" [matDatepicker]="picker1" formControlName="dataFim" placeholder="Selecionar data"
                       required />
                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                     <mat-datepicker #picker1></mat-datepicker>
@@ -92,8 +94,9 @@
                 </div>
 
                 <div class="col">
+                  <span><strong>Valor bruto (R$)</strong><br> Use ponto para separar os centavos. Ex: 8000.50</span>
                   <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Valor bruto (R$)</mat-label>
+                    <mat-label>Valor bruto (R$) (obrigatório): </mat-label>
                     <input matInput maxlength="5" min="0" placeholder="Valor bruto" type="number"
                       formControlName="valorBruto" />
                   </mat-form-field>
@@ -102,21 +105,35 @@
               <div class="row" >
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline" matTooltip="Carga horária semanal" matTooltipPosition="right">
-                    <mat-label>Qtd Horas semanais</mat-label>
-                    <input matInput maxlength="5" min="1" placeholder="Carga horária semanal" type="number"
-                      formControlName="horaSemanal"/>
+                    <mat-label>Qtd. Horas semanais (obrigatório):</mat-label>
+                    <input matInput min="1" placeholder="Carga horária semanal" type="number"
+                      formControlName="horaSemanal" required/>                      
+                      <mat-error *ngIf="
+                        convenioForm.controls['horaSemanal'].hasError(
+                          'max'
+                        )
+                      ">
+                      Máximo são <strong>12h/semanais.</strong>
+                    </mat-error>
                   </mat-form-field>
                 </div>
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Qtd Horas mensais</mat-label>
-                    <input matInput maxlength="5" min="1" placeholder="Carga horária mensal" type="number"
-                      formControlName="horaMensal" />
+                    <mat-label>Qtd. Horas mensais (obrigatório):</mat-label>
+                    <input matInput min="4" placeholder="Carga horária mensal" type="number"
+                      formControlName="horaMensal" required />
+                      <mat-error *ngIf="
+                        convenioForm.controls['horaMensal'].hasError(
+                          'max'
+                        )
+                      ">
+                      Máximo são <strong>48h/mensais.</strong>
+                    </mat-error>
                   </mat-form-field>
                 </div>
               </div>
 
-              <h3>Alocação</h3>
+              <h3>Alocação (obrigatório)</h3>
               <div class="alocacao-row">
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
@@ -133,8 +150,15 @@
                 <div class="col">
                   <mat-form-field class="full-width" style="width: 80%; margin-right: 5px;" appearance="outline">
                     <mat-label>Horas</mat-label>
-                    <input matInput min="1" max="2" placeholder="horasSolicitadas" type="number"
-                      formControlName="horasSolicitadas" />
+                    <input matInput placeholder="horasSolicitadas" type="number"
+                      formControlName="horasSolicitadas"/>
+                      <mat-error *ngIf="
+                        convenioForm.controls['horasSolicitadas'].hasError(
+                          'max'
+                        )
+                      ">
+                      Excedeu quantidade de horas totais solicitadas.
+                    </mat-error>
                   </mat-form-field>
                   <button mat-button type="button" mat-icon-button (click)="alocacaoExtra = !alocacaoExtra" *ngIf="!alocacaoExtra">
                     <mat-icon>add_circle</mat-icon>
