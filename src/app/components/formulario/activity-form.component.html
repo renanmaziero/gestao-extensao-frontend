@@ -767,7 +767,7 @@
               <div class="row">
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Nome do curso</mat-label>
+                    <mat-label>Nome do curso (obrigatório):</mat-label>
                     <input matInput placeholder="Nome do curso" formControlName="curso" />
                     <mat-error *ngIf="
                         regenciaForm.controls['curso'].hasError('required')
@@ -780,7 +780,7 @@
               <div class="row">
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Instituição de Ensino Vinculada</mat-label>
+                    <mat-label>Instituição de Ensino Vinculada (obrigatório):</mat-label>
                     <input matInput placeholder="Instituição vinculada" formControlName="instituicao" />
                     <mat-error *ngIf="
                         regenciaForm.controls['instituicao'].hasError(
@@ -793,7 +793,7 @@
                 </div>
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Coordenador(a) </mat-label>
+                    <mat-label>Coordenador(a) (obrigatório):</mat-label>
                     <input matInput placeholder="Coordenador(a)" formControlName="coordenador" />
                     <mat-error *ngIf="
                         regenciaForm.controls['coordenador'].hasError(
@@ -806,14 +806,14 @@
                 </div>
               </div>
               <div class="row">
-                <mat-label style="margin-right: 20px">Nível: </mat-label>
+                <mat-label style="margin-right: 20px">Nível (obrigatório):</mat-label>
                 <mat-radio-group aria-label="Select an option" formControlName="nivel">
                   <mat-radio-button value="GRADUACAO">Graduação</mat-radio-button>
                   <mat-radio-button value="POS_GRADUACAO">Pós-Graduação</mat-radio-button>
                 </mat-radio-group>
               </div>
               <div class="row">
-                <mat-label style="margin-right: 20px">Será o responsável pela disciplina:
+                <mat-label style="margin-right: 20px">Será o responsável pela disciplina (obrigatório):
                 </mat-label>
                 <mat-radio-group aria-label="Select an option" formControlName="responsavel">
                   <mat-radio-button [value]="true">Sim</mat-radio-button>
@@ -821,7 +821,7 @@
                 </mat-radio-group>
               </div>
               <div class="row">
-                <mat-label style="margin-right: 20px">Será o único docente da disciplina:
+                <mat-label style="margin-right: 20px">Será o único docente da disciplina (obrigatório):
                 </mat-label>
                 <mat-radio-group aria-label="Select an option" formControlName="unicoDocente">
                   <mat-radio-button [value]="true">Sim</mat-radio-button>
@@ -831,7 +831,7 @@
               <div class="row" style="margin-top: 5px">
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Disciplina de participação</mat-label>
+                    <mat-label>Disciplina de participação (opcional):</mat-label>
                     <input matInput placeholder="Disciplina" formControlName="disciplinaParticipacao" />
                   </mat-form-field>
                 </div>
@@ -839,14 +839,14 @@
               <div class="row">
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Carga horária total de aulas ministradas</mat-label>
+                    <mat-label>Carga horária total de aulas ministradas (opcional):</mat-label>
                     <input matInput maxlength="5" min="1" placeholder="Carga horária total" type="number"
                       formControlName="totalHorasMinistradas" />
                   </mat-form-field>
                 </div>
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Carga horária total de outras atividades (preparação)</mat-label>
+                    <mat-label>Carga horária total de outras atividades (preparação. obrigatório):</mat-label>
                     <input matInput maxlength="5" min="1" placeholder="totalHorasOutrasAtividades" type="number"
                       formControlName="totalHorasOutrasAtividades" />
                   </mat-form-field>
@@ -854,15 +854,17 @@
               </div>
               <div class="row">
                 <div class="col">
+                  <span><strong>Valor bruto por hora (R$)</strong><br> Use ponto para separar os centavos. Ex: 8000.50</span>
                   <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Valor bruto por hora (R$)</mat-label>
+                    <mat-label>Valor bruto por hora (R$) (obrigatório):</mat-label>
                     <input matInput maxlength="5" placeholder="Valor bruto hora-aula" type="number"
                       formControlName="valorBrutoHora" />
                   </mat-form-field>
                 </div>
                 <div class="col">
+                  <span><strong>Valor bruto total (R$)</strong><br> Use ponto para separar os centavos. Ex: 8000.50</span>
                   <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Valor bruto total (R$)</mat-label>
+                    <mat-label>Valor bruto total (R$) (obrigatório):</mat-label>
                     <input matInput maxlength="5" placeholder="Valor bruto total aulas" type="number"
                       formControlName="valorBrutoTotal" />
                   </mat-form-field>
@@ -870,18 +872,20 @@
               </div>
               <div class="row">
                 <div class="col">
+                  <span><strong>Data Início</strong><br> Mín. uma semana de antecedência para Direção avaliar.</span>
                   <mat-form-field appearance="outline" class="full-width">
-                    <mat-label>Data Inicio</mat-label>
-                    <input matInput [matDatepicker]="picker4" formControlName="dataInicio" placeholder="Selecionar data"
+                    <mat-label>Data Inicio (obrigatório):</mat-label>
+                    <input matInput [min]="minDateIni" [max]="maxDateIni" [matDatepicker]="picker4" formControlName="dataInicio" placeholder="Selecionar data"
                       required />
                     <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
                     <mat-datepicker #picker4></mat-datepicker>
                   </mat-form-field>
                 </div>
                 <div class="col">
+                  <span><strong>Data Fim</strong><br> Mín. uma semana de permanência. (máx. 2 anos)</span>
                   <mat-form-field appearance="outline" class="full-width">
-                    <mat-label>Data Fim</mat-label>
-                    <input matInput [matDatepicker]="picker5" formControlName="dataFim" placeholder="Selecionar data"
+                    <mat-label>Data Fim (obrigatório):</mat-label>
+                    <input matInput [min]="minDateFim" [max]="maxDateFim" [matDatepicker]="picker5" formControlName="dataFim" placeholder="Selecionar data"
                       required />
                     <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
                     <mat-datepicker #picker5></mat-datepicker>
@@ -891,7 +895,7 @@
               <div class="row">
                 <div class="col">
                   <mat-form-field appearance="outline" class="full-width">
-                    <mat-label>Incluir observação</mat-label>
+                    <mat-label>Incluir observação (opcional):</mat-label>
                     <textarea matInput formControlName="observacao"></textarea>
                   </mat-form-field>
                 </div>
@@ -899,20 +903,20 @@
               <div class="row">
                 <div class="col">
                   <mat-form-field appearance="outline" class="full-width">
-                    <mat-label>Dias Trabalhados Unicamp</mat-label>
-                    <input matInput placeholder="Dias Trabalhados Unicamp" formControlName="diasTrabalhadosUnicamp" />
+                    <mat-label>Dias Trabalhados Unicamp (obrigatório):</mat-label>
+                    <input matInput placeholder="Dias Trabalhados Unicamp" formControlName="diasTrabalhadosUnicamp" type="number" />
                   </mat-form-field>
                 </div>
                 <div class="col">
                   <mat-form-field appearance="outline" class="full-width">
-                    <mat-label>Dias trabalhados em outra instituicao</mat-label>
+                    <mat-label>Dias trabalhados em outra instituicao (obrigatório):</mat-label>
                     <input matInput placeholder="Dias trabalhados em outra instituicao"
-                      formControlName="diasTrabalhadosOutraInstituicao" />
+                      formControlName="diasTrabalhadosOutraInstituicao" type="number" />
                   </mat-form-field>
                 </div>
               </div>
 
-              <h3>Alocação</h3>
+              <h3>Alocação (obrigatório):</h3>
               <div class="alocacao-row">
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
@@ -931,8 +935,15 @@
                     <mat-label>Horas</mat-label>
                     <input matInput min="1" placeholder="horasSolicitadas" type="number"
                       formControlName="horasSolicitadas" />
+                      <mat-error *ngIf="
+                        regenciaForm.controls['horasSolicitadas'].hasError(
+                          'max'
+                        )
+                      ">
+                      Máximo são <strong>60h/semestre.</strong>
+                    </mat-error>
                   </mat-form-field>
-                  <button mat-button type="button" mat-icon-button (click)="alocacaoExtra = !alocacaoExtra" *ngIf="!alocacaoExtra">
+                  <button mat-button type="button" mat-icon-button (click)="alocacaoExtra = !alocacaoExtra" *ngIf="!alocacaoExtra" [disabled]="regenciaForm.controls.horasSolicitadas.errors?.max">
                     <mat-icon>add_circle</mat-icon>
                   </button>
                 </div>
@@ -956,8 +967,15 @@
                     <mat-label>Horas</mat-label>
                     <input matInput min="1" placeholder="horasSolicitadas1" type="number"
                       formControlName="horasSolicitadas1" />
+                      <mat-error *ngIf="
+                        regenciaForm.controls['horasSolicitadas1'].hasError(
+                          'max'
+                        )
+                      ">
+                      Máximo são <strong>60h/semestre.</strong>
+                    </mat-error>
                   </mat-form-field>
-                  <button mat-button type="button" mat-icon-button (click)="alocacaoExtra2 = !alocacaoExtra2" *ngIf="!alocacaoExtra2">
+                  <button mat-button type="button" mat-icon-button (click)="alocacaoExtra2 = !alocacaoExtra2" *ngIf="!alocacaoExtra2" [disabled]="regenciaForm.controls.horasSolicitadas1.errors?.max">
                     <mat-icon>add_circle</mat-icon>
                   </button>
                   <button mat-button type="button" mat-icon-button aria-label="Clear"
@@ -985,8 +1003,15 @@
                     <mat-label>Horas</mat-label>
                     <input matInput min="1" placeholder="horasSolicitadas2" type="number"
                       formControlName="horasSolicitadas2" />
+                      <mat-error *ngIf="
+                        regenciaForm.controls['horasSolicitadas2'].hasError(
+                          'max'
+                        )
+                      ">
+                      Máximo são <strong>60h/semestre.</strong>
+                    </mat-error>
                   </mat-form-field>
-                  <button mat-button type="button" mat-icon-button (click)="alocacaoExtra3 = !alocacaoExtra3" *ngIf="!alocacaoExtra3">
+                  <button mat-button type="button" mat-icon-button (click)="alocacaoExtra3 = !alocacaoExtra3" *ngIf="!alocacaoExtra3" [disabled]="regenciaForm.controls.horasSolicitadas2.errors?.max">
                     <mat-icon>add_circle</mat-icon>
                   </button>
                   <button mat-button type="button" mat-icon-button aria-label="Clear"
@@ -1014,8 +1039,15 @@
                     <mat-label>Horas</mat-label>
                     <input matInput min="1" placeholder="horasSolicitadas3" type="number"
                       formControlName="horasSolicitadas3" />
+                      <mat-error *ngIf="
+                        regenciaForm.controls['horasSolicitadas3'].hasError(
+                          'max'
+                        )
+                      ">
+                      Máximo são <strong>60h/semestre.</strong>
+                    </mat-error>
                   </mat-form-field>
-                  <button mat-button type="button" mat-icon-button (click)="alocacaoExtra4 = !alocacaoExtra4" *ngIf="!alocacaoExtra4">
+                  <button mat-button type="button" mat-icon-button (click)="alocacaoExtra4 = !alocacaoExtra4" *ngIf="!alocacaoExtra4" [disabled]="regenciaForm.controls.horasSolicitadas3.errors?.max">
                     <mat-icon>add_circle</mat-icon>
                   </button>
                   <button mat-button type="button" mat-icon-button aria-label="Clear"
@@ -1043,8 +1075,15 @@
                     <mat-label>Horas</mat-label>
                     <input matInput min="1" placeholder="horasSolicitadas4" type="number"
                       formControlName="horasSolicitadas4" />
+                      <mat-error *ngIf="
+                        regenciaForm.controls['horasSolicitadas4'].hasError(
+                          'max'
+                        )
+                      ">
+                      Máximo são <strong>60h/semestre.</strong>
+                    </mat-error>
                   </mat-form-field>
-                  <button mat-button type="button" mat-icon-button (click)="alocacaoExtra5 = !alocacaoExtra5" *ngIf="!alocacaoExtra5">
+                  <button mat-button type="button" mat-icon-button (click)="alocacaoExtra5 = !alocacaoExtra5" *ngIf="!alocacaoExtra5" [disabled]="regenciaForm.controls.horasSolicitadas4.errors?.max">
                     <mat-icon>add_circle</mat-icon>
                   </button>
                   <button mat-button type="button" mat-icon-button aria-label="Clear"
@@ -1072,16 +1111,23 @@
                     <mat-label>Horas</mat-label>
                     <input matInput min="1" placeholder="horasSolicitadas5" type="number"
                       formControlName="horasSolicitadas5" />
+                      <mat-error *ngIf="
+                        regenciaForm.controls['horasSolicitadas5'].hasError(
+                          'max'
+                        )
+                      ">
+                      Máximo são <strong>60h/semestre.</strong>
+                    </mat-error>
                   </mat-form-field>
                   <button mat-button type="button" mat-icon-button aria-label="Clear"
-                    (click)="alocacaoExtra5 = !alocacaoExtra5">
+                    (click)="alocacaoExtra5 = !alocacaoExtra5" [disabled]="regenciaForm.controls.horasSolicitadas5.errors?.max">
                     <mat-icon>remove_circle_outline</mat-icon>
                   </button>
                 </div>
               </div>
 
 
-              <h3>Observações</h3>
+              <h3>Observações (opcional):</h3>
               <div class="row">
                 <div class="col">
                   <mat-form-field appearance="outline" class="full-width">

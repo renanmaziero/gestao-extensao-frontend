@@ -141,22 +141,22 @@ export class ActivityFormComponent implements OnInit{
       observacao: [null],
       ano: [null, Validators.required],
       semestre: [null, Validators.required],
-      horasSolicitadas: [null, Validators.required],
+      horasSolicitadas: [null, Validators.max(60)],
       ano1: [null],
       semestre1: [null],
-      horasSolicitadas1: [null],
+      horasSolicitadas1: [null, Validators.max(60)],
       ano2: [null],
       semestre2: [null],
-      horasSolicitadas2: [null],
+      horasSolicitadas2: [null, Validators.max(60)],
       ano3: [null],
       semestre3: [null],
-      horasSolicitadas3: [null],
+      horasSolicitadas3: [null, Validators.max(60)],
       ano4: [null],
       semestre4: [null],
-      horasSolicitadas4: [null],
+      horasSolicitadas4: [null, Validators.max(60)],
       ano5: [null],
       semestre5: [null],
-      horasSolicitadas5: [null],
+      horasSolicitadas5: [null, Validators.max(60)],
       urgente: ['']
     });
   }
@@ -393,9 +393,9 @@ export class ActivityFormComponent implements OnInit{
 
     this.atividadeService.salvarRegencia(this.regenciaModel).subscribe(
       data => {
-        if (this.selectedFiles != null) {
+     /*    if (this.selectedFiles != null) {
           this.upload(data.id);
-        }
+        } */
         this.openSnackBar(this.mensagemSucesso, 'OK');
       },
       erro => {
