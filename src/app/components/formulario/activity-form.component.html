@@ -73,17 +73,16 @@
               </div>
               <div class="row">
                 <div class="col">
-              <span><strong>Data Início</strong><br> Mín. uma semana de antecedência para Direção avaliar.</span>
                   <mat-form-field appearance="outline" class="full-width">                    
                     <mat-label>Data Inicio (obrigatório):</mat-label>
-                    <input matInput [min]="minDateIni" [max]="maxDateIni" [matDatepicker]="picker" formControlName="dataInicio" placeholder="Selecionar data"
+                    <!--[min]="minDateIni" [max]="maxDateIni"-->
+                    <input matInput [matDatepicker]="picker" formControlName="dataInicio" placeholder="Selecionar data"
                       required />
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                   </mat-form-field>
                 </div>
                 <div class="col">                  
-                  <span><strong>Data Fim</strong><br> Mín. uma semana de permanência. (máx. 2 anos)</span>
                   <mat-form-field appearance="outline" class="full-width">
                     <mat-label>Data Fim (obrigatório):</mat-label>
                     <input matInput [min]="minDateFim" [max]="maxDateFim" [matDatepicker]="picker1" formControlName="dataFim" placeholder="Selecionar data"
@@ -94,7 +93,6 @@
                 </div>
 
                 <div class="col">
-                  <span><strong>Valor bruto (R$)</strong><br> Use ponto para separar os centavos. Ex: 8000.50</span>
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Valor bruto (R$) (obrigatório): </mat-label>
                     <input matInput maxlength="5" min="0" placeholder="Valor bruto" type="number"
@@ -473,7 +471,6 @@
               </div>
               <div class="row">
                 <div class="col">
-                  <span><strong>Valor bruto por hora (R$)</strong><br> Use ponto para separar os centavos. Ex: 8000.50</span>
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Valor bruto por hora (R$) (opcional):</mat-label>
                     <input matInput maxlength="5" placeholder="Valor bruto hora-aula" type="number"
@@ -481,7 +478,6 @@
                   </mat-form-field>
                 </div>
                 <div class="col">
-                  <span><strong>Valor bruto total (R$)</strong><br> Use ponto para separar os centavos. Ex: 8000.50</span>
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Valor bruto total (R$) (opcional):</mat-label>
                     <input matInput maxlength="5" placeholder="Valor bruto total aulas" type="number"
@@ -491,17 +487,16 @@
               </div>
               <div class="row">
                 <div class="col">
-                  <span><strong>Data Início</strong><br> Mín. uma semana de antecedência para Direção avaliar.</span>
                   <mat-form-field appearance="outline" class="full-width">
                     <mat-label>Data Início (obrigatório):</mat-label>
-                    <input matInput [min]="minDateIni" [max]="maxDateIni" [matDatepicker]="picker2" formControlName="dataInicio" placeholder="Selecionar data"
+                    <!--[min]="minDateIni" [max]="maxDateIni"-->
+                    <input matInput [matDatepicker]="picker2" formControlName="dataInicio" placeholder="Selecionar data"
                       required />
                     <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                     <mat-datepicker #picker2></mat-datepicker>
                   </mat-form-field>
                 </div>
                 <div class="col">
-                  <span><strong>Data Fim</strong><br> Mín. uma semana de permanência. (máx. 2 anos)</span>
                   <mat-form-field appearance="outline" class="full-width">
                     <mat-label>Data Fim (obrigatório):</mat-label>
                     <input matInput [min]="minDateFim" [max]="maxDateFim" [matDatepicker]="picker3" formControlName="dataFim" placeholder="Selecionar data"
@@ -854,7 +849,6 @@
               </div>
               <div class="row">
                 <div class="col">
-                  <span><strong>Valor bruto por hora (R$)</strong><br> Use ponto para separar os centavos. Ex: 8000.50</span>
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Valor bruto por hora (R$) (obrigatório):</mat-label>
                     <input matInput maxlength="5" placeholder="Valor bruto hora-aula" type="number"
@@ -862,7 +856,6 @@
                   </mat-form-field>
                 </div>
                 <div class="col">
-                  <span><strong>Valor bruto total (R$)</strong><br> Use ponto para separar os centavos. Ex: 8000.50</span>
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Valor bruto total (R$) (obrigatório):</mat-label>
                     <input matInput maxlength="5" placeholder="Valor bruto total aulas" type="number"
@@ -872,17 +865,16 @@
               </div>
               <div class="row">
                 <div class="col">
-                  <span><strong>Data Início</strong><br> Mín. uma semana de antecedência para Direção avaliar.</span>
+                  <!--[min]="minDateIni" [max]="maxDateIni"-->
                   <mat-form-field appearance="outline" class="full-width">
                     <mat-label>Data Inicio (obrigatório):</mat-label>
-                    <input matInput [min]="minDateIni" [max]="maxDateIni" [matDatepicker]="picker4" formControlName="dataInicio" placeholder="Selecionar data"
+                    <input matInput [matDatepicker]="picker4" formControlName="dataInicio" placeholder="Selecionar data"
                       required />
                     <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
                     <mat-datepicker #picker4></mat-datepicker>
                   </mat-form-field>
                 </div>
                 <div class="col">
-                  <span><strong>Data Fim</strong><br> Mín. uma semana de permanência. (máx. 2 anos)</span>
                   <mat-form-field appearance="outline" class="full-width">
                     <mat-label>Data Fim (obrigatório):</mat-label>
                     <input matInput [min]="minDateFim" [max]="maxDateFim" [matDatepicker]="picker5" formControlName="dataFim" placeholder="Selecionar data"
