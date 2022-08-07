@@ -393,9 +393,9 @@ export class ActivityFormComponent implements OnInit{
 
     this.atividadeService.salvarRegencia(this.regenciaModel).subscribe(
       data => {
-     /*    if (this.selectedFiles != null) {
+        if (this.selectedFiles != null) {
           this.upload(data.id);
-        } */
+        }
         this.openSnackBar(this.mensagemSucesso, 'OK');
       },
       erro => {
