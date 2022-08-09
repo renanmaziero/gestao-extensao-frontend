@@ -7,4 +7,5 @@ export class Usuario {
     senhaNova: string;
     senhaConfirmacao: string;
     endereco: string;
+    admin: boolean;
 }
