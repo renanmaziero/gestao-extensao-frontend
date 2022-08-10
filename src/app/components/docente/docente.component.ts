@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
+import { TokenStorageService } from 'src/app/core/auth/token-storage.service';
 import { Docente } from 'src/app/models/docente.model';
 import { DocenteService } from 'src/app/services/docente/docente.service';
 
@@ -15,12 +17,14 @@ import { DocenteDetalheComponent } from './docente-detalhe/docente-detalhe.compo
 export class DocenteComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
-  docente: Docente = new Docente();
+  docente: Docente;
   docentes: MatTableDataSource<any>;
   errorMsg: string;
+  emailLogado: string;
   displayedColumns: string[] = [
     "matricula",
     "nome",
+    "permissao",
     "email",
     "telefone",
     "alocacoes",
@@ -30,13 +34,17 @@ export class DocenteComponent implements OnInit {
 
   constructor(
     private docenteService: DocenteService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private _snackBar: MatSnackBar,
+    private tokenStorage: TokenStorageService,
   ) {
     this.docentes = new MatTableDataSource(this.dataGrid);
   }
 
   ngOnInit() {
     this.getDocentes();
+    this.docente = new Docente();       
+    this.emailLogado = this.tokenStorage.getEmail();
   }
 
   getDocentes(): void {
@@ -61,6 +69,30 @@ export class DocenteComponent implements OnInit {
         id,
       },
     });
+  }
+
+  concederAdmin(id: number, docente: Docente){
+    docente.admin = true;
+    this.docenteService.alterarDadosUsuario(id, docente).subscribe(
+      data => {
+         this._snackBar.open('Admin definido com sucesso!', 'OK');
+      },
+      error => {
+        this._snackBar.open('Não foi possível conceder. Favor contatar suporte.', 'OK');
+      }
+    );
+  }
+
+  revogarAdmin(id: number, docente: Docente){
+    docente.admin = false;
+    this.docenteService.alterarDadosUsuario(id, docente).subscribe(
+      data => {
+        this._snackBar.open('Admin revogado com sucesso!', 'OK');
+      },
+      error => {
+        this._snackBar.open('Não foi possível revogar admin.', 'OK');
+      }
+    );
   }
 
   applyFilter(value: string) {
