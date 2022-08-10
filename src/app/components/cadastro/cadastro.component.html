@@ -63,10 +63,13 @@
         <form [formGroup]="formularioCadastro" name="form" #f="ngForm">
           <ng-template matStepLabel>Dados pessoais</ng-template>
           <mat-form-field class="input-label" appearance="outline">
-            <mat-label>Nome Completo (apenas letras. mín. 4 dígitos.)</mat-label>
-            <input matInput formControlName="nome_completo" placeholder="Nome Completo" required pattern="[a-zA-Z ]{4,}">
+            <mat-label>Nome Completo (apenas letras. mín. 3 letras.)</mat-label>
+            <input matInput formControlName="nome_completo" placeholder="Nome Completo" required pattern="[A-Za-zÀ-ú ]{3,}">
             <mat-error *ngIf="formularioCadastro.controls['nome_completo'].hasError('required')">
               Nome completo é <strong>obrigatório.</strong>
+            </mat-error>
+            <mat-error *ngIf="formularioCadastro.controls['nome_completo'].hasError('pattern')">
+              Permitido apenas letras, acentos e espaços. O mínimo são 3 letras.
             </mat-error>
           </mat-form-field>
           <br>
