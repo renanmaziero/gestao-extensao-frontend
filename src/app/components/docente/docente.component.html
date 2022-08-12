@@ -24,7 +24,7 @@
       <ng-container matColumnDef="permissao">
         <th mat-header-cell *matHeaderCellDef>Admin</th>
         <td mat-cell *matCellDef="let element">
-          <div *ngIf="element.email == 'comissao.extensao.ft@gmail.com' || element.email == emailLogado else gerenciarPermissao" (click)="openDialogDocente(element.id)"></div>
+          <div *ngIf="element.email == 'comissao.extensao.ft@gmail.com' || element.email == emailLogado else gerenciarPermissao" (click)="openDialogDocente(element.id)"><mat-icon style="vertical-align: middle;" aria-hidden="false" aria-label="Admin ou Docente">admin_panel_settings</mat-icon></div>
           <ng-template #gerenciarPermissao>
             <div *ngIf="element.admin == true"><button mat-stroked-button color="warn" (click)="revogarAdmin(element.id, element)" >Revogar</button></div>
             <div *ngIf="element.admin == false"><button mat-stroked-button color="primary" (click)="concederAdmin(element.id, element)">Conceder</button></div>            
