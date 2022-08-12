@@ -45,6 +45,7 @@ export class DocenteComponent implements OnInit {
     this.getDocentes();
     this.docente = new Docente();       
     this.emailLogado = this.tokenStorage.getEmail();
+    console.log("(angular) email logado: "+this.emailLogado);
   }
 
   getDocentes(): void {
@@ -72,7 +73,9 @@ export class DocenteComponent implements OnInit {
   }
 
   concederAdmin(id: number, docente: Docente){
+    console.log("(angular) entrou concede admin");
     docente.admin = true;
+    console.log("(angular) set admin: "+docente.admin);
     this.docenteService.alterarDadosUsuario(id, docente).subscribe(
       data => {
          this._snackBar.open('Admin definido com sucesso!', 'OK');
@@ -84,7 +87,9 @@ export class DocenteComponent implements OnInit {
   }
 
   revogarAdmin(id: number, docente: Docente){
+    console.log("(angular) entrou revoga admin");
     docente.admin = false;
+    console.log("(angular) set admin: "+docente.admin);
     this.docenteService.alterarDadosUsuario(id, docente).subscribe(
       data => {
         this._snackBar.open('Admin revogado com sucesso!', 'OK');

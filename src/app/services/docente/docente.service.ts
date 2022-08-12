@@ -39,6 +39,7 @@ export class DocenteService {
   }
 
   alterarDadosUsuario(id: number, usuario: Usuario): Observable<any> {
+    console.log("(angular) recebeu id: "+id+" admin: "+usuario.admin+" usuario: "+usuario);
     return this.http.put(`${this.baseUrl}/${id}`, usuario);
   }
 

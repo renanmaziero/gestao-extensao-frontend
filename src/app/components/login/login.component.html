@@ -17,7 +17,7 @@
                 <mat-form-field appearance="outline" style="width: 100%;">
                     <mat-label>Matricula (apenas números)</mat-label>
                     <input matInput placeholder="Matricula" [(ngModel)]="form.matricula" name="matricula"
-                        #username="ngModel" required type="number" maxlength="6" pattern=".{6}" title="Nro. da matrícula com 6 números de 0 a 9.">
+                        #username="ngModel" required type="number" maxlength="6" pattern="[0-9]{6}" title="Nro. da matrícula com 6 números de 0 a 9.">
                 </mat-form-field>
             </div>
             <div>
