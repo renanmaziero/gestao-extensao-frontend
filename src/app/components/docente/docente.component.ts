@@ -27,6 +27,7 @@ export class DocenteComponent implements OnInit {
     "permissao",
     "email",
     "telefone",
+    "titulo",
     "alocacoes",
   ];
   currentYear: number;

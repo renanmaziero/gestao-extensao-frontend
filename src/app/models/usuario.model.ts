@@ -3,6 +3,7 @@ export class Usuario {
     nome: string;
     email: string;
     matricula: string;
+    titulo: string;
     telefone: string;
     senhaAtual: string;
     senhaNova: string;
