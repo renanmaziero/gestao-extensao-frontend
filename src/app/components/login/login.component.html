@@ -17,14 +17,16 @@
                 <mat-form-field appearance="outline" style="width: 100%;">
                     <mat-label>Matricula (apenas números)</mat-label>
                     <input matInput placeholder="Matricula" [(ngModel)]="form.matricula" name="matricula"
-                        #username="ngModel" required type="number" maxlength="6" pattern="[0-9]{6}" title="Nro. da matrícula com 6 números de 0 a 9.">
+                        #username="ngModel" required maxlength="6" pattern="[0-9]{6}" title="Nro. da matrícula com 6 números de 0 a 9.">
+                        <mat-error>Obrigatória matrícula. Somente 6 números.</mat-error>
                 </mat-form-field>
             </div>
             <div>
                 <mat-form-field appearance="outline" style="width: 100%;">
                     <mat-label>Senha</mat-label>
                     <input matInput type="password" placeholder="Senha" [(ngModel)]="form.password" name="password"
-                        #password="ngModel" required minlength="6" required>
+                        #password="ngModel" minlength="6" required>
+                        <mat-error>Senha obrigatória.</mat-error>
                 </mat-form-field>                
             </div>
             <div class="form-group">
