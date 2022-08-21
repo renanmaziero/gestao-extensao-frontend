@@ -73,7 +73,7 @@ export class CadastroComponent implements OnInit {
   }
 
   onSubmit(form: FormGroupDirective): void {
-    console.log(this.formularioCadastro);
+    //console.log(this.formularioCadastro);
     this.signupInfo = new SignUpInfo(
       this.formularioCadastro.get('nome_completo').value,
       this.formularioCadastro.get('usuario').value,
@@ -89,13 +89,13 @@ export class CadastroComponent implements OnInit {
 
     this.authService.signUp(this.signupInfo).subscribe(
       data => {
-        console.log(data);
+        //console.log(data);
         this.form.resetForm();
         this.openSnackBar('Enviado um email para confirmação. Verifique seu spam.', 'OK');
         this.router.navigate(['/login']);
       },
       error => {
-        //console.log(error);
+        ////console.log(error);
         //this.toast.error(error.mensagem);
         if (error.error == "{\"error\":\"Bad Request\",\"mensagem\":\"Usuário já está em uso.\"}") {
           this.toast.error('Username "' + this.formularioCadastro.get('usuario').value + '" já existe.');

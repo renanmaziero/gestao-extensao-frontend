@@ -51,11 +51,11 @@ export class DashboardComponent {
   public getDadosDashboard(): void {
     this.dashboardService.getDadosDashboard().subscribe(
       data => {
-        console.log(data);
+        //console.log(data);
         this.dashboard = data;
       },
       error => {
-        console.log(error);
+        //console.log(error);
         this.toast.error('Acesso negado.');
         window.location.replace(environment.localhost + 'criar-atividade');
       }

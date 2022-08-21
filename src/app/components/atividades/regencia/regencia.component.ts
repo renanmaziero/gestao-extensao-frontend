@@ -103,18 +103,18 @@ export class RegenciaComponent implements OnInit {
   autorizarAtividade(atividade: Atividade): void {
     this.autorizacaoService.autorizar(atividade).subscribe(
       res => {
-        console.log("Atividade autorizada com sucesso");
+        //console.log("Atividade autorizada com sucesso");
         this.getRegencias();
       },
       error => {
-        console.log(error);
+        //console.log(error);
       });
   }
 
   getRegencias(): void {
     this.atividadeService.consultarRegencia(this.route.snapshot.params['id']).subscribe(
       response => {
-        console.log(response);
+        //console.log(response);
         this.atividade = response;
         this.alocacoes = new MatTableDataSource(response.alocacoes);
         this.alocacoes.paginator = this.paginator;
@@ -122,7 +122,7 @@ export class RegenciaComponent implements OnInit {
         this.fileInfos$ = this.uploadService.getArquivos(this.atividade.id);
       },
       error => {
-        console.log(error);
+        //console.log(error);
       });
   }
 
@@ -133,7 +133,7 @@ export class RegenciaComponent implements OnInit {
         this.getRegencias();
       },
       error => {
-        console.log(error);
+        //console.log(error);
       });
   }
 

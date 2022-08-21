@@ -35,7 +35,7 @@ export class ResetSenhaComponent implements OnInit {
     this.senha.email = this.formEmail.get('email').value;
     this.senhaService.resetarSenha(request).subscribe(
       data => {
-        console.log(data);
+        //console.log(data);
         this.openSnackBar('Verifique sua caixa de entrada e spam', 'OK');
         this.loadLogin();
       },

@@ -25,7 +25,7 @@ export class DevolucaoDialogueComponent implements OnInit {
         this.dialogRef.close(true);
       },
       error => {
-        console.log(error);
+        //console.log(error);
       });
   }
 

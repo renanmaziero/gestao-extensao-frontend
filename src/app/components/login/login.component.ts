@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(this.form);
+    //console.log(this.form);
 
     this.loginInfo = new AuthLoginInfo(
       this.form.matricula,
@@ -65,7 +65,7 @@ export class LoginComponent implements OnInit {
         }
       },
       response => {
-        console.log(response);
+        //console.log(response);
         this.isLoginFailed = true;
         this.showFail(response.error.mensagem);
       }

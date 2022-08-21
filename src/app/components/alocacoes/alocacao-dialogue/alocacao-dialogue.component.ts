@@ -50,7 +50,8 @@ export class AlocacaoDialogueComponent implements OnInit {
         this.dialogRef.close();
         this.openSnackBar('Alocação atualizada com sucesso!', 'OK');
       },
-      error => { console.log(error); }
+      error => { //console.log(error);
+       }
     );
   }
 

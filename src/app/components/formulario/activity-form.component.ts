@@ -242,7 +242,7 @@ export class ActivityFormComponent implements OnInit{
         this.openSnackBar(this.mensagemSucesso, 'OK');
       },
       erro => {
-        console.log(erro);
+        //console.log(erro);
       }
     );
   }
@@ -319,7 +319,7 @@ export class ActivityFormComponent implements OnInit{
         this.openSnackBar(this.mensagemSucesso, 'OK');
       },
       erro => {
-        console.log(erro);
+        //console.log(erro);
       }
     );
   }
@@ -400,7 +400,7 @@ export class ActivityFormComponent implements OnInit{
       },
       erro => {
         this.openSnackBar('Erro ao submeter atividade', 'OK');
-        console.log(erro);
+        //console.log(erro);
       }
     );
   }

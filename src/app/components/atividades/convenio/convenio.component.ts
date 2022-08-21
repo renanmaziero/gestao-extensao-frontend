@@ -107,7 +107,7 @@ export class ConvenioComponent implements OnInit {
   getConvenios(): void {
     this.atividadeService.consultarConvenio(this.route.snapshot.params['id']).subscribe(
       response => {
-        console.log(response);
+        //console.log(response);
         this.atividade = response;
 
         if (this.atividade.excedido) {
@@ -115,12 +115,12 @@ export class ConvenioComponent implements OnInit {
         } else this.convenioForm.get('excedido').setValue('Sem restrições');
 
         this.tabelaAlocacoes = new MatTableDataSource(this.atividade.alocacoes);
-        console.log(this.atividade);
+        //console.log(this.atividade);
 
         this.fileInfos$ = this.uploadService.getArquivos(this.atividade.id);
       },
       error => {
-        console.log(error);
+        //console.log(error);
       });
   }
 
@@ -131,7 +131,7 @@ export class ConvenioComponent implements OnInit {
         this.getConvenios();
       },
       error => {
-        console.log(error);
+        //console.log(error);
       });
   }
 
@@ -142,7 +142,7 @@ export class ConvenioComponent implements OnInit {
         this.getConvenios();
       },
       error => {
-        console.log(error);
+        //console.log(error);
       });
   }
 

@@ -97,7 +97,7 @@ export class RelatorioComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
+      //console.log(result);
       if (result === 'Todos') {
         this.formRelatorio.get('nomeDocente').setValue(result);
         this.request.idDocente = null;
@@ -163,7 +163,7 @@ export class RelatorioDocenteSearchDialogueComponent {
   }
 
   selectRow(row) {
-    console.log(row);
+    //console.log(row);
     this.dialogRef.close(row);
   }
 }

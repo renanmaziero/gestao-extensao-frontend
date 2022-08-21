@@ -97,7 +97,7 @@ export class CursoExtensaoComponent implements OnInit {
   getCursos(): void {
     this.atividadeService.consultarCurso(this.route.snapshot.params['id']).subscribe(
       response => {
-        console.log(response);
+        //console.log(response);
         this.atividade = response;
         this.alocacoes = new MatTableDataSource(response.alocacoes);
         this.alocacoes.paginator = this.paginator;
@@ -105,7 +105,7 @@ export class CursoExtensaoComponent implements OnInit {
         this.fileInfos$ = this.uploadService.getArquivos(this.atividade.id);
       },
       error => {
-        console.log(error);
+        //console.log(error);
       });
   }
 
@@ -116,7 +116,7 @@ export class CursoExtensaoComponent implements OnInit {
         this.getCursos();
       },
       error => {
-        console.log(error);
+        //console.log(error);
       });
   }
 
@@ -127,7 +127,7 @@ export class CursoExtensaoComponent implements OnInit {
         this.getCursos();
       },
       error => {
-        console.log(error);
+        //console.log(error);
       });
   }
 
