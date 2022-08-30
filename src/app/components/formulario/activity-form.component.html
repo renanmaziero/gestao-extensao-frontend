@@ -85,7 +85,7 @@
                 <div class="col">                  
                   <mat-form-field appearance="outline" class="full-width">
                     <mat-label>Data Fim (obrigatório):</mat-label>
-                    <input matInput [min]="minDateFim" [max]="maxDateFim" [matDatepicker]="picker1" formControlName="dataFim" placeholder="Selecionar data"
+                    <input matInput [matDatepicker]="picker1" formControlName="dataFim" placeholder="Selecionar data"
                       required />
                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                     <mat-datepicker #picker1></mat-datepicker>
@@ -877,7 +877,7 @@
                 <div class="col">
                   <mat-form-field appearance="outline" class="full-width">
                     <mat-label>Data Fim (obrigatório):</mat-label>
-                    <input matInput [min]="minDateFim" [max]="maxDateFim" [matDatepicker]="picker5" formControlName="dataFim" placeholder="Selecionar data"
+                    <input matInput [matDatepicker]="picker5" formControlName="dataFim" placeholder="Selecionar data"
                       required />
                     <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
                     <mat-datepicker #picker5></mat-datepicker>
