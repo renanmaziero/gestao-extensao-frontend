@@ -125,7 +125,7 @@ export class ActivityFormComponent implements OnInit{
     this.regenciaForm = this.fb.group({
       nivel: [null, Validators.required],
       curso: [null, Validators.required],
-      coordenador: [null, Validators.required],
+      coordenador: [null],
       disciplinaParticipacao: [null],
       totalHorasMinistradas: [null],
       totalHorasOutrasAtividades: [null, Validators.required],

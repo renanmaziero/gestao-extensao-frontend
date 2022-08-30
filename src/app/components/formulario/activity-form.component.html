@@ -788,15 +788,8 @@
                 </div>
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Coordenador(a) (obrigatório):</mat-label>
-                    <input matInput placeholder="Coordenador(a)" formControlName="coordenador" />
-                    <mat-error *ngIf="
-                        regenciaForm.controls['coordenador'].hasError(
-                          'required'
-                        )
-                      ">
-                      Nome do coordenador(a) <strong>obrigatório</strong>
-                    </mat-error>
+                    <mat-label>Coordenador(a) (opcional):</mat-label>
+                    <input matInput placeholder="Coordenador(a)" formControlName="coordenador" />                    
                   </mat-form-field>
                 </div>
               </div>
