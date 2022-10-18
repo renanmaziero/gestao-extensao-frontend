@@ -187,7 +187,8 @@ export class RegenciaComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.openSnackBar('Atividade devolvida para revisão', 'OK')
+        this.openSnackBar('Atividade devolvida para revisão', 'OK');
+        this.router.navigate(['/autorizacoes']);
       }
     }
     );
