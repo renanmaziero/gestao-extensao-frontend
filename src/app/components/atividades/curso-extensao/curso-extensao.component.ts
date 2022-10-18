@@ -149,6 +149,7 @@ export class CursoExtensaoComponent implements OnInit {
         if (result && aceitar) {
           atividade.autorizado = true;
           this.autorizarAtividade(atividade);
+          this.router.navigate(['/autorizacoes']);
         }
       });
     }

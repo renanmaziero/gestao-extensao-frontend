@@ -167,6 +167,7 @@ export class ConvenioComponent implements OnInit {
           this.arquivo$ = false;
           this.pdf$ = false;
           this.autorizarAtividade(atividade);
+          this.router.navigate(['/autorizacoes']);
         }
       });
     }
