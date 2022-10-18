@@ -15,8 +15,8 @@
               <div class="row">
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Titulo do Projeto (obrigatório):</mat-label>
-                    <input matInput placeholder="Titulo do Projeto" formControlName="projeto" />
+                    <mat-label>Título do Projeto (obrigatório):</mat-label>
+                    <input matInput placeholder="Título do Projeto (obrigatório)" formControlName="projeto" />
                     <mat-error *ngIf="
                         convenioForm.controls['projeto'].hasError('required')
                       ">
@@ -29,7 +29,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Instituição de Ensino (obrigatório):</mat-label>
-                    <input matInput placeholder="Instituição de Ensino" formControlName="instituicao" />
+                    <input matInput placeholder="Instituição de Ensino (obrigatório)" formControlName="instituicao" />
                     <mat-error *ngIf="
                         convenioForm.controls['instituicao'].hasError(
                           'required'
@@ -42,7 +42,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Coordenador(a) (obrigatório):</mat-label>
-                    <input matInput placeholder="Coordenador(a)" formControlName="coordenador" />
+                    <input matInput placeholder="Coordenador(a) (obrigatório)" formControlName="coordenador" />
                     <mat-error *ngIf="
                         convenioForm.controls['coordenador'].hasError(
                           'required'
@@ -66,7 +66,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Descrição (obrigatório):</mat-label>
-                    <input matInput placeholder="A participação no projeto consistirá de..."
+                    <input matInput placeholder="Descrição (obrigatório)"
                       formControlName="descricao" />
                   </mat-form-field>
                 </div>
@@ -76,7 +76,7 @@
                   <mat-form-field appearance="outline" class="full-width">                    
                     <mat-label>Data Inicio (obrigatório):</mat-label>
                     <!--[min]="minDateIni" [max]="maxDateIni"-->
-                    <input matInput [matDatepicker]="picker" formControlName="dataInicio" placeholder="Selecionar data"
+                    <input matInput [matDatepicker]="picker" formControlName="dataInicio" placeholder="Data Inicio (obrigatório)"
                       required />
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
@@ -85,7 +85,7 @@
                 <div class="col">                  
                   <mat-form-field appearance="outline" class="full-width">
                     <mat-label>Data Fim (obrigatório):</mat-label>
-                    <input matInput [matDatepicker]="picker1" formControlName="dataFim" placeholder="Selecionar data"
+                    <input matInput [matDatepicker]="picker1" formControlName="dataFim" placeholder="Data Fim (obrigatório)"
                       required />
                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                     <mat-datepicker #picker1></mat-datepicker>
@@ -95,7 +95,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Valor bruto (R$) (obrigatório): </mat-label>
-                    <input matInput maxlength="5" min="0" placeholder="Valor bruto" type="number"
+                    <input matInput maxlength="5" min="0" placeholder="Valor bruto (R$) (obrigatório)" type="number"
                       formControlName="valorBruto" />
                   </mat-form-field>
                 </div>
@@ -104,7 +104,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline" matTooltip="Carga horária semanal" matTooltipPosition="right">
                     <mat-label>Qtd. Horas semanais (obrigatório):</mat-label>
-                    <input matInput min="1" placeholder="Carga horária semanal" type="number"
+                    <input matInput min="1" placeholder="Qtd. Horas semanais (obrigatório)" type="number"
                       formControlName="horaSemanal" required/>                      
                       <mat-error *ngIf="
                         convenioForm.controls['horaSemanal'].hasError(
@@ -118,7 +118,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Qtd. Horas mensais (obrigatório):</mat-label>
-                    <input matInput min="4" placeholder="Carga horária mensal" type="number"
+                    <input matInput min="4" placeholder="Qtd. Horas mensais (obrigatório)" type="number"
                       formControlName="horaMensal" required />
                       <mat-error *ngIf="
                         convenioForm.controls['horaMensal'].hasError(
@@ -136,19 +136,19 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Semestre</mat-label>
-                    <input matInput placeholder="semestre" min="1" max="2" type="number" formControlName="semestre" />
+                    <input matInput placeholder="Semestre" min="1" max="2" type="number" formControlName="semestre" />
                   </mat-form-field>
                 </div>
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Ano</mat-label>
-                    <input matInput min="1" placeholder="ano" type="number" formControlName="ano" />
+                    <input matInput min="1" placeholder="Ano" type="number" formControlName="ano" />
                   </mat-form-field>
                 </div>
                 <div class="col">
                   <mat-form-field class="full-width" style="width: 80%; margin-right: 5px;" appearance="outline">
                     <mat-label>Horas</mat-label>
-                    <input matInput placeholder="horasSolicitadas" type="number"
+                    <input matInput placeholder="Horas" type="number"
                       formControlName="horasSolicitadas"/>
                       <mat-error *ngIf="
                       convenioForm.controls['horasSolicitadas'].hasError(
@@ -168,19 +168,19 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Semestre</mat-label>
-                    <input matInput placeholder="semestre1" min="1" max="2" type="number" formControlName="semestre1" />
+                    <input matInput placeholder="Semestre" min="1" max="2" type="number" formControlName="semestre1" />
                   </mat-form-field>
                 </div>
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Ano</mat-label>
-                    <input matInput min="1" placeholder="ano1" type="number" formControlName="ano1" />
+                    <input matInput min="1" placeholder="Ano" type="number" formControlName="ano1" />
                   </mat-form-field>
                 </div>
                 <div class="col">
                   <mat-form-field class="full-width" style="width: 80%; margin-right: 5px;" appearance="outline">
                     <mat-label>Horas</mat-label>
-                    <input matInput min="1" placeholder="horasSolicitadas1" type="number"
+                    <input matInput min="1" placeholder="Horas" type="number"
                       formControlName="horasSolicitadas1" />
                       <mat-error *ngIf="
                       convenioForm.controls['horasSolicitadas1'].hasError(
@@ -204,19 +204,19 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Semestre</mat-label>
-                    <input matInput placeholder="semestre2" min="1" max="2" type="number" formControlName="semestre2" />
+                    <input matInput placeholder="Semestre" min="1" max="2" type="number" formControlName="semestre2" />
                   </mat-form-field>
                 </div>
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Ano</mat-label>
-                    <input matInput min="1" placeholder="ano2" type="number" formControlName="ano2" />
+                    <input matInput min="1" placeholder="Ano" type="number" formControlName="ano2" />
                   </mat-form-field>
                 </div>
                 <div class="col">
                   <mat-form-field class="full-width" style="width: 80%; margin-right: 5px;" appearance="outline">
                     <mat-label>Horas</mat-label>
-                    <input matInput min="1" placeholder="horasSolicitadas2" type="number"
+                    <input matInput min="1" placeholder="Horas" type="number"
                       formControlName="horasSolicitadas2" />
                       <mat-error *ngIf="
                       convenioForm.controls['horasSolicitadas2'].hasError(
@@ -240,19 +240,19 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Semestre</mat-label>
-                    <input matInput placeholder="semestre3" min="1" max="2" type="number" formControlName="semestre3" />
+                    <input matInput placeholder="Semestre" min="1" max="2" type="number" formControlName="semestre3" />
                   </mat-form-field>
                 </div>
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Ano</mat-label>
-                    <input matInput min="1" placeholder="ano3" type="number" formControlName="ano3" />
+                    <input matInput min="1" placeholder="Ano" type="number" formControlName="ano3" />
                   </mat-form-field>
                 </div>
                 <div class="col">
                   <mat-form-field class="full-width" style="width: 80%; margin-right: 5px;" appearance="outline">
                     <mat-label>Horas</mat-label>
-                    <input matInput min="1" placeholder="horasSolicitadas3" type="number"
+                    <input matInput min="1" placeholder="Horas" type="number"
                       formControlName="horasSolicitadas3" />
                       <mat-error *ngIf="
                       convenioForm.controls['horasSolicitadas3'].hasError(
@@ -276,19 +276,19 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Semestre</mat-label>
-                    <input matInput placeholder="semestre4" min="1" max="2" type="number" formControlName="semestre4" />
+                    <input matInput placeholder="Semestre" min="1" max="2" type="number" formControlName="semestre4" />
                   </mat-form-field>
                 </div>
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Ano</mat-label>
-                    <input matInput min="1" placeholder="ano4" type="number" formControlName="ano4" />
+                    <input matInput min="1" placeholder="Ano" type="number" formControlName="ano4" />
                   </mat-form-field>
                 </div>
                 <div class="col">
                   <mat-form-field class="full-width" style="width: 80%; margin-right: 5px;" appearance="outline">
                     <mat-label>Horas</mat-label>
-                    <input matInput min="1" placeholder="horasSolicitadas4" type="number"
+                    <input matInput min="1" placeholder="Horas" type="number"
                       formControlName="horasSolicitadas4" />
                       <mat-error *ngIf="
                       convenioForm.controls['horasSolicitadas4'].hasError(
@@ -312,19 +312,19 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Semestre</mat-label>
-                    <input matInput placeholder="semestre5" min="1" max="2" type="number" formControlName="semestre5" />
+                    <input matInput placeholder="Semestre" min="1" max="2" type="number" formControlName="semestre5" />
                   </mat-form-field>
                 </div>
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Ano</mat-label>
-                    <input matInput min="1" placeholder="ano5" type="number" formControlName="ano5" />
+                    <input matInput min="1" placeholder="Ano" type="number" formControlName="ano5" />
                   </mat-form-field>
                 </div>
                 <div class="col">
                   <mat-form-field class="full-width" style="width: 80%; margin-right: 5px;" appearance="outline">
                     <mat-label>Horas</mat-label>
-                    <input matInput min="1" placeholder="horasSolicitadas5" type="number"
+                    <input matInput min="1" placeholder="Horas" type="number"
                       formControlName="horasSolicitadas5" />
                       <mat-error *ngIf="
                       convenioForm.controls['horasSolicitadas5'].hasError(
@@ -388,7 +388,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Nome do curso (obrigatório):</mat-label>
-                    <input matInput placeholder="Nome do curso" formControlName="nomeCurso" />
+                    <input matInput placeholder="Nome do curso (obrigatório)" formControlName="nomeCurso" />
                     <mat-error *ngIf="
                         cursoForm.controls['nomeCurso'].hasError('required')
                       ">
@@ -401,7 +401,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Instituição de Ensino (obrigatório):</mat-label>
-                    <input matInput placeholder="Instituição vinculada" formControlName="instituicaoVinculada" />
+                    <input matInput placeholder="Instituição de Ensino (obrigatório)" formControlName="instituicaoVinculada" />
                     <mat-error *ngIf="
                         cursoForm.controls['instituicaoVinculada'].hasError(
                           'required'
@@ -414,7 +414,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Coordenador(a) (obrigatório):</mat-label>
-                    <input matInput placeholder="Coordenador(a)" formControlName="coordenador" />
+                    <input matInput placeholder="Coordenador(a) (obrigatório)" formControlName="coordenador" />
                     <mat-error *ngIf="
                         cursoForm.controls['coordenador'].hasError('required')
                       ">
@@ -435,7 +435,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Disciplina de participação (opcional):</mat-label>
-                    <input matInput placeholder="Disciplina" formControlName="disciplina" />
+                    <input matInput placeholder="Disciplina de participação (opcional)" formControlName="disciplina" />
                   </mat-form-field>
                 </div>
               </div>
@@ -443,7 +443,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Carga horária total de aulas ministradas (obrigatório):</mat-label>
-                    <input matInput maxlength="5" min="1" placeholder="Carga horária total" type="number"
+                    <input matInput maxlength="5" min="1" placeholder="Carga horária total de aulas ministradas (obrigatório)" type="number"
                       formControlName="totalHorasMinistradas" />
                       <mat-error *ngIf="
                       cursoForm.controls['totalHorasMinistradas'].hasError(
@@ -457,7 +457,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Carga horária total de outras atividades (opcional):</mat-label>
-                    <input matInput maxlength="5" min="1" placeholder="totalHorasOutrasAtividades" type="number"
+                    <input matInput maxlength="5" min="1" placeholder="Carga horária total de outras atividades (opcional)" type="number"
                       formControlName="totalHorasOutrasAtividades" />
                       <mat-error *ngIf="
                       cursoForm.controls['totalHorasOutrasAtividades'].hasError(
@@ -473,14 +473,14 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Valor bruto por hora (R$) (opcional):</mat-label>
-                    <input matInput maxlength="5" placeholder="Valor bruto hora-aula" type="number"
+                    <input matInput maxlength="5" placeholder="Valor bruto por hora (R$) (opcional)" type="number"
                       formControlName="valorBrutoHora" />
                   </mat-form-field>
                 </div>
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Valor bruto total (R$) (opcional):</mat-label>
-                    <input matInput maxlength="5" placeholder="Valor bruto total aulas" type="number"
+                    <input matInput maxlength="5" placeholder="Valor bruto total (R$) (opcional)" type="number"
                       formControlName="valorBrutoTotal" />
                   </mat-form-field>
                 </div>
@@ -490,7 +490,7 @@
                   <mat-form-field appearance="outline" class="full-width">
                     <mat-label>Data Início (obrigatório):</mat-label>
                     <!--[min]="minDateIni" [max]="maxDateIni"-->
-                    <input matInput [matDatepicker]="picker2" formControlName="dataInicio" placeholder="Selecionar data"
+                    <input matInput [matDatepicker]="picker2" formControlName="dataInicio" placeholder="Data Início (obrigatório)"
                       required />
                     <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                     <mat-datepicker #picker2></mat-datepicker>
@@ -499,7 +499,7 @@
                 <div class="col">
                   <mat-form-field appearance="outline" class="full-width">
                     <mat-label>Data Fim (obrigatório):</mat-label>
-                    <input matInput [matDatepicker]="picker3" formControlName="dataFim" placeholder="Selecionar data"
+                    <input matInput [matDatepicker]="picker3" formControlName="dataFim" placeholder="Data Fim (obrigatório)"
                       required />
                     <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
                     <mat-datepicker #picker3></mat-datepicker>
@@ -512,19 +512,19 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Semestre</mat-label>
-                    <input matInput placeholder="semestre" min="1" max="2" type="number" formControlName="semestre" />
+                    <input matInput placeholder="Semestre" min="1" max="2" type="number" formControlName="semestre" />
                   </mat-form-field>
                 </div>
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Ano</mat-label>
-                    <input matInput min="1" placeholder="ano" type="number" formControlName="ano" />
+                    <input matInput min="1" placeholder="Ano" type="number" formControlName="ano" />
                   </mat-form-field>
                 </div>
                 <div class="col">
                   <mat-form-field class="full-width" style="width: 80%; margin-right: 5px;" appearance="outline">
                     <mat-label>Horas</mat-label>
-                    <input matInput min="1" placeholder="horasSolicitadas" type="number"
+                    <input matInput min="1" placeholder="Horas" type="number"
                       formControlName="horasSolicitadas" />
                       <mat-error *ngIf="
                       cursoForm.controls['horasSolicitadas'].hasError(
@@ -544,19 +544,19 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Semestre</mat-label>
-                    <input matInput placeholder="semestre1" min="1" max="2" type="number" formControlName="semestre1" />
+                    <input matInput placeholder="Semestre" min="1" max="2" type="number" formControlName="semestre1" />
                   </mat-form-field>
                 </div>
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Ano</mat-label>
-                    <input matInput min="1" placeholder="ano1" type="number" formControlName="ano1" />
+                    <input matInput min="1" placeholder="Ano" type="number" formControlName="ano1" />
                   </mat-form-field>
                 </div>
                 <div class="col">
                   <mat-form-field class="full-width" style="width: 80%; margin-right: 5px;" appearance="outline">
                     <mat-label>Horas</mat-label>
-                    <input matInput min="1" placeholder="horasSolicitadas1" type="number"
+                    <input matInput min="1" placeholder="Horas" type="number"
                       formControlName="horasSolicitadas1" />
                       <mat-error *ngIf="
                       cursoForm.controls['horasSolicitadas1'].hasError(
@@ -580,19 +580,19 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Semestre</mat-label>
-                    <input matInput placeholder="semestre2" min="1" max="2" type="number" formControlName="semestre2" />
+                    <input matInput placeholder="Semestre" min="1" max="2" type="number" formControlName="semestre2" />
                   </mat-form-field>
                 </div>
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Ano</mat-label>
-                    <input matInput min="1" placeholder="ano2" type="number" formControlName="ano2" />
+                    <input matInput min="1" placeholder="Ano" type="number" formControlName="ano2" />
                   </mat-form-field>
                 </div>
                 <div class="col">
                   <mat-form-field class="full-width" style="width: 80%; margin-right: 5px;" appearance="outline">
                     <mat-label>Horas</mat-label>
-                    <input matInput min="1" placeholder="horasSolicitadas2" type="number"
+                    <input matInput min="1" placeholder="Horas" type="number"
                       formControlName="horasSolicitadas2" />
                       <mat-error *ngIf="
                       cursoForm.controls['horasSolicitadas2'].hasError(
