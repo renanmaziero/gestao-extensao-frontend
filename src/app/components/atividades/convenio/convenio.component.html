@@ -6,6 +6,7 @@
         Solicitação de Atividade #{{ atividade.id }} - Convênios
     </h1>
     <form name="form" [formGroup]="convenioForm" #f="ngForm">
+        <div *ngIf="admin" class="read-only">
         <div class="row">
             <div class="col">
                 <mat-form-field appearance="outline" style="width: 100%">
@@ -211,7 +212,7 @@
                 </div>
             </div>
         </div>
-
+    </div>
         <div class="row">
             <div class="col">
                 <div mat-dialog-actions style="float: right">

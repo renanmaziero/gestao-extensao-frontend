@@ -98,3 +98,8 @@
   .full-width-table {
     width: 100%;
   }
+
+  .read-only{
+    pointer-events: none;
+    opacity: 0.8;
+  }

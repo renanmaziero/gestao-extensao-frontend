@@ -98,3 +98,8 @@
   .example-element-description-attribution {
     opacity: 0.5;
   }
+
+  .read-only{
+    pointer-events: none;
+    opacity: 0.8;
+  }

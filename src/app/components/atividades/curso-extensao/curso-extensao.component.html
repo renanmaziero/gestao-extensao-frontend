@@ -6,6 +6,7 @@
         Solicitação de Atividade #{{ atividade.id }} - Cursos de Extensão
     </h1>
     <form name="form" [formGroup]="cursoForm" #f="ngForm">
+        <div *ngIf="admin" class="read-only">
         <div class="row">
             <div class="col">
                 <mat-form-field class="full-width" appearance="outline">
@@ -227,7 +228,7 @@
                 </div>
             </div>
         </div>
-
+</div>
         <div class="row">
             <div class="col">
                 <div mat-dialog-actions style="float: right">
