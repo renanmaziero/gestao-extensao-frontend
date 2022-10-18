@@ -200,14 +200,15 @@
                 </mat-form-field>
             </div>
         </div>
-        <div class="row">
+        <!-- <div class="row">
             <div class="col">
                 <mat-form-field appearance="outline" class="full-width">
-                    <mat-label>Itens a revisar</mat-label>
-                    <textarea matInput [(ngModel)]="atividade.revisao" formControlName="revisao" readonly></textarea>
+                    <mat-label>Motivo de devolução da atividade</mat-label>
+                    <textarea matInput [(ngModel)]="atividade.revisao" formControlName="revisao" readonly style="cursor: not-allowed;"></textarea>
+                    
                 </mat-form-field>
             </div>
-        </div>
+        </div> -->
         <div class="row" *ngIf="(fileInfos$ | async)?.length > 0;">
             <div class="col">
                 <div class="card">
