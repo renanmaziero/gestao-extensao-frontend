@@ -98,6 +98,10 @@ export class RegenciaComponent implements OnInit {
       revisao: [null],
       docente: [null]
     });
+
+    if(this.admin == false){
+      this.habilitaEdicaoAtividade();
+    }
   }
 
   autorizarAtividade(atividade: Atividade): void {
@@ -175,6 +179,15 @@ export class RegenciaComponent implements OnInit {
         element
       }
     });
+  }
+
+  exibeBtnAceitar(): void {
+    document.getElementById("btnAceitar").style.display = "inline-block";    
+    document.getElementById("btnDevolver").style.display = "none";
+  }
+
+  habilitaEdicaoAtividade(): void {
+    document.getElementById("detalhes-atividade").classList.remove("read-only");
   }
 
   devolverAtividade(id: number): void {

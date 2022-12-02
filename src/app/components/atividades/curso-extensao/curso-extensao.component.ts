@@ -92,6 +92,10 @@ export class CursoExtensaoComponent implements OnInit {
       revisao: [null],
       docente: [null]
     });
+
+    if(this.admin == false){
+      this.habilitaEdicaoAtividade();
+    }
   }
 
   getCursos(): void {
@@ -109,6 +113,15 @@ export class CursoExtensaoComponent implements OnInit {
       });
   }
 
+  habilitaEdicaoAtividade(): void {
+    document.getElementById("detalhes-atividade").classList.remove("read-only");
+  }
+
+  exibeBtnAceitar(): void {
+    document.getElementById("btnAceitar").style.display = "inline-block";    
+    document.getElementById("btnDevolver").style.display = "none";
+  }
+  
   autorizarAtividade(atividade: Atividade): void {
     this.autorizacaoService.autorizar(atividade).subscribe(
       res => {

@@ -101,7 +101,9 @@ export class ConvenioComponent implements OnInit {
       horasAprovadasRegencia: [null]
     });
 
-
+    if(this.admin == false){
+      this.habilitaEdicaoAtividade();
+    }
   }
 
   getConvenios(): void {
@@ -122,6 +124,10 @@ export class ConvenioComponent implements OnInit {
       error => {
         //console.log(error);
       });
+  }
+
+  habilitaEdicaoAtividade(): void {
+    document.getElementById("detalhes-atividade").classList.remove("read-only");
   }
 
   autorizarAtividade(atividade: Atividade): void {
@@ -197,6 +203,11 @@ export class ConvenioComponent implements OnInit {
       }
     }
     );
+  }
+
+  exibeBtnAceitar(): void {
+    document.getElementById("btnAceitar").style.display = "inline-block";    
+    document.getElementById("btnDevolver").style.display = "none";    
   }
 
   openDialog(element): void {
