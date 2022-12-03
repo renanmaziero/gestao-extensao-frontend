@@ -188,6 +188,13 @@ export class ConvenioComponent implements OnInit {
     }
   }
 
+  ocultaBtnUpdate(status: string, admin: boolean): void {
+    if(status == 'APROVADO' && admin == false){
+      document.getElementById("btnUpdate").style.display = "none"; 
+      document.getElementById("detalhes-atividade").classList.add("read-only");     
+    }
+  }
+
   devolverAtividade(id: number): void {
     const dialogRef = this.dialog.open(DevolucaoDialogueComponent, {
       data: {

@@ -182,6 +182,13 @@ export class RegenciaComponent implements OnInit {
     });
   }
 
+  ocultaBtnUpdate(status: string, admin: boolean): void {
+    if(status == 'APROVADO' && admin == false){
+      document.getElementById("btnUpdate").style.display = "none"; 
+      document.getElementById("detalhes-atividade").classList.add("read-only");     
+    }
+  }
+
   exibeBtnAceitar(): void {
     document.getElementById("btnAceitar").style.display = "inline-block";    
     document.getElementById("btnDevolver").style.display = "none";

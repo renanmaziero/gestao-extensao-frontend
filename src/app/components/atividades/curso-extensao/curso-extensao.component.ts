@@ -112,6 +112,13 @@ export class CursoExtensaoComponent implements OnInit {
         //console.log(error);
       });
   }
+  
+  ocultaBtnUpdate(status: string, admin: boolean): void {
+    if(status == 'APROVADO' && admin == false){
+      document.getElementById("btnUpdate").style.display = "none"; 
+      document.getElementById("detalhes-atividade").classList.add("read-only");     
+    }
+  }
 
   habilitaEdicaoAtividade(): void {
     document.getElementById("detalhes-atividade").classList.remove("read-only");
