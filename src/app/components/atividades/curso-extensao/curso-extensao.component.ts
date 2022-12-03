@@ -171,6 +171,7 @@ export class CursoExtensaoComponent implements OnInit {
       this.confirmacaoDialogueRef.afterClosed().subscribe(result => {
         if (result && aceitar) {
           this.updateCurso();
+          this.router.navigate(['/autorizacoes']);
         }
       });
     }

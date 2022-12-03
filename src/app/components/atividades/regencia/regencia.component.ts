@@ -167,6 +167,7 @@ export class RegenciaComponent implements OnInit {
       this.confirmacaoDialogueRef.afterClosed().subscribe(result => {
         if (result && aceitar) {
           this.updateRegencia();
+          this.router.navigate(['/autorizacoes']);
         }
       });
     }
