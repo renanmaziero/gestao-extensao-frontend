@@ -182,6 +182,7 @@ export class ConvenioComponent implements OnInit {
       this.confirmacaoDialogueRef.afterClosed().subscribe(result => {
         if (result && aceitar) {
           this.updateConvenio(this.atividade);
+          this.router.navigate(['/autorizacoes']);
         }
       });
     }
