@@ -1,0 +1,17 @@
+.grid-container{
+margin: 20px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 275px auto;
+  align-content: stretch;
+  justify-content: start;
+  align-items: center;
+  justify-items: start;
+}
+
+.cell {
+  display: inline-flex; 
+ width: fit-content;
+}
