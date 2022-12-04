@@ -41,6 +41,7 @@ import { DocenteService } from './services/docente/docente.service';
 import { RelatorioService } from './services/relatorio/relatorio.service';
 import { ConfirmacaoDialogueComponent } from './shared/confirmacao-dialogue/confirmacao-dialogue.component';
 import { PermissaoPipe } from './shared/pipes/permissao.pipe';
+import { ParametrizacaoComponent } from './components/parametrizacao/parametrizacao.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { PermissaoPipe } from './shared/pipes/permissao.pipe';
     AlocacaoComponentComponent,
     AlocacaoDialogueComponent,
     PermissaoPipe,
+    ParametrizacaoComponent,
   ],
   imports: [
     CommonModule,

@@ -39,6 +39,10 @@
         <mat-icon>assessment</mat-icon>Relatórios
       </a>
 
+      <a mat-list-item routerLink="/parametrizacao" *ngIf="admin">
+        <mat-icon>data_object</mat-icon>Parametrização
+      </a>
+
       <mat-divider></mat-divider>
 
       <a mat-list-item routerLink="/configuracao" *ngIf="admin || user">

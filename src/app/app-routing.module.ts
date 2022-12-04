@@ -1,3 +1,4 @@
+import { ParametrizacaoComponent } from './components/parametrizacao/parametrizacao.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ActivityFormComponent } from './components/formulario/activity-form.component';
@@ -66,6 +67,9 @@ const routes: Routes = [
   },
   {
     path: 'senha/reset', component: ResetSenhaComponent
+  },
+  {
+    path: 'parametrizacao', component: ParametrizacaoComponent
   },
 ];
 
