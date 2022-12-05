@@ -1,20 +1,27 @@
-<div class="grid-container">
+<div class="grid-container" >
   <h1>Parametrização</h1>
   <mat-card>
     <mat-card-content>
       <h2>Convênio</h2>
       <div class="grid">     
-        <div class="cell"><p>Máximo de horas por semestre (cursos)</p></div>
+        <div class="cell"><p>Máximo horas semanais</p></div>
         <div class="cell">
           <mat-form-field appearance="outline">            
-            <input matInput placeholder="Máximo de horas por semestre (cursos)" value="10">
+            <input matInput placeholder="Máximo horas semanais" value="{{ parametrizacao.max_hr_semanais_convenio }}">
           </mat-form-field>
         </div>
 
-        <div class="cell"><p>Máximo de horas por semana (regência)</p></div>
+        <div class="cell"><p>Máximo horas mensais</p></div>
         <div class="cell">
           <mat-form-field appearance="outline">            
-            <input matInput placeholder="Máximo de horas por semana (regência)" value="10">
+            <input matInput placeholder="Máximo horas mensais" value="10">
+          </mat-form-field>
+        </div>
+
+        <div class="cell"><p>Máximo horas semestrais</p></div>
+        <div class="cell">
+          <mat-form-field appearance="outline">            
+            <input matInput placeholder="Máximo horas semestrais" value="{{ parametrizacao.max_hr_semestrais_convenio }}">
           </mat-form-field>
         </div>
 
@@ -23,17 +30,17 @@
 
       <h2>Curso</h2>
       <div class="grid">     
-        <div class="cell"><p>Máximo de horas por semestre (cursos)</p></div>
+        <div class="cell"><p>Máximo horas totais ministradas</p></div>
         <div class="cell">
           <mat-form-field appearance="outline">            
-            <input matInput placeholder="Máximo de horas por semestre (cursos)" value="10">
+            <input matInput placeholder="Máximo horas totais ministradas" value="{{ parametrizacao.max_hr_ministradas_curso }}">
           </mat-form-field>
         </div>
 
-        <div class="cell"><p>Máximo de horas por semana (regência)</p></div>
+        <div class="cell"><p>Máximo horas semestrais</p></div>
         <div class="cell">
           <mat-form-field appearance="outline">            
-            <input matInput placeholder="Máximo de horas por semana (regência)" value="10">
+            <input matInput placeholder="Máximo horas semestrais" value="{{ parametrizacao.max_hr_semestrais_curso }}">
           </mat-form-field>
         </div>
 
@@ -42,17 +49,10 @@
 
       <h2>Regência</h2>
       <div class="grid">     
-        <div class="cell"><p>Máximo de horas por semestre (cursos)</p></div>
+        <div class="cell"><p>Máximo horas semestrais</p></div>
         <div class="cell">
           <mat-form-field appearance="outline">            
-            <input matInput placeholder="Máximo de horas por semestre (cursos)" value="10">
-          </mat-form-field>
-        </div>
-
-        <div class="cell"><p>Máximo de horas por semana (regência)</p></div>
-        <div class="cell">
-          <mat-form-field appearance="outline">            
-            <input matInput placeholder="Máximo de horas por semana (regência)" value="10">
+            <input matInput placeholder="Máximo horas semestrais" value="{{ parametrizacao.max_hr_semestrais_regencia }}">
           </mat-form-field>
         </div>
 
