@@ -2,26 +2,27 @@
   <h1>Parametrização</h1>
   <mat-card>
     <mat-card-content>
+      <form name="form" [formGroup]="form" #f="ngForm">
       <h2>Convênio</h2>
       <div class="grid">     
         <div class="cell"><p>Máximo horas semanais</p></div>
         <div class="cell">
           <mat-form-field appearance="outline">            
-            <input matInput placeholder="Máximo horas semanais" value="{{ parametrizacao.max_hr_semanais_convenio }}">
+            <input formControlName="max_hr_semanais_convenio" matInput placeholder="Máximo horas semanais" [(ngModel)]="parametrizacao.max_hr_semanais_convenio">
           </mat-form-field>
         </div>
 
         <div class="cell"><p>Máximo horas mensais</p></div>
         <div class="cell">
           <mat-form-field appearance="outline">            
-            <input matInput placeholder="Máximo horas mensais" value="10">
+            <input formControlName="max_hr_mensais_convenio" matInput placeholder="Máximo horas mensais" [(ngModel)]="parametrizacao.max_hr_mensais_convenio">
           </mat-form-field>
         </div>
 
         <div class="cell"><p>Máximo horas semestrais</p></div>
         <div class="cell">
           <mat-form-field appearance="outline">            
-            <input matInput placeholder="Máximo horas semestrais" value="{{ parametrizacao.max_hr_semestrais_convenio }}">
+            <input formControlName="max_hr_semestrais_convenio" matInput placeholder="Máximo horas semestrais" [(ngModel)]="parametrizacao.max_hr_semestrais_convenio">
           </mat-form-field>
         </div>
 
@@ -33,14 +34,14 @@
         <div class="cell"><p>Máximo horas totais ministradas</p></div>
         <div class="cell">
           <mat-form-field appearance="outline">            
-            <input matInput placeholder="Máximo horas totais ministradas" value="{{ parametrizacao.max_hr_ministradas_curso }}">
+            <input formControlName="max_hr_ministradas_curso" matInput placeholder="Máximo horas totais ministradas" [(ngModel)]="parametrizacao.max_hr_ministradas_curso">
           </mat-form-field>
         </div>
 
         <div class="cell"><p>Máximo horas semestrais</p></div>
         <div class="cell">
           <mat-form-field appearance="outline">            
-            <input matInput placeholder="Máximo horas semestrais" value="{{ parametrizacao.max_hr_semestrais_curso }}">
+            <input formControlName="max_hr_semestrais_curso" matInput placeholder="Máximo horas semestrais" [(ngModel)]="parametrizacao.max_hr_semestrais_curso">
           </mat-form-field>
         </div>
 
@@ -52,17 +53,18 @@
         <div class="cell"><p>Máximo horas semestrais</p></div>
         <div class="cell">
           <mat-form-field appearance="outline">            
-            <input matInput placeholder="Máximo horas semestrais" value="{{ parametrizacao.max_hr_semestrais_regencia }}">
+            <input formControlName="max_hr_semestrais_regencia" matInput placeholder="Máximo horas semestrais" [(ngModel)]="parametrizacao.max_hr_semestrais_regencia">
           </mat-form-field>
         </div>
 
         <div class="cell">
-          <button mat-button color="primary">
+          <button mat-button color="primary" (click)="updateParametrizacao()">
             <mat-icon aria-hidden="false" aria-label="save icon">save</mat-icon>
             Salvar
         </button>
         </div>
       </div>
+    </form>
     </mat-card-content>
   </mat-card>
 </div>

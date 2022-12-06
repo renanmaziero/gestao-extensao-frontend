@@ -9,11 +9,15 @@ import { environment } from 'src/environments/environment';
 })
 export class ParametrizacaoService {
 
-  private baseUrl = environment.api + 'parametrizacao/all';
+  private baseUrl = environment.api + 'parametrizacao';
 
   constructor(private http: HttpClient) { }
 
   consultarParametrizacao(): Observable<Parametrizacao> {
-    return this.http.get<Parametrizacao>(this.baseUrl); 
+    return this.http.get<Parametrizacao>(this.baseUrl + '/all'); 
+  }
+
+  updateParametrizacao(parametrizacao: Parametrizacao): Observable<any> {
+    return this.http.put<any>(this.baseUrl + '/update', parametrizacao);
   }
 } 
