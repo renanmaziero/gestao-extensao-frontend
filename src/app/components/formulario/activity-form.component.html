@@ -104,14 +104,14 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline" matTooltip="Carga horária semanal" matTooltipPosition="right">
                     <mat-label>Qtd. Horas semanais (obrigatório):</mat-label>
-                    <input matInput min="1" placeholder="Qtd. Horas semanais (obrigatório)" type="number"
-                      formControlName="horaSemanal" required/>                      
+                    <input matInput placeholder="Qtd. Horas semanais (obrigatório)" type="number"
+                      formControlName="horaSemanal" required/>  
                       <mat-error *ngIf="
                         convenioForm.controls['horaSemanal'].hasError(
                           'max'
                         )
                       ">
-                      Máximo são <strong>12h/semanais.</strong>
+                      Máximo são <strong>{{max_hr_semanais_convenio}}h/semanais.</strong>
                     </mat-error>
                   </mat-form-field>
                 </div>
@@ -125,7 +125,7 @@
                           'max'
                         )
                       ">
-                      Máximo são <strong>48h/mensais.</strong>
+                      Máximo são <strong>{{max_hr_mensais_convenio}}h/mensais.</strong>
                     </mat-error>
                   </mat-form-field>
                 </div>
@@ -155,7 +155,7 @@
                         'max'
                       )
                     ">
-                    Máximo são <strong>60h/semestre.</strong>
+                    Máximo são <strong>{{max_hr_semestrais_convenio}}h/semestre.</strong>
                   </mat-error>
                   </mat-form-field>
                   <button mat-button type="button" mat-icon-button (click)="alocacaoExtra = !alocacaoExtra" *ngIf="!alocacaoExtra" [disabled]="convenioForm.controls.horasSolicitadas.errors?.max">
@@ -443,14 +443,14 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Carga horária total de aulas ministradas (obrigatório):</mat-label>
-                    <input matInput maxlength="5" min="1" placeholder="Carga horária total de aulas ministradas (obrigatório)" type="number"
-                      formControlName="totalHorasMinistradas" />
+                    <input matInput maxlength="3" min="1" placeholder="Carga horária total de aulas ministradas (obrigatório)" type="number"
+                      formControlName="totalHorasMinistradas" required/>
                       <mat-error *ngIf="
                       cursoForm.controls['totalHorasMinistradas'].hasError(
                         'max'
                       )
                     ">
-                    Máximo são <strong>240 horas. (2 anos)</strong>
+                    Máximo são <strong>{{max_hr_ministradas_curso}} horas. (2 anos)</strong>
                   </mat-error>
                   </mat-form-field>
                 </div>
@@ -531,7 +531,7 @@
                         'max'
                       )
                     ">
-                    Máximo são <strong>60h/semestre.</strong>
+                    Máximo são <strong>{{max_hr_semestrais_curso}}h/semestre.</strong>
                   </mat-error>
                   </mat-form-field>
                   <button mat-button type="button" mat-icon-button (click)="alocacaoExtra = !alocacaoExtra" *ngIf="!alocacaoExtra" [disabled]="cursoForm.controls.horasSolicitadas.errors?.max">
@@ -925,7 +925,7 @@
                           'max'
                         )
                       ">
-                      Máximo são <strong>60h/semestre.</strong>
+                      Máximo são <strong>{{max_hr_semestrais_regencia}}h/semestre.</strong>
                     </mat-error>
                   </mat-form-field>
                   <button mat-button type="button" mat-icon-button (click)="alocacaoExtra = !alocacaoExtra" *ngIf="!alocacaoExtra" [disabled]="regenciaForm.controls.horasSolicitadas.errors?.max">

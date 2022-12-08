@@ -10,6 +10,8 @@ import { UploadArquivoService } from 'src/app/services/upload/upload-arquivo.ser
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Alocacao } from 'src/app/models/alocacao.model';
 import { AtividadeService } from 'src/app/services/atividade/atividade.service';
+import { Parametrizacao } from 'src/app/models/parametrizacao.model';
+import { ParametrizacaoService } from 'src/app/services/parametrizacao/parametrizacao.service';
 
 @Component({
   selector: 'app-activity-form',
@@ -17,7 +19,7 @@ import { AtividadeService } from 'src/app/services/atividade/atividade.service';
   styleUrls: ['./activity-form.component.scss']
 })
 export class ActivityFormComponent implements OnInit{
-
+  parametrizacao: Parametrizacao;
   hoje = new Date();  
   minDateIni = new Date(this.hoje.getFullYear(), this.hoje.getMonth(), this.hoje.getDate()+7);
   maxDateIni = new Date(this.hoje.getFullYear(), this.hoje.getMonth()+1, this.hoje.getDate());
@@ -52,15 +54,35 @@ export class ActivityFormComponent implements OnInit{
 
   panelOpenState = false;
 
+  max_hr_semanais_convenio: number; 
+  max_hr_mensais_convenio: number;
+  max_hr_semestrais_convenio: number;
+  max_hr_ministradas_curso: number;
+  max_hr_semestrais_curso: number;
+  max_hr_semestrais_regencia: number;
+  
   @ViewChild(FormGroupDirective, { static: true }) form: FormGroupDirective;
 
-  ngOnInit(): void {
+  // tslint:disable-next-line: max-line-length
+  constructor(private snackBar: MatSnackBar, private fb: FormBuilder, private convenioService: ConvenioService, 
+    private cursoService: CursoService, 
+    private uploadService: UploadArquivoService, private atividadeService: AtividadeService, private parametrizacaoService: ParametrizacaoService) { }
+
+  ngOnInit(): void { 
+    this.parametrizacao = new Parametrizacao();
+    this.getParametrizacao();
+    console.log('Será exibido um erro de formGroup, mas está tudo bem.');
+    console.log('Isso ocorre porque o formulário é renderizado antes da inicialização das variáveis.');
+    console.log('Então ele busca por algo que não existe ainda, mas é feita a inicialização posteriormente.');            
+  }
+
+  createForm(): void {
     this.convenioForm = this.fb.group({
       instituicao: [null, Validators.required],
       projeto: [null, Validators.required],
       coordenador: [null, Validators.required],
-      horaSemanal: [null, Validators.max(12)],
-      horaMensal: [null, Validators.max(48)],
+      horaSemanal: [null, Validators.max(this.max_hr_semanais_convenio)],
+      horaMensal: [null, Validators.max(this.max_hr_mensais_convenio)],
       descricao: [null, Validators.required],
       dataInicio: [null, Validators.required],
       dataFim: [null, Validators.required],
@@ -68,22 +90,22 @@ export class ActivityFormComponent implements OnInit{
       observacao: [null],
       ano: [null, Validators.required],
       semestre: [null, Validators.required],
-      horasSolicitadas: [null, Validators.max(60)],
+      horasSolicitadas: [null, Validators.max(this.max_hr_semestrais_convenio)],
       ano1: [null],
       semestre1: [null],
-      horasSolicitadas1: [null, Validators.max(60)],
+      horasSolicitadas1: [null, Validators.max(this.max_hr_semestrais_convenio)],
       ano2: [null],
       semestre2: [null],
-      horasSolicitadas2: [null, Validators.max(60)],
+      horasSolicitadas2: [null, Validators.max(this.max_hr_semestrais_convenio)],
       ano3: [null],
       semestre3: [null],
-      horasSolicitadas3: [null, Validators.max(60)],
+      horasSolicitadas3: [null, Validators.max(this.max_hr_semestrais_convenio)],
       ano4: [null],
       semestre4: [null],
-      horasSolicitadas4: [null, Validators.max(60)],
+      horasSolicitadas4: [null, Validators.max(this.max_hr_semestrais_convenio)],
       ano5: [null],
       semestre5: [null],
-      horasSolicitadas5: [null, Validators.max(60)],
+      horasSolicitadas5: [null, Validators.max(this.max_hr_semestrais_convenio)],
       tipoAtividadeSimultanea: [null, Validators.required],
       urgente: ['']
     });
@@ -94,31 +116,31 @@ export class ActivityFormComponent implements OnInit{
       coordenador: [null, Validators.required],
       participacao: [null, Validators.required],
       disciplina: [null],
-      totalHorasMinistradas: [null, Validators.max(240)],
+      totalHorasMinistradas: [null, Validators.max(this.max_hr_ministradas_curso)],
       valorBrutoHora: [null],
       valorBrutoTotal: [null],
-      totalHorasOutrasAtividades: [null, Validators.max(240)],
+      totalHorasOutrasAtividades: [null, Validators.max(this.max_hr_ministradas_curso)],
       dataInicio: [null, Validators.required],
       dataFim: [null, Validators.required],
       observacao: [null],
       ano: [null, Validators.required],
       semestre: [null, Validators.required],
-      horasSolicitadas: [null, Validators.max(60)],
+      horasSolicitadas: [null, Validators.max(this.max_hr_semestrais_curso)],
       ano1: [null],
       semestre1: [null],
-      horasSolicitadas1: [null, Validators.max(60)],
+      horasSolicitadas1: [null, Validators.max(this.max_hr_semestrais_curso)],
       ano2: [null],
       semestre2: [null],
-      horasSolicitadas2: [null, Validators.max(60)],
+      horasSolicitadas2: [null, Validators.max(this.max_hr_semestrais_curso)],
       ano3: [null],
       semestre3: [null],
-      horasSolicitadas3: [null, Validators.max(60)],
+      horasSolicitadas3: [null, Validators.max(this.max_hr_semestrais_curso)],
       ano4: [null],
       semestre4: [null],
-      horasSolicitadas4: [null, Validators.max(60)],
+      horasSolicitadas4: [null, Validators.max(this.max_hr_semestrais_curso)],
       ano5: [null],
       semestre5: [null],
-      horasSolicitadas5: [null, Validators.max(60)],
+      horasSolicitadas5: [null, Validators.max(this.max_hr_semestrais_curso)],
       urgente: ['']
     });
 
@@ -141,31 +163,45 @@ export class ActivityFormComponent implements OnInit{
       observacao: [null],
       ano: [null, Validators.required],
       semestre: [null, Validators.required],
-      horasSolicitadas: [null, Validators.max(60)],
+      horasSolicitadas: [null, Validators.max(this.max_hr_semestrais_regencia)],
       ano1: [null],
       semestre1: [null],
-      horasSolicitadas1: [null, Validators.max(60)],
+      horasSolicitadas1: [null, Validators.max(this.max_hr_semestrais_regencia)],
       ano2: [null],
       semestre2: [null],
-      horasSolicitadas2: [null, Validators.max(60)],
+      horasSolicitadas2: [null, Validators.max(this.max_hr_semestrais_regencia)],
       ano3: [null],
       semestre3: [null],
-      horasSolicitadas3: [null, Validators.max(60)],
+      horasSolicitadas3: [null, Validators.max(this.max_hr_semestrais_regencia)],
       ano4: [null],
       semestre4: [null],
-      horasSolicitadas4: [null, Validators.max(60)],
+      horasSolicitadas4: [null, Validators.max(this.max_hr_semestrais_regencia)],
       ano5: [null],
       semestre5: [null],
-      horasSolicitadas5: [null, Validators.max(60)],
+      horasSolicitadas5: [null, Validators.max(this.max_hr_semestrais_regencia)],
       urgente: ['']
     });
   }
 
-  // tslint:disable-next-line: max-line-length
-  constructor(private snackBar: MatSnackBar, private fb: FormBuilder, private convenioService: ConvenioService, 
-    private cursoService: CursoService, 
-    private uploadService: UploadArquivoService, private atividadeService: AtividadeService) { }
+  getParametrizacao(): void {
+    this.parametrizacaoService.consultarParametrizacao().subscribe(
+      (data) => {
+        this.parametrizacao = data[0];
+        this.max_hr_semanais_convenio = this.parametrizacao.max_hr_semanais_convenio; 
+        this.max_hr_mensais_convenio = this.parametrizacao.max_hr_mensais_convenio;
+        this.max_hr_semestrais_convenio = this.parametrizacao.max_hr_semestrais_convenio;
+        this.max_hr_ministradas_curso = this.parametrizacao.max_hr_ministradas_curso;
+        this.max_hr_semestrais_curso = this.parametrizacao.max_hr_semestrais_curso;
+        this.max_hr_semestrais_regencia = this.parametrizacao.max_hr_semestrais_regencia;
 
+        this.createForm();
+
+      },
+      (erro) => {
+        console.log(erro);
+      }
+    );
+  }
 
   openSnackBar(message: string, action: string): void {
     this.snackBar.open(message, action, {
