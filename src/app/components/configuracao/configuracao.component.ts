@@ -23,6 +23,7 @@ export class ConfiguracaoComponent implements OnInit {
   userForm: FormGroup;
   senhaForm: FormGroup;
   senhaModel: Senha;
+  admin: boolean;
 
   constructor(private docenteService: DocenteService, private tokenService: TokenStorageService, private fbuilder: FormBuilder,
     private snackBar: MatSnackBar, private toast: ToastrService) { }
@@ -59,6 +60,7 @@ export class ConfiguracaoComponent implements OnInit {
     this.docenteService.getDadosUsuario(this.userId).subscribe(
       response => {
         this.usuario = response;
+        this.admin = this.usuario.admin;
       }
     )
   }
