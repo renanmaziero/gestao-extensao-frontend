@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { CursoService } from './../../services/atividade/curso.service';
 import { CursoExtensao } from './../../models/curso.model';
 import { Component, ViewChild, OnInit, ElementRef } from '@angular/core';
@@ -66,7 +67,7 @@ export class ActivityFormComponent implements OnInit{
   // tslint:disable-next-line: max-line-length
   constructor(private snackBar: MatSnackBar, private fb: FormBuilder, private convenioService: ConvenioService, 
     private cursoService: CursoService, 
-    private uploadService: UploadArquivoService, private atividadeService: AtividadeService, private parametrizacaoService: ParametrizacaoService) { }
+    private uploadService: UploadArquivoService, private atividadeService: AtividadeService, private parametrizacaoService: ParametrizacaoService, private router: Router) { }
 
   ngOnInit(): void { 
     this.parametrizacao = new Parametrizacao();
@@ -276,6 +277,7 @@ export class ActivityFormComponent implements OnInit{
           this.upload(data.id);
         }
         this.openSnackBar(this.mensagemSucesso, 'OK');
+        this.router.navigate(['/autorizacoes']);
       },
       erro => {
         //console.log(erro);
@@ -353,6 +355,7 @@ export class ActivityFormComponent implements OnInit{
           this.upload(data.id);
         }
         this.openSnackBar(this.mensagemSucesso, 'OK');
+        this.router.navigate(['/autorizacoes']);
       },
       erro => {
         //console.log(erro);
@@ -433,6 +436,7 @@ export class ActivityFormComponent implements OnInit{
           this.upload(data.id);
         }
         this.openSnackBar(this.mensagemSucesso, 'OK');
+        this.router.navigate(['/autorizacoes']);
       },
       erro => {
         this.openSnackBar('Erro ao submeter atividade', 'OK');
