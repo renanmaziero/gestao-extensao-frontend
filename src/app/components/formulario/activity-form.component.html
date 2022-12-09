@@ -41,15 +41,15 @@
                 </div>
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Coordenador(a) (obrigatório):</mat-label>
-                    <input matInput placeholder="Coordenador(a) (obrigatório)" formControlName="coordenador" />
-                    <mat-error *ngIf="
+                    <mat-label>Coordenador(a) (opcional):</mat-label>
+                    <input matInput placeholder="Coordenador(a) (opcional)" formControlName="coordenador" />
+                    <!-- <mat-error *ngIf="
                         convenioForm.controls['coordenador'].hasError(
                           'required'
                         )
                       ">
                       Nome do coordenador(a) <strong>obrigatório</strong>
-                    </mat-error>
+                    </mat-error> -->
                   </mat-form-field>
                 </div>
               </div>
@@ -413,13 +413,13 @@
                 </div>
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Coordenador(a) (obrigatório):</mat-label>
-                    <input matInput placeholder="Coordenador(a) (obrigatório)" formControlName="coordenador" />
-                    <mat-error *ngIf="
+                    <mat-label>Coordenador(a) (opcional):</mat-label>
+                    <input matInput placeholder="Coordenador(a) (opcional)" formControlName="coordenador" />
+                    <!-- <mat-error *ngIf="
                         cursoForm.controls['coordenador'].hasError('required')
                       ">
                       Nome do coordenador(a) <strong>obrigatório</strong>
-                    </mat-error>
+                    </mat-error> -->
                   </mat-form-field>
                 </div>
               </div>
@@ -789,7 +789,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Coordenador(a) (opcional):</mat-label>
-                    <input matInput placeholder="Coordenador(a)" formControlName="coordenador" />                    
+                    <input matInput placeholder="Coordenador(a) (opcional)" formControlName="coordenador" />                    
                   </mat-form-field>
                 </div>
               </div>
