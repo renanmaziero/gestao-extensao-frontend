@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar, MatSnackBarHorizontalPosition } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { TokenStorageService } from 'src/app/core/auth/token-storage.service';
 import { Parametrizacao } from 'src/app/models/parametrizacao.model';
 
 import { ParametrizacaoService } from './../../services/parametrizacao/parametrizacao.service';
@@ -16,16 +17,24 @@ export class ParametrizacaoComponent implements OnInit {
   parametrizacao: Parametrizacao;
   form: FormGroup;
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  perfil: string[] = [];
+  admin: boolean;
   
   constructor(
     private parametrizacaoService: ParametrizacaoService,
     private fbuilder: FormBuilder,
     private snackBar: MatSnackBar,
     private toast: ToastrService,
-    private router: Router
+    private router: Router,
+    private tokenStorage: TokenStorageService
   ) {}
 
   ngOnInit(): void {
+    this.perfil = this.tokenStorage.getAuthorities();
+    if(this.perfil.includes('ROLE_ADMIN')){
+      this.admin = true;
+    } else {this.admin = false;}
+
     this.parametrizacao = new Parametrizacao();
     this.getParametrizacao();
 

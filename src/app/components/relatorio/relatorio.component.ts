@@ -9,6 +9,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { TokenStorageService } from 'src/app/core/auth/token-storage.service';
 
 @Component({
   selector: 'app-relatorio',
@@ -25,10 +26,17 @@ export class RelatorioComponent implements OnInit {
   relatorio: MatTableDataSource<Relatorio>;
   errorMsg: string;
   displayedColumns: string[] = ['nomeDocente', 'tipoAtividade', 'dataInicio', 'dataFim', 'prazo', 'statusAtividade'];
+  perfil: string[] = [];
+  admin: boolean;
 
-  constructor(private relatorioService: RelatorioService, public dialog: MatDialog, private fbuilder: FormBuilder, private datePipe: DatePipe) { }
+  constructor(private relatorioService: RelatorioService, public dialog: MatDialog, private fbuilder: FormBuilder, private datePipe: DatePipe, private tokenStorage: TokenStorageService) { }
 
   ngOnInit(): void {
+    this.perfil = this.tokenStorage.getAuthorities();
+    if(this.perfil.includes('ROLE_ADMIN')){
+      this.admin = true;
+    } else {this.admin = false;}
+
     this.formRelatorio = this.fbuilder.group({
       inicio: new FormControl('', [Validators.required]),
       fim: new FormControl('', [Validators.required]),

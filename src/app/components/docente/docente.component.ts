@@ -32,6 +32,8 @@ export class DocenteComponent implements OnInit {
   ];
   currentYear: number;
   dataGrid: Docente[];
+  perfil: string[] = [];
+  admin: boolean;
 
   constructor(
     private docenteService: DocenteService,
@@ -43,6 +45,11 @@ export class DocenteComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.perfil = this.tokenStorage.getAuthorities();
+    if(this.perfil.includes('ROLE_ADMIN')){
+      this.admin = true;
+    } else {this.admin = false;}
+
     this.getDocentes();
     this.docente = new Docente();       
     this.emailLogado = this.tokenStorage.getEmail();
