@@ -32,12 +32,9 @@
             </div>
             <div class="col">
                 <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Coordenador(a) </mat-label>
-                    <input [(ngModel)]="atividade.coordenador" matInput placeholder="Coordenador(a)"
+                    <mat-label>Coordenador(a) (opcional)</mat-label>
+                    <input [(ngModel)]="atividade.coordenador" matInput placeholder="Coordenador(a) (opcional)"
                         formControlName="coordenador">
-                    <mat-error *ngIf="cursoForm.controls['coordenador'].hasError('required')">
-                        Nome do coordenador(a) <strong>obrigatório</strong>
-                    </mat-error>
                 </mat-form-field>
             </div>
         </div>

@@ -73,7 +73,7 @@ export class RegenciaComponent implements OnInit {
     this.regenciaForm = this.fbuilder.group({
       nivel: [null, Validators.required],
       curso: [null, Validators.required],
-      coordenador: [null, Validators.required],
+      coordenador: [null],
       disciplinaParticipacao: [null],
       totalHorasMinistradas: [null, Validators.required],
       totalHorasOutrasAtividades: [null],

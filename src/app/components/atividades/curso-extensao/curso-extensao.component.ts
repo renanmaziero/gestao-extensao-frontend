@@ -73,7 +73,7 @@ export class CursoExtensaoComponent implements OnInit {
     this.cursoForm = this.fbuilder.group({
       instituicaoVinculada: [null, Validators.required],
       nomeCurso: [null, Validators.required],
-      coordenador: [null, Validators.required],
+      coordenador: [null],
       participacao: [null, Validators.required],
       disciplina: [null],
       totalHorasMinistradas: [null, Validators.required],

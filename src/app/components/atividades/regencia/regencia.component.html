@@ -31,12 +31,9 @@
             </div>
             <div class="col">
                 <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Coordenador(a) </mat-label>
+                    <mat-label>Coordenador(a) (opcional)</mat-label>
                     <input [(ngModel)]="atividade.coordenador" formControlName="coordenador" matInput
-                        placeholder="Coordenador(a)">
-                    <mat-error *ngIf="regenciaForm.controls['coordenador'].hasError('required')">
-                        Nome do coordenador(a) <strong>obrigatório</strong>
-                    </mat-error>
+                        placeholder="Coordenador(a) (opcional)">
                 </mat-form-field>
             </div>
         </div>
