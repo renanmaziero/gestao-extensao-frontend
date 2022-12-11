@@ -21,6 +21,8 @@ import { ConfirmacaoDialogueComponent } from 'src/app/shared/confirmacao-dialogu
 import { DevolucaoDialogueComponent } from '../../autorizacao/autorizacao-detalhes/devolucao-dialogue/devolucao-dialogue.component';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import { AlocacaoDialogueComponent } from '../../alocacoes/alocacao-dialogue/alocacao-dialogue.component';
+import { Parametrizacao } from 'src/app/models/parametrizacao.model';
+import { ParametrizacaoService } from 'src/app/services/parametrizacao/parametrizacao.service';
 
 @Component({
   selector: 'app-convenio',
@@ -55,14 +57,22 @@ export class ConvenioComponent implements OnInit {
   tabelaAlocacoes: MatTableDataSource<Alocacao>;
   columnsToDisplay: string[] = ['semestre', 'ano', 'horasSolicitadas', 'status'];
   expandedElement: Alocacao | null;
+  parametrizacao: Parametrizacao;
+  max_hr_semanais_convenio: number; 
+  max_hr_mensais_convenio: number;
+  max_hr_semestrais_convenio: number;
+  max_hr_ministradas_curso: number;
+  max_hr_semestrais_curso: number;
+  max_hr_semestrais_regencia: number;
 
   constructor(private route: ActivatedRoute, private fbuilder: FormBuilder,
     private atividadeService: AtividadeService, private tokenStorage: TokenStorageService,
     private autorizacaoService: AutorizacaoService, public dialog: MatDialog, private snackBar: MatSnackBar,
     private uploadService: UploadArquivoService, private router: Router, private arquivoService: ExportService,
-    private loader: LoaderService) { }
+    private loader: LoaderService, private parametrizacaoService: ParametrizacaoService) { }
 
   ngOnInit(): void {
+    this.parametrizacao = new Parametrizacao();
     this.atividade = new Convenio();
     this.currentYear = new Date().getFullYear();
     if (this.tokenStorage.getToken()) {
@@ -72,12 +82,41 @@ export class ConvenioComponent implements OnInit {
     }
 
     this.getConvenios();
+    this.getParametrizacao();
+    
+   
 
+    if(this.admin == false){
+      this.habilitaEdicaoAtividade();
+    }
+  }
+
+  getParametrizacao(): void {
+    this.parametrizacaoService.consultarParametrizacao().subscribe(
+      (data) => {
+        this.parametrizacao = data[0];
+        this.max_hr_semanais_convenio = this.parametrizacao.max_hr_semanais_convenio; 
+        this.max_hr_mensais_convenio = this.parametrizacao.max_hr_mensais_convenio;
+        this.max_hr_semestrais_convenio = this.parametrizacao.max_hr_semestrais_convenio;
+        this.max_hr_ministradas_curso = this.parametrizacao.max_hr_ministradas_curso;
+        this.max_hr_semestrais_curso = this.parametrizacao.max_hr_semestrais_curso;
+        this.max_hr_semestrais_regencia = this.parametrizacao.max_hr_semestrais_regencia;
+
+        this.criarForm();
+      },
+      (erro) => {
+        console.log(erro);
+      }
+    );
+  }
+
+  criarForm(): void {
     this.convenioForm = this.fbuilder.group({
       instituicao: [null, Validators.required],
       projeto: [null, Validators.required],
       coordenador: [null, Validators.required],
       horaSemanal: [null, Validators.required],
+      //horaSemanal: [null, [Validators.required, Validators.max(this.max_hr_semanais_convenio)]],
       horaMensal: [null, Validators.required],
       descricao: [null, Validators.required],
       dataInicio: [null, Validators.required],
@@ -100,10 +139,6 @@ export class ConvenioComponent implements OnInit {
       horasAprovadasCurso: [null],
       horasAprovadasRegencia: [null]
     });
-
-    if(this.admin == false){
-      this.habilitaEdicaoAtividade();
-    }
   }
 
   getConvenios(): void {

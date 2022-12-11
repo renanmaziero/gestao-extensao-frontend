@@ -20,14 +20,21 @@
                 <mat-form-field appearance="outline" style="width: 100%">
                     <mat-label>Hora Semanal</mat-label>
                     <input [(ngModel)]="atividade.horaSemanal" formControlName="horaSemanal" matInput
-                        placeholder="Hora Semanal" />
+                        placeholder="Hora Semanal" readonly disabled />
+                        <!-- <mat-error *ngIf="
+                        convenioForm.controls['horaSemanal'].hasError(
+                          'max'
+                        )
+                      ">
+                      Máximo são <strong>{{max_hr_semanais_convenio}}h/semanais.</strong>
+                    </mat-error> -->
                 </mat-form-field>
             </div>
             <div class="col">
                 <mat-form-field appearance="outline" style="width: 100%">
                     <mat-label>Hora Mensal</mat-label>
                     <input [(ngModel)]="atividade.horaMensal" formControlName="horaMensal" matInput
-                        placeholder="Hora Mensal" />
+                        placeholder="Hora Mensal" readonly disabled />
                 </mat-form-field>
             </div>
             <!-- <div class="col">
