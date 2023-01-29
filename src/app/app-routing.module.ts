@@ -69,7 +69,7 @@ const routes: Routes = [
     path: 'senha/reset', component: ResetSenhaComponent
   },
   {
-    path: 'parametrizacao', component: ParametrizacaoComponent
+    path: 'parametrizacao', component: ParametrizacaoComponent, canActivate: [AuthGuardService]
   },
 ];
 
