@@ -1,1 +1,36 @@
-<p>consulta-alocacoes works!</p>
+<div class="grid-container">
+    <h1>Consulta de Alocações</h1>
+    <mat-card>
+      <mat-card-content>
+        <form name="form" [formGroup]="form" #f="ngForm">
+        <h2>Horas aprovadas</h2>
+        <div class="grid">     
+          <div class="cell"><p>Convênios</p></div>
+          <div class="cell">
+            <mat-form-field appearance="outline">            
+              <input formControlName="convenios" matInput placeholder="convenios" [(ngModel)]="convenios" readonly>
+            </mat-form-field>
+          </div>
+  
+          <div class="cell"><p>Cursos</p></div>
+          <div class="cell">
+            <mat-form-field appearance="outline">            
+              <input formControlName="cursos" matInput placeholder="cursos" [(ngModel)]="cursos" readonly>
+            </mat-form-field>
+          </div>
+  
+          <div class="cell"><p>Regências</p></div>
+          <div class="cell">
+            <mat-form-field appearance="outline">            
+              <input formControlName="regencias" matInput placeholder="regencias" [(ngModel)]="regencias" readonly>
+            </mat-form-field>
+          </div>
+  
+      
+        </div>
+
+      </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  
