@@ -1,3 +1,4 @@
+import { ConsultaAlocacoesComponent } from './components/consulta-alocacoes/consulta-alocacoes.component';
 import { ParametrizacaoComponent } from './components/parametrizacao/parametrizacao.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -70,6 +71,9 @@ const routes: Routes = [
   },
   {
     path: 'parametrizacao', component: ParametrizacaoComponent, canActivate: [AuthGuardService]
+  },
+  {
+    path: 'consulta-alocacoes', component: ConsultaAlocacoesComponent, canActivate: [AuthGuardService]
   },
 ];
 

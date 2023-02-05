@@ -42,6 +42,7 @@ import { RelatorioService } from './services/relatorio/relatorio.service';
 import { ConfirmacaoDialogueComponent } from './shared/confirmacao-dialogue/confirmacao-dialogue.component';
 import { PermissaoPipe } from './shared/pipes/permissao.pipe';
 import { ParametrizacaoComponent } from './components/parametrizacao/parametrizacao.component';
+import { ConsultaAlocacoesComponent } from './components/consulta-alocacoes/consulta-alocacoes.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { ParametrizacaoComponent } from './components/parametrizacao/parametriza
     AlocacaoDialogueComponent,
     PermissaoPipe,
     ParametrizacaoComponent,
+    ConsultaAlocacoesComponent,
   ],
   imports: [
     CommonModule,
