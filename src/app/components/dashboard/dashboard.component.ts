@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
+import { TokenStorageService } from 'src/app/core/auth/token-storage.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,6 +20,9 @@ export class DashboardComponent {
 
   dashboard: Dashboard = new Dashboard();
   errorMsg: string;
+  admin: boolean;
+  perfil: string[] = [];
+
   /** Based on the screen size, switch from standard to one column per row */
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
@@ -42,9 +46,14 @@ export class DashboardComponent {
     this.router.navigate(['/autorizacoes/filtro/pendente']);    
   }
 
-  constructor(private breakpointObserver: BreakpointObserver, private dashboardService: DashboardService, private toast: ToastrService, private router: Router) { }
+  constructor(private breakpointObserver: BreakpointObserver, private dashboardService: DashboardService, private toast: ToastrService, private router: Router,private tokenStorage: TokenStorageService) { }
 
   ngOnInit() {
+    this.perfil = this.tokenStorage.getAuthorities();
+    if(this.perfil.includes('ROLE_ADMIN')){
+      this.admin = true;
+    } else {this.admin = false;}
+    
     this.getDadosDashboard();
   }
 
