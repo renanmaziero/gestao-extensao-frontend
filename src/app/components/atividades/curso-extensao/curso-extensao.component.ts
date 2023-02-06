@@ -113,20 +113,24 @@ export class CursoExtensaoComponent implements OnInit {
       });
   }
   
-  ocultaBtnUpdate(status: string, admin: boolean): void {
-    if(status == 'APROVADO' && admin == false){
-      document.getElementById("btnUpdate").style.display = "none"; 
-      document.getElementById("detalhes-atividade").classList.add("read-only");     
-    }
-  }
-
   habilitaEdicaoAtividade(): void {
     document.getElementById("detalhes-atividade").classList.remove("read-only");
   }
 
-  exibeBtnAceitar(): void {
-    document.getElementById("btnAceitar").style.display = "inline-block";    
-    document.getElementById("btnDevolver").style.display = "none";
+  gerenciaBtnsAdmin(status: string): void {
+    document.getElementById("detalhes-atividade").classList.add("read-only");
+   
+    if(status != 'PENDENTE'){
+      document.getElementById("btnDevolver").style.display = "none";
+      document.getElementById("btnAceitar").style.display = "none";    
+    } 
+  }
+
+  gerenciaBtnsDocente(status: string): void {
+    if(status == 'APROVADO' || status == 'PENDENTE'){
+      document.getElementById("detalhes-atividade").classList.add("read-only");
+      document.getElementById("btnUpdate").style.display = "none";
+    } 
   }
   
   autorizarAtividade(atividade: Atividade): void {
@@ -170,6 +174,7 @@ export class CursoExtensaoComponent implements OnInit {
           atividade.autorizado = true;
           this.autorizarAtividade(atividade);
           this.router.navigate(['/autorizacoes']);
+          this.getCursos();
         }
       });
     }
@@ -179,6 +184,7 @@ export class CursoExtensaoComponent implements OnInit {
         if (result && aceitar) {
           this.updateCurso();
           this.router.navigate(['/autorizacoes']);
+          this.getCursos();
         }
       });
     }
