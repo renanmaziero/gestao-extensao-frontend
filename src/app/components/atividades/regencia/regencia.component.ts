@@ -159,6 +159,7 @@ export class RegenciaComponent implements OnInit {
           atividade.autorizado = true;
           this.autorizarAtividade(atividade);
           this.router.navigate(['/autorizacoes']);
+          this.getRegencias();
         }
       });
     }
@@ -168,6 +169,7 @@ export class RegenciaComponent implements OnInit {
         if (result && aceitar) {
           this.updateRegencia();
           this.router.navigate(['/autorizacoes']);
+          this.getRegencias();
         }
       });
     }
@@ -182,16 +184,20 @@ export class RegenciaComponent implements OnInit {
     });
   }
 
-  ocultaBtnUpdate(status: string, admin: boolean): void {
-    if(status == 'APROVADO' && admin == false){
-      document.getElementById("btnUpdate").style.display = "none"; 
-      document.getElementById("detalhes-atividade").classList.add("read-only");     
-    }
+  gerenciaBtnsAdmin(status: string): void {
+    document.getElementById("detalhes-atividade").classList.add("read-only");
+   
+    if(status != 'PENDENTE'){
+      document.getElementById("btnDevolver").style.display = "none";
+      document.getElementById("btnAceitar").style.display = "none";    
+    } 
   }
 
-  exibeBtnAceitar(): void {
-    document.getElementById("btnAceitar").style.display = "inline-block";    
-    document.getElementById("btnDevolver").style.display = "none";
+  gerenciaBtnsDocente(status: string): void {
+    if(status == 'APROVADO' || status == 'PENDENTE'){
+      document.getElementById("detalhes-atividade").classList.add("read-only");
+      document.getElementById("btnUpdate").style.display = "none";
+    } 
   }
 
   habilitaEdicaoAtividade(): void {

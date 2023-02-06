@@ -173,7 +173,9 @@
               
                           <ng-container matColumnDef="status">
                             <th mat-header-cell *matHeaderCellDef>Status</th>
-                            <td mat-cell *matCellDef="let row"><span *ngIf="row.status != 'APROVADO' && admin == true ? exibeBtnAceitar() : ocultaBtnUpdate(row.status, admin)">{{ row.status }}</span>{{ row.status }}</td>
+                            <td mat-cell *matCellDef="let row">
+                                <span *ngIf="admin == true ? gerenciaBtnsAdmin(row.status) : gerenciaBtnsDocente(row.status)"></span>{{ row.status }}
+                            </td>
                           </ng-container>
 
                         <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
@@ -268,7 +270,7 @@
                     </button>
                     <button [disabled]="atividade.autorizado" mat-button
                     (click)="openConfirmationDialog(atividade, 'Deseja confirmar autorização?', true, 'aceitar')"
-                    *ngIf="admin" style="display:none;" id="btnAceitar">
+                    *ngIf="admin" id="btnAceitar">
                         <mat-icon aria-hidden="false" aria-label="edit icon">check</mat-icon>
                         Aceitar
                     </button>
