@@ -209,6 +209,8 @@ export class ConvenioComponent implements OnInit {
           this.pdf$ = false;
           this.autorizarAtividade(atividade);
           this.router.navigate(['/autorizacoes']);
+          this.getConvenios();
+
         }
       });
     }
@@ -218,15 +220,9 @@ export class ConvenioComponent implements OnInit {
         if (result && aceitar) {
           this.updateConvenio(this.atividade);
           this.router.navigate(['/autorizacoes']);
+          this.getConvenios();
         }
       });
-    }
-  }
-
-  ocultaBtnUpdate(status: string, admin: boolean): void {
-    if(status == 'APROVADO' && admin == false){
-      document.getElementById("btnUpdate").style.display = "none"; 
-      document.getElementById("detalhes-atividade").classList.add("read-only");     
     }
   }
 
@@ -248,9 +244,20 @@ export class ConvenioComponent implements OnInit {
     );
   }
 
-  exibeBtnAceitar(): void {
-    document.getElementById("btnAceitar").style.display = "inline-block";    
-    document.getElementById("btnDevolver").style.display = "none";    
+  gerenciaBtnsAdmin(status: string): void {
+    document.getElementById("detalhes-atividade").classList.add("read-only");
+   
+    if(status != 'PENDENTE'){
+      document.getElementById("btnDevolver").style.display = "none";
+      document.getElementById("btnAceitar").style.display = "none";    
+    } 
+  }
+
+  gerenciaBtnsDocente(status: string): void {
+    if(status == 'APROVADO' || status == 'PENDENTE'){
+      document.getElementById("detalhes-atividade").classList.add("read-only");
+      document.getElementById("btnUpdate").style.display = "none";
+    } 
   }
 
   openDialog(element): void {
