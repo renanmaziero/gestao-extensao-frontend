@@ -104,17 +104,6 @@ export class RegenciaComponent implements OnInit {
     }
   }
 
-  autorizarAtividade(atividade: Atividade): void {
-    this.autorizacaoService.autorizar(atividade).subscribe(
-      res => {
-        //console.log("Atividade autorizada com sucesso");
-        this.getRegencias();
-      },
-      error => {
-        //console.log(error);
-      });
-  }
-
   getRegencias(): void {
     this.atividadeService.consultarRegencia(this.route.snapshot.params['id']).subscribe(
       response => {
@@ -122,22 +111,10 @@ export class RegenciaComponent implements OnInit {
         this.atividade = response;
         this.alocacoes = new MatTableDataSource(response.alocacoes);
         this.alocacoes.paginator = this.paginator;
-
         this.fileInfos$ = this.uploadService.getArquivos(this.atividade.id);
       },
       error => {
-        //console.log(error);
-      });
-  }
-
-  updateRegencia(): void {
-    this.atividadeService.updateRegencia(this.atividade).subscribe(
-      res => {
-        this.openSnackBar('Dados de atividade atualizados com sucesso', 'OK');
-        this.getRegencias();
-      },
-      error => {
-        //console.log(error);
+        console.log(error);
       });
   }
 
@@ -157,9 +134,14 @@ export class RegenciaComponent implements OnInit {
       this.confirmacaoDialogueRef.afterClosed().subscribe(result => {
         if (result && aceitar) {
           atividade.autorizado = true;
-          this.autorizarAtividade(atividade);
-          this.router.navigate(['/autorizacoes']);
-          this.getRegencias();
+          this.autorizacaoService.autorizar(atividade).subscribe(
+            res => {
+              this.openSnackBar('Atividade autorizada com sucesso', 'OK');
+              this.router.navigate(['/autorizacoes']);
+            },
+            error => {
+              console.log(error);
+            });
         }
       });
     }
@@ -167,9 +149,14 @@ export class RegenciaComponent implements OnInit {
     if (operacao === 'update') {
       this.confirmacaoDialogueRef.afterClosed().subscribe(result => {
         if (result && aceitar) {
-          this.updateRegencia();
-          this.router.navigate(['/autorizacoes']);
-          this.getRegencias();
+          this.atividadeService.updateRegencia(this.atividade).subscribe(
+            res => {
+              this.openSnackBar('Dados de atividade atualizados com sucesso', 'OK');
+              this.router.navigate(['/autorizacoes']);
+            },
+            error => {
+              console.log(error);
+            });
         }
       });
     }

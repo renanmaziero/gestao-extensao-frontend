@@ -133,28 +133,6 @@ export class CursoExtensaoComponent implements OnInit {
     } 
   }
   
-  autorizarAtividade(atividade: Atividade): void {
-    this.autorizacaoService.autorizar(atividade).subscribe(
-      res => {
-        this.openSnackBar('Atividade autorizada com sucesso', 'OK');
-        this.getCursos();
-      },
-      error => {
-        //console.log(error);
-      });
-  }
-
-  updateCurso(): void {
-    this.atividadeService.updateCurso(this.atividade).subscribe(
-      res => {
-        this.openSnackBar('Dados de atividade atualizados com sucesso', 'OK');
-        this.getCursos();
-      },
-      error => {
-        //console.log(error);
-      });
-  }
-
   extrairRelatorioPDF(atividade: Atividade): void {
     this.pdf$ = true;
     this.arquivo$ = false;
@@ -172,9 +150,14 @@ export class CursoExtensaoComponent implements OnInit {
       this.confirmacaoDialogueRef.afterClosed().subscribe(result => {
         if (result && aceitar) {
           atividade.autorizado = true;
-          this.autorizarAtividade(atividade);
-          this.router.navigate(['/autorizacoes']);
-          this.getCursos();
+          this.autorizacaoService.autorizar(atividade).subscribe(
+            res => {
+              this.openSnackBar('Atividade autorizada com sucesso', 'OK');
+              this.router.navigate(['/autorizacoes']);
+            },
+            error => {
+              console.log(error);
+            });
         }
       });
     }
@@ -182,9 +165,14 @@ export class CursoExtensaoComponent implements OnInit {
     if (operacao === 'update') {
       this.confirmacaoDialogueRef.afterClosed().subscribe(result => {
         if (result && aceitar) {
-          this.updateCurso();
-          this.router.navigate(['/autorizacoes']);
-          this.getCursos();
+          this.atividadeService.updateCurso(this.atividade).subscribe(
+            res => {
+              this.openSnackBar('Dados de atividade atualizados com sucesso', 'OK');
+                this.router.navigate(['/autorizacoes']);
+            },
+            error => {
+              console.log(error);
+            });
         }
       });
     }

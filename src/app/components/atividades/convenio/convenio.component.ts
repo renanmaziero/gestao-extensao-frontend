@@ -165,29 +165,7 @@ export class ConvenioComponent implements OnInit {
     document.getElementById("detalhes-atividade").classList.remove("read-only");
   }
 
-  autorizarAtividade(atividade: Atividade): void {
-    this.autorizacaoService.autorizar(atividade).subscribe(
-      res => {
-        this.openSnackBar('Atividade aceita com sucesso!', 'OK');
-        this.getConvenios();
-      },
-      error => {
-        //console.log(error);
-      });
-  }
-
-  updateConvenio(atividade: Convenio): void {
-    this.atividadeService.updateConvenio(atividade).subscribe(
-      res => {
-        this.openSnackBar('Dados de atividade atualizados com sucesso', 'OK');
-        this.getConvenios();
-      },
-      error => {
-        //console.log(error);
-      });
-  }
-
-  extrairRelatorioPDF(atividade: Atividade): void {
+ extrairRelatorioPDF(atividade: Atividade): void {
     this.pdf$ = true;
     this.arquivo$ = false;
     this.aceitar$ = false;
@@ -207,10 +185,14 @@ export class ConvenioComponent implements OnInit {
           this.aceitar$ = true;
           this.arquivo$ = false;
           this.pdf$ = false;
-          this.autorizarAtividade(atividade);
-          this.router.navigate(['/autorizacoes']);
-          this.getConvenios();
-
+          this.autorizacaoService.autorizar(atividade).subscribe(
+            res => {
+              this.openSnackBar('Atividade aceita com sucesso!', 'OK');
+              this.router.navigate(['/autorizacoes']);
+            },
+            error => {
+              console.log(error);
+            });
         }
       });
     }
@@ -218,9 +200,14 @@ export class ConvenioComponent implements OnInit {
     if (operacao === 'update') {
       this.confirmacaoDialogueRef.afterClosed().subscribe(result => {
         if (result && aceitar) {
-          this.updateConvenio(this.atividade);
-          this.router.navigate(['/autorizacoes']);
-          this.getConvenios();
+          this.atividadeService.updateConvenio(this.atividade).subscribe(
+            res => {
+              this.openSnackBar('Dados de atividade atualizados com sucesso', 'OK');
+              this.router.navigate(['/autorizacoes']);
+            },
+            error => {
+              console.log(error);
+            });
         }
       });
     }
