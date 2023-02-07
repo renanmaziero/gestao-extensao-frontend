@@ -3,6 +3,9 @@ import { ConsultaAlocacoesService } from "./../../services/consulta-alocacoes/co
 import { ConsultaAlocacoes } from "src/app/models/consulta-alocacoes.model";
 import { Component, OnInit } from "@angular/core";
 import { TokenStorageService } from 'src/app/core/auth/token-storage.service';
+import {ThemePalette} from '@angular/material/core';
+import {ProgressBarMode} from '@angular/material/progress-bar';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: "app-consulta-alocacoes",
@@ -11,23 +14,36 @@ import { TokenStorageService } from 'src/app/core/auth/token-storage.service';
 })
 export class ConsultaAlocacoesComponent implements OnInit {
   consultaAlocacoes: ConsultaAlocacoes;
+  alocacao: ConsultaAlocacoes = new ConsultaAlocacoes();
+  alocacoes: MatTableDataSource<ConsultaAlocacoes>
+  displayedColumns = ['id', 'status', 'dataInicio', 'dataFim', 'horasSolicitadas', 'horasAprovadas', 'tipoAtividade'];
+  dataGrid: ConsultaAlocacoes[];
+  filtro: string;
   form: FormGroup;
   convenios: number;
   cursos: number;
   regencias: number;  
   admin: boolean;
+  idLogado: string;
   perfil: string[] = [];
+  color: ThemePalette = 'warn';
+  mode: ProgressBarMode = 'determinate';
+  bufferValue = 20;
 
   constructor(private consultaAlocacoesService: ConsultaAlocacoesService, private fbuilder: FormBuilder,private tokenStorage: TokenStorageService) {}
 
   ngOnInit(): void {
     this.perfil = this.tokenStorage.getAuthorities();
+    this.idLogado = this.tokenStorage.getUserId();
+    this.convenios = 0;
+    this.cursos = 0;
+    this.regencias = 0;
     if(this.perfil.includes('ROLE_ADMIN')){
       this.admin = true;
     } else {this.admin = false;}
 
     this.consultaAlocacoes = new ConsultaAlocacoes();
-    this.getAlocacoes(34);  
+    this.getAlocacoes(parseInt(this.idLogado));  
 
     this.form = this.fbuilder.group({
       convenios: [null],
@@ -49,5 +65,9 @@ export class ConsultaAlocacoesComponent implements OnInit {
         console.log(erro);
       }
     );
+  }
+
+  applyFilter(value: string) {
+    this.alocacoes.filter = value.trim().toLowerCase();
   }
 }
