@@ -1,11 +1,14 @@
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ConsultaAlocacoesService } from "./../../services/consulta-alocacoes/consulta-alocacoes.service";
+import { TotalHorasAprovadas } from "src/app/models/total-horas-aprovadas.model";
 import { ConsultaAlocacoes } from "src/app/models/consulta-alocacoes.model";
-import { Component, OnInit } from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { TokenStorageService } from 'src/app/core/auth/token-storage.service';
 import {ThemePalette} from '@angular/material/core';
 import {ProgressBarMode} from '@angular/material/progress-bar';
 import { MatTableDataSource } from '@angular/material/table';
+import { Parametrizacao } from 'src/app/models/parametrizacao.model';
+import { ParametrizacaoService } from './../../services/parametrizacao/parametrizacao.service';
 
 @Component({
   selector: "app-consulta-alocacoes",
@@ -13,53 +16,48 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ["./consulta-alocacoes.component.scss"],
 })
 export class ConsultaAlocacoesComponent implements OnInit {
-  consultaAlocacoes: ConsultaAlocacoes;
-  alocacao: ConsultaAlocacoes = new ConsultaAlocacoes();
-  alocacoes: MatTableDataSource<ConsultaAlocacoes>
-  displayedColumns = ['id', 'status', 'dataInicio', 'dataFim', 'horasSolicitadas', 'horasAprovadas', 'tipoAtividade'];
-  dataGrid: ConsultaAlocacoes[];
-  filtro: string;
-  form: FormGroup;
-  convenios: number;
-  cursos: number;
-  regencias: number;  
-  admin: boolean;
-  idLogado: string;
-  perfil: string[] = [];
+  consultaAlocacoes = new ConsultaAlocacoes();
+  alocacoes: MatTableDataSource<ConsultaAlocacoes>;
+  conveniosConsulta: number = 0;
+  cursosConsulta: number = 0;
+  regenciasConsulta: number = 0;
+  max_hr_semestrais_convenio: number;
+  max_hr_semestrais_curso: number;
+  max_hr_semestrais_regencia: number;
+  porcCursos:number = 0;
+  porcConvenios:number = 0;
+  porcRegencias:number = 0;
+  ano: number = new Date().getFullYear();
+  semestreSelecionado: number = 1;
+  anoSelecionado: number = this.ano;
+  parametrizacao: Parametrizacao;
+  totalHorasAlocacoes = new TotalHorasAprovadas();  
+  conveniosTotais: number = 0;
+  cursosTotais: number = 0;
+  regenciasTotais: number = 0;
   color: ThemePalette = 'warn';
   mode: ProgressBarMode = 'determinate';
   bufferValue = 20;
+  admin: boolean = false;
+  idLogado: string = this.tokenStorage.getUserId();
+  perfil: string[] = this.tokenStorage.getAuthorities();
 
-  constructor(private consultaAlocacoesService: ConsultaAlocacoesService, private fbuilder: FormBuilder,private tokenStorage: TokenStorageService) {}
+  constructor(private consultaAlocacoesService: ConsultaAlocacoesService, private fbuilder: FormBuilder,private tokenStorage: TokenStorageService,private parametrizacaoService: ParametrizacaoService,) {}
 
   ngOnInit(): void {
-    this.perfil = this.tokenStorage.getAuthorities();
-    this.idLogado = this.tokenStorage.getUserId();
-    this.convenios = 0;
-    this.cursos = 0;
-    this.regencias = 0;
     if(this.perfil.includes('ROLE_ADMIN')){
       this.admin = true;
     } else {this.admin = false;}
-
-    this.consultaAlocacoes = new ConsultaAlocacoes();
-    this.getAlocacoes(parseInt(this.idLogado));  
-
-    this.form = this.fbuilder.group({
-      convenios: [null],
-      cursos: [null],
-      regencias: [null]
-    });
-
+    this.getParametrizacao();
   }
 
-  getAlocacoes(docenteId: number): void {
-    this.consultaAlocacoesService.consultarAlocacoes(docenteId).subscribe(
+  totalHorasAprovadas(docenteId: number): void {
+    this.consultaAlocacoesService.totalHorasAprovadas(docenteId).subscribe(
       (data) => {
-        this.consultaAlocacoes = data;
-        this.convenios = this.consultaAlocacoes[0];
-        this.cursos = this.consultaAlocacoes[1];
-        this.regencias = this.consultaAlocacoes[2];
+        this.totalHorasAlocacoes = data;
+        this.conveniosTotais = this.totalHorasAlocacoes[0];
+        this.cursosTotais = this.totalHorasAlocacoes[1];
+        this.regenciasTotais = this.totalHorasAlocacoes[2];
       },
       (erro) => {
         console.log(erro);
@@ -67,7 +65,33 @@ export class ConsultaAlocacoesComponent implements OnInit {
     );
   }
 
-  applyFilter(value: string) {
-    this.alocacoes.filter = value.trim().toLowerCase();
+  consultarAlocacoes(): void {
+    this.consultaAlocacoesService.consultarAlocacoes(parseInt(this.idLogado), this.semestreSelecionado, this.anoSelecionado).subscribe(
+      (data) => {
+        this.consultaAlocacoes = data;
+        this.conveniosConsulta = this.consultaAlocacoes[0];
+        this.cursosConsulta = this.consultaAlocacoes[1];
+        this.regenciasConsulta = this.consultaAlocacoes[2];
+        this.porcCursos = Math.round((this.cursosConsulta/this.max_hr_semestrais_curso)*100);
+        this.porcRegencias = Math.round((this.regenciasConsulta/this.max_hr_semestrais_regencia)*100);
+        this.porcConvenios = Math.round((this.conveniosConsulta/this.max_hr_semestrais_convenio)*100);
+      },
+      (erro) => {
+        console.log(erro);
+      }
+    );
+  }
+  getParametrizacao(): void {
+    this.parametrizacaoService.consultarParametrizacao().subscribe(
+      (data) => {
+        this.parametrizacao = data[0];
+        this.max_hr_semestrais_convenio = this.parametrizacao.max_hr_semestrais_convenio;
+        this.max_hr_semestrais_curso = this.parametrizacao.max_hr_semestrais_curso;
+        this.max_hr_semestrais_regencia = this.parametrizacao.max_hr_semestrais_regencia;
+      },
+      (erro) => {
+        console.log(erro);
+      }
+    );
   }
 }

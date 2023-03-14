@@ -1,130 +1,151 @@
-.grid-container{
-    margin: 20px;
-    }
-    
-    .grid {
-      display: grid;
-      grid-template-columns: 275px auto;
-      align-content: stretch;
-      justify-content: start;
-      align-items: center;
-      justify-items: start;
-    }
-    
-    .cell {
-      display: inline-flex; 
-     width: fit-content;
-    }
+.grid-container {
+  margin: 20px;
+}
 
-    .example-h2 {
-      margin: 10px;
-    }
-    
-    .example-section {
-      display: flex;
-      align-content: center;
-      align-items: center;
-      height: 60px;
-    }
-    
-    .example-margin {
-      margin: 0 10px;
-    }
-    
-    .example-card {
-      margin-bottom: 10px;
-    }
-    .full-width-table {
-      width: 100%;
-    }
-    
-    .mat-elevation-z8 {
-      margin: 10px;
-    }
-    
-    
-    .grid-container {
-      margin: 20px;
-    }
-    
-    .botao {
-      margin-right: 20px;
-    }
-    
-    #custom:hover{
-      box-shadow: -1px -15px 20px 0px inset #80808026;
-      transition: 250ms ease;
-    }
-    
-    .status small {
-      margin-left: 10px;  
-      padding: 5px;
-      border-radius: 5px;
-      color: rgba($color: #fff, $alpha: 1.0);
-    }
-    
-    .pendente {
-      background-color: steelblue;
-    }
-    
-    .aceito {
-      background-color: green;
-    }
-    
-    .revisao {
-      background-color: tomato;
-    }
+.grid {
+  display: grid;
+  grid-template-columns: 275px auto;
+  align-content: stretch;
+  justify-content: start;
+  align-items: center;
+  justify-items: start;
+}
 
-    .full-width {
-      width: 100%;
+.cell {
+  display: inline-flex;
+  width: fit-content;
+}
+
+.example-h2 {
+  margin: 10px;
+}
+
+.example-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}
+
+.example-margin {
+  margin: 0 10px;
+}
+
+.example-card {
+  margin-bottom: 10px;
+}
+
+.full-width-table {
+  width: 100%;
+}
+
+.mat-elevation-z8 {
+  margin: 10px;
+}
+
+
+.grid-container {
+  margin: 20px;
+}
+
+.botao {
+  margin-right: 20px;
+}
+
+#custom:hover {
+  box-shadow: -1px -15px 20px 0px inset #80808026;
+  transition: 250ms ease;
+}
+
+.status small {
+  margin-left: 10px;
+  padding: 5px;
+  border-radius: 5px;
+  color: rgba($color: #fff, $alpha: 1.0);
+}
+
+.pendente {
+  background-color: steelblue;
+}
+
+.aceito {
+  background-color: green;
+}
+
+.revisao {
+  background-color: tomato;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.mat-radio-button {
+  display: inline-flex;
+  margin-right: 5px;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  margin: 10px;
+}
+
+.col {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.col:last-child {
+  margin-right: 0;
+}
+
+.mat-form-field+.mat-form-field {
+  margin-left: 1px;
+}
+
+.grid-container {
+  margin: 20px;
+}
+
+
+.mat-elevation-z8 {
+  margin: 5px;
+}
+
+.mat-radio-button {
+  display: inline-flex;
+  margin-right: 10px;
+}
+
+.full-width-table {
+  width: 100%;
+}
+
+table {
+  width: 100%;
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}
+
+:host {
+  .mat-icon {
+    vertical-align: middle;
+    margin-right: 20px;
+  }
+
+  .profile-card {
+    text-align: center;
+    padding: 10px 20px 0px 20px;
+    object-fit: contain;
+
+    img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 50%;
     }
-    
-    .mat-radio-button {
-      display: inline-flex;
-      margin-right: 5px;
-    }
-    
-    .row {
-      display: flex;
-      flex-direction: row;
-    }
-    
-    .col {
-      flex: 1;
-      margin-right: 20px;
-    }
-    
-    .col:last-child {
-      margin-right: 0;
-    }
-    
-    .mat-form-field + .mat-form-field {
-      margin-left: 1px;
-    }
-    
-    .grid-container {
-      margin: 20px;
-    }
-    
-    
-    .mat-elevation-z8 {
-        margin: 5px;
-    }
-    
-    .mat-radio-button {
-      display: inline-flex;
-      margin-right: 10px;
-    }
-    
-    .full-width-table {
-      width: 100%;
-    }
-    
-    table {
-      width: 100%;
-    }
-    
-    th.mat-sort-header-sorted {
-      color: black;
-    }
-    
+  }
+}

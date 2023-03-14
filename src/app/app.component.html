@@ -25,7 +25,7 @@
         <mat-icon>dashboard</mat-icon>
         Dashboard
       </a>
-      <a mat-list-item routerLink="/consulta-alocacoes" *ngIf="user || admin">
+      <a mat-list-item routerLink="/consulta-alocacoes" *ngIf="user">
         <mat-icon>watch_later</mat-icon>Consultar Alocações
       </a>
       <a mat-list-item routerLink="/criar-atividade" *ngIf="user && !admin">
