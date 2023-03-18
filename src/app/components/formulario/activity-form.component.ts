@@ -13,20 +13,32 @@ import { Alocacao } from 'src/app/models/alocacao.model';
 import { AtividadeService } from 'src/app/services/atividade/atividade.service';
 import { Parametrizacao } from 'src/app/models/parametrizacao.model';
 import { ParametrizacaoService } from 'src/app/services/parametrizacao/parametrizacao.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-activity-form',
   templateUrl: './activity-form.component.html',
   styleUrls: ['./activity-form.component.scss']
 })
-export class ActivityFormComponent implements OnInit{
+export class ActivityFormComponent implements OnInit {
   parametrizacao: Parametrizacao;
-  hoje = new Date();  
-  minDateIni = new Date(this.hoje.getFullYear(), this.hoje.getMonth(), this.hoje.getDate()+7);
-  maxDateIni = new Date(this.hoje.getFullYear(), this.hoje.getMonth()+1, this.hoje.getDate());
-  minDateFim = new Date(this.hoje.getFullYear(), this.hoje.getMonth()+1, this.hoje.getDate()+7);
-  maxDateFim = new Date(this.hoje.getFullYear()+2, this.hoje.getMonth(), this.hoje.getDate());
+  hoje = new Date();
+  minDateIni = new Date(this.hoje.getFullYear(), this.hoje.getMonth(), this.hoje.getDate() + 7);
+  maxDateIni = new Date(this.hoje.getFullYear(), this.hoje.getMonth() + 1, this.hoje.getDate());
+  minDateFim = new Date(this.hoje.getFullYear(), this.hoje.getMonth() + 1, this.hoje.getDate() + 7);
+  maxDateFim = new Date(this.hoje.getFullYear() + 2, this.hoje.getMonth(), this.hoje.getDate());
   @ViewChild('fileInput') fileInput: ElementRef;
+  ano: number = new Date().getFullYear();
+
+  hrSemanalConvenio: number;
+  hrMensalConvenio: number;
+
+  somaHrCurso: number = 0;
+  somaHrRegencia: number = 0;
+  somaHrConvenio: number = 0;
+  totalHrSolicitadas: number;
+  temp: number = 0;
+  tipoAtividade: string;
 
   convenioForm: FormGroup;
   cursoForm: FormGroup;
@@ -55,26 +67,71 @@ export class ActivityFormComponent implements OnInit{
 
   panelOpenState = false;
 
-  max_hr_semanais_convenio: number; 
+  max_hr_semanais_convenio: number;
   max_hr_mensais_convenio: number;
   max_hr_semestrais_convenio: number;
   max_hr_ministradas_curso: number;
   max_hr_semestrais_curso: number;
   max_hr_semestrais_regencia: number;
-  
+
   @ViewChild(FormGroupDirective, { static: true }) form: FormGroupDirective;
 
   // tslint:disable-next-line: max-line-length
-  constructor(private snackBar: MatSnackBar, private fb: FormBuilder, private convenioService: ConvenioService, 
-    private cursoService: CursoService, 
-    private uploadService: UploadArquivoService, private atividadeService: AtividadeService, private parametrizacaoService: ParametrizacaoService, private router: Router) { }
+  constructor(private snackBar: MatSnackBar, private fb: FormBuilder, private convenioService: ConvenioService,
+    private cursoService: CursoService,
+    private uploadService: UploadArquivoService, private atividadeService: AtividadeService, private parametrizacaoService: ParametrizacaoService, private router: Router, private toast: ToastrService) { }
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
     this.parametrizacao = new Parametrizacao();
     this.getParametrizacao();
     console.log('Será exibido um erro de formGroup, mas está tudo bem.');
     console.log('Isso ocorre porque o formulário é renderizado antes da inicialização das variáveis.');
-    console.log('Então ele busca por algo que não existe ainda, mas é feita a inicialização posteriormente.');            
+    console.log('Então ele busca por algo que não existe ainda, mas é feita a inicialização posteriormente.');
+  }
+
+  updateSemanalConvenio(horas: any) {
+    this.hrSemanalConvenio = parseFloat(((horas.target.value) / 4).toFixed(0));
+    this.somaHrConvenio = this.hrMensalConvenio;
+    this.confereSoma();
+  }
+
+  updateMensalConvenio(horas: any) {
+    this.hrMensalConvenio = parseFloat(((horas.target.value) * 4).toFixed(0));
+    this.somaHrConvenio = this.hrMensalConvenio;
+    this.confereSoma();
+  }
+
+  confereSoma() {
+    if (this.tipoAtividade == 'Convênios') {
+      this.totalHrSolicitadas = this.convenioForm.get('horasSolicitadas').value + this.convenioForm.get('horasSolicitadas1').value + this.convenioForm.get('horasSolicitadas2').value + this.convenioForm.get('horasSolicitadas3').value + this.convenioForm.get('horasSolicitadas4').value + this.convenioForm.get('horasSolicitadas5').value;
+      if (this.totalHrSolicitadas > this.somaHrConvenio) {
+        this.toast.error('Horas informadas ultrapassam total de ' + this.somaHrConvenio + 'h.');
+      }
+    }
+
+    if (this.tipoAtividade == 'Cursos') {
+    }
+
+    if (this.tipoAtividade == 'Regência Concomitante') {
+    }
+  }
+
+  resetHrExtra(extra: number) {
+    this.convenioForm.get('horasSolicitadas' + extra).setValue(0);
+    this.cursoForm.get('horasSolicitadas' + extra).setValue(0);
+    this.regenciaForm.get('horasSolicitadas' + extra).setValue(0);
+    this.convenioForm.get('semestre' + extra).setValue('1');
+    this.cursoForm.get('semestre' + extra).setValue('1');
+    this.regenciaForm.get('semestre' + extra).setValue('1');
+    this.convenioForm.get('ano' + extra).setValue(this.ano.toString());
+    this.cursoForm.get('ano' + extra).setValue(this.ano.toString());
+    this.regenciaForm.get('ano' + extra).setValue(this.ano.toString());
+    this.confereSoma();
+  }
+
+  definetipoAtividade(tipo: string): void {
+    this.tipoAtividade = tipo;
+    this.toast.success(tipo);
   }
 
   createForm(): void {
@@ -188,7 +245,7 @@ export class ActivityFormComponent implements OnInit{
     this.parametrizacaoService.consultarParametrizacao().subscribe(
       (data) => {
         this.parametrizacao = data[0];
-        this.max_hr_semanais_convenio = this.parametrizacao.max_hr_semanais_convenio; 
+        this.max_hr_semanais_convenio = this.parametrizacao.max_hr_semanais_convenio;
         this.max_hr_mensais_convenio = this.parametrizacao.max_hr_mensais_convenio;
         this.max_hr_semestrais_convenio = this.parametrizacao.max_hr_semestrais_convenio;
         this.max_hr_ministradas_curso = this.parametrizacao.max_hr_ministradas_curso;
@@ -231,7 +288,7 @@ export class ActivityFormComponent implements OnInit{
     this.alocacao.horasSolicitadas = this.convenioForm.get('horasSolicitadas').value;
     this.convenioModel.alocacoes.push(this.alocacao);
 
-    if(this.alocacaoExtra) {
+    if (this.alocacaoExtra) {
       this.alocacao1 = new Alocacao();
       this.alocacao1.ano = this.convenioForm.get('ano1').value;
       this.alocacao1.semestre = this.convenioForm.get('semestre1').value;
@@ -239,7 +296,7 @@ export class ActivityFormComponent implements OnInit{
       this.convenioModel.alocacoes.push(this.alocacao1);
     }
 
-    if(this.alocacaoExtra2) {
+    if (this.alocacaoExtra2) {
       this.alocacao2 = new Alocacao();
       this.alocacao2.ano = this.convenioForm.get('ano2').value;
       this.alocacao2.semestre = this.convenioForm.get('semestre2').value;
@@ -247,7 +304,7 @@ export class ActivityFormComponent implements OnInit{
       this.convenioModel.alocacoes.push(this.alocacao2);
     }
 
-    if(this.alocacaoExtra3) {
+    if (this.alocacaoExtra3) {
       this.alocacao3 = new Alocacao();
       this.alocacao3.ano = this.convenioForm.get('ano3').value;
       this.alocacao3.semestre = this.convenioForm.get('semestre3').value;
@@ -255,7 +312,7 @@ export class ActivityFormComponent implements OnInit{
       this.convenioModel.alocacoes.push(this.alocacao3);
     }
 
-    if(this.alocacaoExtra4) {
+    if (this.alocacaoExtra4) {
       this.alocacao4 = new Alocacao();
       this.alocacao4.ano = this.convenioForm.get('ano4').value;
       this.alocacao4.semestre = this.convenioForm.get('semestre4').value;
@@ -263,7 +320,7 @@ export class ActivityFormComponent implements OnInit{
       this.convenioModel.alocacoes.push(this.alocacao4);
     }
 
-    if(this.alocacaoExtra5) {
+    if (this.alocacaoExtra5) {
       this.alocacao5 = new Alocacao();
       this.alocacao5.ano = this.convenioForm.get('ano5').value;
       this.alocacao5.semestre = this.convenioForm.get('semestre5').value;
@@ -309,7 +366,7 @@ export class ActivityFormComponent implements OnInit{
     this.alocacao.horasSolicitadas = this.cursoForm.get('horasSolicitadas').value;
     this.cursoModel.alocacoes.push(this.alocacao);
 
-    if(this.alocacaoExtra) {
+    if (this.alocacaoExtra) {
       this.alocacao1 = new Alocacao();
       this.alocacao1.ano = this.cursoForm.get('ano1').value;
       this.alocacao1.semestre = this.cursoForm.get('semestre1').value;
@@ -317,7 +374,7 @@ export class ActivityFormComponent implements OnInit{
       this.cursoModel.alocacoes.push(this.alocacao1);
     }
 
-    if(this.alocacaoExtra2) {
+    if (this.alocacaoExtra2) {
       this.alocacao2 = new Alocacao();
       this.alocacao2.ano = this.cursoForm.get('ano2').value;
       this.alocacao2.semestre = this.cursoForm.get('semestre2').value;
@@ -325,7 +382,7 @@ export class ActivityFormComponent implements OnInit{
       this.cursoModel.alocacoes.push(this.alocacao2);
     }
 
-    if(this.alocacaoExtra3) {
+    if (this.alocacaoExtra3) {
       this.alocacao3 = new Alocacao();
       this.alocacao3.ano = this.cursoForm.get('ano3').value;
       this.alocacao3.semestre = this.cursoForm.get('semestre3').value;
@@ -333,7 +390,7 @@ export class ActivityFormComponent implements OnInit{
       this.cursoModel.alocacoes.push(this.alocacao3);
     }
 
-    if(this.alocacaoExtra4) {
+    if (this.alocacaoExtra4) {
       this.alocacao4 = new Alocacao();
       this.alocacao4.ano = this.cursoForm.get('ano4').value;
       this.alocacao4.semestre = this.cursoForm.get('semestre4').value;
@@ -341,7 +398,7 @@ export class ActivityFormComponent implements OnInit{
       this.cursoModel.alocacoes.push(this.alocacao4);
     }
 
-    if(this.alocacaoExtra5) {
+    if (this.alocacaoExtra5) {
       this.alocacao5 = new Alocacao();
       this.alocacao5.ano = this.cursoForm.get('ano5').value;
       this.alocacao5.semestre = this.cursoForm.get('semestre5').value;
@@ -390,7 +447,7 @@ export class ActivityFormComponent implements OnInit{
     this.alocacao.horasSolicitadas = this.regenciaForm.get('horasSolicitadas').value;
     this.regenciaModel.alocacoes.push(this.alocacao);
 
-    if(this.alocacaoExtra) {
+    if (this.alocacaoExtra) {
       this.alocacao1 = new Alocacao();
       this.alocacao1.ano = this.regenciaForm.get('ano1').value;
       this.alocacao1.semestre = this.regenciaForm.get('semestre1').value;
@@ -398,7 +455,7 @@ export class ActivityFormComponent implements OnInit{
       this.regenciaModel.alocacoes.push(this.alocacao1);
     }
 
-    if(this.alocacaoExtra2) {
+    if (this.alocacaoExtra2) {
       this.alocacao2 = new Alocacao();
       this.alocacao2.ano = this.regenciaForm.get('ano2').value;
       this.alocacao2.semestre = this.regenciaForm.get('semestre2').value;
@@ -406,7 +463,7 @@ export class ActivityFormComponent implements OnInit{
       this.regenciaModel.alocacoes.push(this.alocacao2);
     }
 
-    if(this.alocacaoExtra3) {
+    if (this.alocacaoExtra3) {
       this.alocacao3 = new Alocacao();
       this.alocacao3.ano = this.regenciaForm.get('ano3').value;
       this.alocacao3.semestre = this.regenciaForm.get('semestre3').value;
@@ -414,7 +471,7 @@ export class ActivityFormComponent implements OnInit{
       this.regenciaModel.alocacoes.push(this.alocacao3);
     }
 
-    if(this.alocacaoExtra4) {
+    if (this.alocacaoExtra4) {
       this.alocacao4 = new Alocacao();
       this.alocacao4.ano = this.regenciaForm.get('ano4').value;
       this.alocacao4.semestre = this.regenciaForm.get('semestre4').value;
@@ -422,7 +479,7 @@ export class ActivityFormComponent implements OnInit{
       this.regenciaModel.alocacoes.push(this.alocacao4);
     }
 
-    if(this.alocacaoExtra5) {
+    if (this.alocacaoExtra5) {
       this.alocacao5 = new Alocacao();
       this.alocacao5.ano = this.regenciaForm.get('ano5').value;
       this.alocacao5.semestre = this.regenciaForm.get('semestre5').value;
@@ -466,7 +523,7 @@ export class ActivityFormComponent implements OnInit{
         };
       };
       reader.readAsDataURL(imgFile.target.files[0]);
-      
+
       // Reset if duplicate image uploaded again
       this.fileInput.nativeElement.value = "";
     } else {
@@ -476,7 +533,7 @@ export class ActivityFormComponent implements OnInit{
 
   upload(atividadeId: number): void {
     this.progress = 0;
-  
+
     this.currentFile = this.selectedFiles.item(0);
     this.uploadService.upload(this.currentFile, atividadeId).subscribe(
       event => {
