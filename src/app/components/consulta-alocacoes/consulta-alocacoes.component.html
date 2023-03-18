@@ -6,7 +6,7 @@
         <div class="col">
           <mat-form-field appearance="outline" style="width: 100%">
             <mat-label>Semestre</mat-label>
-            <mat-select [(value)]="semestreSelecionado">
+            <mat-select [(value)]="semestreSelecionado" (selectionChange)="consultarAlocacoes()">
               <mat-option value="1">1o Semestre</mat-option>
               <mat-option value="2">2o Semestre</mat-option>
             </mat-select>
@@ -15,7 +15,7 @@
         <div class="col">
           <mat-form-field appearance="outline" style="width: 100%">
             <mat-label>Ano</mat-label>
-            <mat-select [(value)]="anoSelecionado">
+            <mat-select [(value)]="anoSelecionado" (selectionChange)="consultarAlocacoes()">
               <mat-option value="{{ ano }}">{{ ano }}</mat-option>
               <mat-option value="{{ ano+1 }}">{{ ano+1 }}</mat-option>
               <mat-option value="{{ ano+2 }}">{{ ano+2 }}</mat-option>
@@ -23,19 +23,15 @@
             </mat-select>
           </mat-form-field>
         </div>
-
-        <div class="col">
-          <button mat-raised-button color="primary" style="margin-right: 10px; height: 70%;" (click)="consultarAlocacoes()">Consultar Alocações</button>
-        </div>
-      </div>
-      
+      </div>      
+      <h2>{{semestreSelecionado}}º Semestre de {{anoSelecionado}}:</h2>
       <div *ngIf="consultaAlocacoes">
         <mat-card>
           <mat-card-content>
             <div class="row">
               <div class="col">
                 <mat-nav-list>
-                  <a mat-list-item><mat-icon>pie_chart</mat-icon>Cursos</a>
+                  <a mat-list-item matTooltip="São consideradas somente as horas aprovadas."><mat-icon>pie_chart</mat-icon>Cursos</a>
                   <a mat-list-item>
                     <mat-progress-bar class="example-margin" [color]="color" [mode]="mode" [value]="porcCursos"
                       [bufferValue]="bufferValue">
@@ -52,7 +48,7 @@
             <div class="row">
               <div class="col">
                 <mat-nav-list>
-                  <a mat-list-item><mat-icon>pie_chart</mat-icon>Regências</a>
+                  <a mat-list-item matTooltip="São consideradas somente as horas aprovadas."><mat-icon>pie_chart</mat-icon>Regências</a>
                   <a mat-list-item>
                     <mat-progress-bar class="example-margin" [color]="color" [mode]="mode" [value]="porcRegencias"
                       [bufferValue]="bufferValue">
@@ -69,7 +65,7 @@
             <div class="row">
               <div class="col">
                 <mat-nav-list>
-                  <a mat-list-item><mat-icon>pie_chart</mat-icon>Convênios</a>
+                  <a mat-list-item matTooltip="São consideradas somente as horas aprovadas."><mat-icon>pie_chart</mat-icon>Convênios</a>
                   <a mat-list-item>
                     <mat-progress-bar class="example-margin" [color]="color" [mode]="mode" [value]="porcConvenios"
                       [bufferValue]="bufferValue">

@@ -1,4 +1,4 @@
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { ConsultaAlocacoesService } from "./../../services/consulta-alocacoes/consulta-alocacoes.service";
 import { TotalHorasAprovadas } from "src/app/models/total-horas-aprovadas.model";
 import { ConsultaAlocacoes } from "src/app/models/consulta-alocacoes.model";
@@ -72,9 +72,9 @@ export class ConsultaAlocacoesComponent implements OnInit {
         this.conveniosConsulta = this.consultaAlocacoes[0];
         this.cursosConsulta = this.consultaAlocacoes[1];
         this.regenciasConsulta = this.consultaAlocacoes[2];
-        this.porcCursos = Math.round((this.cursosConsulta/this.max_hr_semestrais_curso)*100);
-        this.porcRegencias = Math.round((this.regenciasConsulta/this.max_hr_semestrais_regencia)*100);
-        this.porcConvenios = Math.round((this.conveniosConsulta/this.max_hr_semestrais_convenio)*100);
+        this.porcCursos = parseFloat(((this.cursosConsulta/this.max_hr_semestrais_curso)*100).toFixed(2));
+        this.porcRegencias = parseFloat(((this.regenciasConsulta/this.max_hr_semestrais_regencia)*100).toFixed(2));
+        this.porcConvenios = parseFloat(((this.conveniosConsulta/this.max_hr_semestrais_convenio)*100).toFixed(2));
       },
       (erro) => {
         console.log(erro);
