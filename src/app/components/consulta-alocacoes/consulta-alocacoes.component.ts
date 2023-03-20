@@ -49,6 +49,7 @@ export class ConsultaAlocacoesComponent implements OnInit {
       this.admin = true;
     } else {this.admin = false;}
     this.getParametrizacao();
+    this.consultarAlocacoes();
   }
 
   totalHorasAprovadas(docenteId: number): void {
