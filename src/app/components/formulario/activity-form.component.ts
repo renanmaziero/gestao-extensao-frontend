@@ -23,22 +23,32 @@ import { ToastrService } from 'ngx-toastr';
 export class ActivityFormComponent implements OnInit {
   parametrizacao: Parametrizacao;
   hoje = new Date();
-  minDateIni = new Date(this.hoje.getFullYear(), this.hoje.getMonth(), this.hoje.getDate() + 7);
-  maxDateIni = new Date(this.hoje.getFullYear(), this.hoje.getMonth() + 1, this.hoje.getDate());
-  minDateFim = new Date(this.hoje.getFullYear(), this.hoje.getMonth() + 1, this.hoje.getDate() + 7);
-  maxDateFim = new Date(this.hoje.getFullYear() + 2, this.hoje.getMonth(), this.hoje.getDate());
+  //minDateIni = new Date(this.hoje.getFullYear(), this.hoje.getMonth(), this.hoje.getDate());
+  //maxDateIni = new Date(this.hoje.getFullYear(), this.hoje.getMonth(), this.hoje.getDate());
+  minDateFim = new Date(this.hoje.getFullYear(), this.hoje.getMonth(), this.hoje.getDate()+1);
+  //maxDateFim = new Date(this.hoje.getFullYear() + 2, this.hoje.getMonth(), this.hoje.getDate());
+  dataEscolhida = new Date();
+
   @ViewChild('fileInput') fileInput: ElementRef;
   ano: number = new Date().getFullYear();
 
   hrSemanalConvenio: number;
   hrMensalConvenio: number;
+  hrTotalMinistradaCurso: number = 0;
+  hrTotalOutrasCurso: number = 0;
+  hrTotalMinistradaRegencia: number = 0;
+  hrTotalOutrasRegencia: number = 0;
 
   somaHrCurso: number = 0;
   somaHrRegencia: number = 0;
   somaHrConvenio: number = 0;
-  totalHrSolicitadas: number;
-  temp: number = 0;
+  totalHrSolicitadas: number = 0;
   tipoAtividade: string;
+  msgHr: string;
+  msgSucesso: string;
+  msgErro: string;
+  msgInfo: string;
+  msgSomaZero: string = 'Defina a quantidade de horas, depois distribua nas alocações.'
 
   convenioForm: FormGroup;
   cursoForm: FormGroup;
@@ -101,22 +111,56 @@ export class ActivityFormComponent implements OnInit {
     this.confereSoma();
   }
 
+  updateSomaHrCurso(){
+    this.somaHrCurso = this.hrTotalMinistradaCurso + this.hrTotalOutrasCurso;
+    this.confereSoma();
+  }
+
+  updateSomaHrRegencia(){
+    this.somaHrRegencia = this.hrTotalMinistradaRegencia + this.hrTotalOutrasRegencia;
+    this.confereSoma();
+  }
+
+  updateMsg(){
+    this.msgSucesso = 'Horas informadas batem com o total de ' + this.msgHr + 'h.';
+    this.msgErro = 'Total de horas informadas ultrapassam ' + this.msgHr + 'h.';
+    this.msgInfo = 'Você precisa distribuir ' + this.msgHr + 'h.';
+  }
+ 
   confereSoma() {
     if (this.tipoAtividade == 'Convênios') {
       this.totalHrSolicitadas = this.convenioForm.get('horasSolicitadas').value + this.convenioForm.get('horasSolicitadas1').value + this.convenioForm.get('horasSolicitadas2').value + this.convenioForm.get('horasSolicitadas3').value + this.convenioForm.get('horasSolicitadas4').value + this.convenioForm.get('horasSolicitadas5').value;
-      if (this.totalHrSolicitadas > this.somaHrConvenio) {
-        this.toast.error('Horas informadas ultrapassam total de ' + this.somaHrConvenio + 'h.');
-      }
+      this.msgHr = this.somaHrConvenio.toString();
+      this.updateMsg();
+      if (this.totalHrSolicitadas > this.somaHrConvenio && this.somaHrConvenio > 0) {this.toast.error(this.msgErro);}
+      if (this.totalHrSolicitadas == this.somaHrConvenio && this.totalHrSolicitadas > 0) {this.toast.success(this.msgSucesso);}
+      if (this.totalHrSolicitadas < this.somaHrConvenio) {this.toast.info(this.msgInfo);}
+      if(this.somaHrConvenio == 0){this.toast.info(this.msgSomaZero);}
     }
 
     if (this.tipoAtividade == 'Cursos') {
+      this.totalHrSolicitadas = this.cursoForm.get('horasSolicitadas').value + this.cursoForm.get('horasSolicitadas1').value + this.cursoForm.get('horasSolicitadas2').value + this.cursoForm.get('horasSolicitadas3').value + this.cursoForm.get('horasSolicitadas4').value + this.cursoForm.get('horasSolicitadas5').value;
+      this.msgHr = this.somaHrCurso.toString();
+      this.updateMsg();
+      if (this.totalHrSolicitadas > this.somaHrCurso && this.somaHrCurso > 0) {this.toast.error(this.msgErro);}
+      if (this.totalHrSolicitadas == this.somaHrCurso && this.totalHrSolicitadas > 0) {this.toast.success(this.msgSucesso);}
+      if (this.totalHrSolicitadas < this.somaHrCurso) {this.toast.info(this.msgInfo);}
+      if(this.somaHrCurso == 0){this.toast.info(this.msgSomaZero);}
     }
 
     if (this.tipoAtividade == 'Regência Concomitante') {
+      this.totalHrSolicitadas = this.regenciaForm.get('horasSolicitadas').value + this.regenciaForm.get('horasSolicitadas1').value + this.regenciaForm.get('horasSolicitadas2').value + this.regenciaForm.get('horasSolicitadas3').value + this.regenciaForm.get('horasSolicitadas4').value + this.regenciaForm.get('horasSolicitadas5').value;
+      this.msgHr = this.somaHrRegencia.toString();
+      this.updateMsg();
+      if (this.totalHrSolicitadas > this.somaHrRegencia && this.somaHrRegencia > 0) {this.toast.error(this.msgErro);}
+      if (this.totalHrSolicitadas == this.somaHrRegencia && this.totalHrSolicitadas > 0) {this.toast.success(this.msgSucesso);}
+      if (this.totalHrSolicitadas < this.somaHrRegencia) {this.toast.info(this.msgInfo);}
+      if(this.somaHrRegencia == 0){this.toast.info(this.msgSomaZero);}
     }
   }
 
   resetHrExtra(extra: number) {
+    //this.regenciaForm.markAllAsTouched()
     this.convenioForm.get('horasSolicitadas' + extra).setValue(0);
     this.cursoForm.get('horasSolicitadas' + extra).setValue(0);
     this.regenciaForm.get('horasSolicitadas' + extra).setValue(0);
@@ -132,6 +176,19 @@ export class ActivityFormComponent implements OnInit {
   definetipoAtividade(tipo: string): void {
     this.tipoAtividade = tipo;
     this.toast.success(tipo);
+    if (this.tipoAtividade == 'Convênios') {this.cursoForm.reset(); this.regenciaForm.reset();}
+    if (this.tipoAtividade == 'Cursos') {this.convenioForm.reset(); this.regenciaForm.reset();}
+    if (this.tipoAtividade == 'Regência Concomitante') {this.convenioForm.reset(); this.cursoForm.reset();}
+  }
+
+  setRequired(){
+    if (this.cursoForm.get('participacao').value == 'COORDENACAO'){
+      this.cursoForm.get('totalHorasMinistradas').setValidators([Validators.max(this.max_hr_ministradas_curso)]);
+      this.cursoForm.get('totalHorasMinistradas').updateValueAndValidity();
+    } else {
+      this.cursoForm.get('totalHorasMinistradas').setValidators([Validators.required, Validators.max(this.max_hr_ministradas_curso), Validators.min(1)]);
+      this.cursoForm.get('totalHorasMinistradas').updateValueAndValidity();
+    }
   }
 
   createForm(): void {
