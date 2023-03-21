@@ -24,7 +24,7 @@
           </mat-form-field>
         </div>
       </div>
-      <h2>{{semestreSelecionado}}º Semestre de {{anoSelecionado}}:</h2>
+      <h2>{{semestreSelecionado}}º Semestre de {{anoSelecionado}}:</h2><mat-icon *ngIf="loading$ | async"><mat-spinner color="accent" diameter="20"> </mat-spinner> </mat-icon>
       <div *ngIf="consultaAlocacoes">
         <div class="row">
 

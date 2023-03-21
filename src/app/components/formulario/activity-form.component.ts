@@ -18,6 +18,7 @@ import { ConsultaAlocacoes } from 'src/app/models/consulta-alocacoes.model';
 import { ConsultaAlocacoesService } from './../../services/consulta-alocacoes/consulta-alocacoes.service';
 import { TotalHorasAprovadas } from "src/app/models/total-horas-aprovadas.model";
 import { TokenStorageService } from 'src/app/core/auth/token-storage.service';
+import { LoaderService } from 'src/app/services/loader.service';
 
 @Component({
   selector: 'app-activity-form',
@@ -55,7 +56,7 @@ export class ActivityFormComponent implements OnInit {
   msgErro: string;
   msgInfo: string;
   msgSomaZero: string = 'Defina a quantidade de horas, depois distribua nas alocações.'
-
+  loading$ = this.loader.loading$;
   formEscolhido: FormGroup; 
   convenioForm: FormGroup;
   cursoForm: FormGroup;
@@ -114,7 +115,7 @@ export class ActivityFormComponent implements OnInit {
   @ViewChild(FormGroupDirective, { static: true }) form: FormGroupDirective;
 
   // tslint:disable-next-line: max-line-length
-  constructor(private snackBar: MatSnackBar, private fb: FormBuilder, private convenioService: ConvenioService,
+  constructor(private snackBar: MatSnackBar, private fb: FormBuilder, private convenioService: ConvenioService, private loader: LoaderService,
     private cursoService: CursoService, private consultaAlocacoesService: ConsultaAlocacoesService, private tokenStorage: TokenStorageService,
     private uploadService: UploadArquivoService, private atividadeService: AtividadeService, private parametrizacaoService: ParametrizacaoService, private router: Router, private toast: ToastrService) { }
 

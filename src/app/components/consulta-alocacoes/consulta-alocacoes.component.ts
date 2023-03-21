@@ -9,6 +9,7 @@ import {ProgressBarMode} from '@angular/material/progress-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { Parametrizacao } from 'src/app/models/parametrizacao.model';
 import { ParametrizacaoService } from './../../services/parametrizacao/parametrizacao.service';
+import { LoaderService } from 'src/app/services/loader.service';
 
 @Component({
   selector: "app-consulta-alocacoes",
@@ -16,6 +17,7 @@ import { ParametrizacaoService } from './../../services/parametrizacao/parametri
   styleUrls: ["./consulta-alocacoes.component.scss"],
 })
 export class ConsultaAlocacoesComponent implements OnInit {
+  loading$ = this.loader.loading$;
   consultaAlocacoes = new ConsultaAlocacoes();
   alocacoes: MatTableDataSource<ConsultaAlocacoes>;
   conveniosConsulta: number = 0;
@@ -42,7 +44,7 @@ export class ConsultaAlocacoesComponent implements OnInit {
   idLogado: string = this.tokenStorage.getUserId();
   perfil: string[] = this.tokenStorage.getAuthorities();
 
-  constructor(private consultaAlocacoesService: ConsultaAlocacoesService, private fbuilder: FormBuilder,private tokenStorage: TokenStorageService,private parametrizacaoService: ParametrizacaoService,) {}
+  constructor(private consultaAlocacoesService: ConsultaAlocacoesService, private fbuilder: FormBuilder,private tokenStorage: TokenStorageService,private parametrizacaoService: ParametrizacaoService,private loader: LoaderService) {}
 
   ngOnInit(): void {
     if(this.perfil.includes('ROLE_ADMIN')){
