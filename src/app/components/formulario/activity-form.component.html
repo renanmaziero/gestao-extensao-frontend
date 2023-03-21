@@ -1018,7 +1018,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Semestre</mat-label>
-                    <mat-select formControlName="semestre" (click)="confereSoma()" required>
+                    <mat-select formControlName="semestre" (click)="confereSoma()" (selectionChange)="hrRestantes(0)" required>
                       <mat-option value="1">1o Semestre</mat-option>
                       <mat-option value="2">2o Semestre</mat-option>
                     </mat-select>
@@ -1027,7 +1027,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Ano</mat-label>
-                    <mat-select formControlName="ano" (click)="confereSoma()" required>
+                    <mat-select formControlName="ano" (click)="confereSoma()" (selectionChange)="hrRestantes(0)" required>
                       <mat-option value="{{ ano }}">{{ ano }}</mat-option>
                       <mat-option value="{{ ano+1 }}">{{ ano+1 }}</mat-option>
                       <mat-option value="{{ ano+2 }}">{{ ano+2 }}</mat-option>
@@ -1035,6 +1035,11 @@
                     </mat-select>
                   </mat-form-field>
                 </div>
+
+                <div class="hr-disponiveis">
+                  <mat-icon matBadge="{{max_hr_semestrais_regencia-extra[2]}}" matBadgeColor="accent" matTooltip="Horas disponíveis nesse semestre para {{tipoAtividade}}">assessment</mat-icon>
+                </div>
+
                 <div class="col">
                   <mat-form-field class="full-width" style="width: 80%; margin-right: 5px;" appearance="outline">
                     <mat-label>Horas</mat-label>
@@ -1056,7 +1061,7 @@
                   <div class="col">
                     <mat-form-field class="full-width" appearance="outline">
                       <mat-label>Semestre</mat-label>
-                      <mat-select formControlName="semestre1" (click)="confereSoma()" required>
+                      <mat-select formControlName="semestre1" (click)="confereSoma()" (selectionChange)="hrRestantes(1)" required>
                         <mat-option value="1">1o Semestre</mat-option>
                         <mat-option value="2">2o Semestre</mat-option>
                       </mat-select>
@@ -1065,7 +1070,7 @@
                   <div class="col">
                     <mat-form-field class="full-width" appearance="outline">
                       <mat-label>Ano</mat-label>
-                      <mat-select formControlName="ano1" (click)="confereSoma()" required>
+                      <mat-select formControlName="ano1" (click)="confereSoma()" (selectionChange)="hrRestantes(1)" required>
                         <mat-option value="{{ ano }}">{{ ano }}</mat-option>
                         <mat-option value="{{ ano+1 }}">{{ ano+1 }}</mat-option>
                         <mat-option value="{{ ano+2 }}">{{ ano+2 }}</mat-option>
@@ -1073,6 +1078,11 @@
                       </mat-select>
                     </mat-form-field>
                   </div>
+
+                  <div class="hr-disponiveis">
+                    <mat-icon matBadge="{{max_hr_semestrais_regencia-extra1[2]}}" matBadgeColor="accent" matTooltip="Horas disponíveis nesse semestre para {{tipoAtividade}}">assessment</mat-icon>
+                  </div>
+
                   <div class="col">
                     <mat-form-field class="full-width" style="width: 80%; margin-right: 5px;" appearance="outline">
                       <mat-label>Horas</mat-label>
@@ -1098,7 +1108,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Semestre</mat-label>
-                    <mat-select formControlName="semestre2" (click)="confereSoma()" required>
+                    <mat-select formControlName="semestre2" (click)="confereSoma()" (selectionChange)="hrRestantes(2)" required>
                       <mat-option value="1">1o Semestre</mat-option>
                       <mat-option value="2">2o Semestre</mat-option>
                     </mat-select>
@@ -1107,7 +1117,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Ano</mat-label>
-                    <mat-select formControlName="ano2" (click)="confereSoma()" required>
+                    <mat-select formControlName="ano2" (click)="confereSoma()" (selectionChange)="hrRestantes(2)" required>
                       <mat-option value="{{ ano }}">{{ ano }}</mat-option>
                       <mat-option value="{{ ano+1 }}">{{ ano+1 }}</mat-option>
                       <mat-option value="{{ ano+2 }}">{{ ano+2 }}</mat-option>
@@ -1115,6 +1125,11 @@
                     </mat-select>
                   </mat-form-field>
                 </div>
+
+                <div class="hr-disponiveis">
+                  <mat-icon matBadge="{{max_hr_semestrais_regencia-extra2[2]}}" matBadgeColor="accent" matTooltip="Horas disponíveis nesse semestre para {{tipoAtividade}}">assessment</mat-icon>
+                </div>
+
                 <div class="col">
                   <mat-form-field class="full-width" style="width: 80%; margin-right: 5px;" appearance="outline">
                     <mat-label>Horas</mat-label>
@@ -1139,7 +1154,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Semestre</mat-label>
-                    <mat-select formControlName="semestre3" (click)="confereSoma()" required>
+                    <mat-select formControlName="semestre3" (click)="confereSoma()" (selectionChange)="hrRestantes(3)" required>
                       <mat-option value="1">1o Semestre</mat-option>
                       <mat-option value="2">2o Semestre</mat-option>
                     </mat-select>
@@ -1148,7 +1163,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Ano</mat-label>
-                    <mat-select formControlName="ano3" (click)="confereSoma()" required>
+                    <mat-select formControlName="ano3" (click)="confereSoma()" (selectionChange)="hrRestantes(3)" required>
                       <mat-option value="{{ ano }}">{{ ano }}</mat-option>
                       <mat-option value="{{ ano+1 }}">{{ ano+1 }}</mat-option>
                       <mat-option value="{{ ano+2 }}">{{ ano+2 }}</mat-option>
@@ -1156,6 +1171,11 @@
                     </mat-select>
                   </mat-form-field>
                 </div>
+
+                <div class="hr-disponiveis">
+                  <mat-icon matBadge="{{max_hr_semestrais_regencia-extra3[2]}}" matBadgeColor="accent" matTooltip="Horas disponíveis nesse semestre para {{tipoAtividade}}">assessment</mat-icon>
+                </div>
+
                 <div class="col">
                   <mat-form-field class="full-width" style="width: 80%; margin-right: 5px;" appearance="outline">
                     <mat-label>Horas</mat-label>
@@ -1180,7 +1200,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Semestre</mat-label>
-                    <mat-select formControlName="semestre4" (click)="confereSoma()" required>
+                    <mat-select formControlName="semestre4" (click)="confereSoma()" (selectionChange)="hrRestantes(4)" required>
                       <mat-option value="1">1o Semestre</mat-option>
                       <mat-option value="2">2o Semestre</mat-option>
                     </mat-select>
@@ -1189,7 +1209,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Ano</mat-label>
-                    <mat-select formControlName="ano4" (click)="confereSoma()" required>
+                    <mat-select formControlName="ano4" (click)="confereSoma()" (selectionChange)="hrRestantes(4)" required>
                       <mat-option value="{{ ano }}">{{ ano }}</mat-option>
                       <mat-option value="{{ ano+1 }}">{{ ano+1 }}</mat-option>
                       <mat-option value="{{ ano+2 }}">{{ ano+2 }}</mat-option>
@@ -1197,6 +1217,11 @@
                     </mat-select>
                   </mat-form-field>
                 </div>
+
+                <div class="hr-disponiveis">
+                  <mat-icon matBadge="{{max_hr_semestrais_regencia-extra4[2]}}" matBadgeColor="accent" matTooltip="Horas disponíveis nesse semestre para {{tipoAtividade}}">assessment</mat-icon>
+                </div>
+
                 <div class="col">
                   <mat-form-field class="full-width" style="width: 80%; margin-right: 5px;" appearance="outline">
                     <mat-label>Horas</mat-label>
@@ -1221,7 +1246,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Semestre</mat-label>
-                    <mat-select formControlName="semestre5" (click)="confereSoma()" required>
+                    <mat-select formControlName="semestre5" (click)="confereSoma()" (selectionChange)="hrRestantes(5)" required>
                       <mat-option value="1">1o Semestre</mat-option>
                       <mat-option value="2">2o Semestre</mat-option>
                     </mat-select>
@@ -1230,7 +1255,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Ano</mat-label>
-                    <mat-select formControlName="ano5" (click)="confereSoma()" required>
+                    <mat-select formControlName="ano5" (click)="confereSoma()" (selectionChange)="hrRestantes(5)" required>
                       <mat-option value="{{ ano }}">{{ ano }}</mat-option>
                       <mat-option value="{{ ano+1 }}">{{ ano+1 }}</mat-option>
                       <mat-option value="{{ ano+2 }}">{{ ano+2 }}</mat-option>
@@ -1238,6 +1263,11 @@
                     </mat-select>
                   </mat-form-field>
                 </div>
+
+                <div class="hr-disponiveis">
+                  <mat-icon matBadge="{{max_hr_semestrais_regencia-extra5[2]}}" matBadgeColor="accent" matTooltip="Horas disponíveis nesse semestre para {{tipoAtividade}}">assessment</mat-icon>
+                </div>
+
                 <div class="col">
                   <mat-form-field class="full-width" style="width: 80%; margin-right: 5px;" appearance="outline">
                     <mat-label>Horas</mat-label>
