@@ -131,7 +131,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Semestre</mat-label>
-                    <mat-select formControlName="semestre" (click)="confereSoma()" required>
+                    <mat-select formControlName="semestre" (selectionChange)="hrRestantes(0)" (click)="confereSoma()" required>
                       <mat-option value="1">1o Semestre</mat-option>
                       <mat-option value="2">2o Semestre</mat-option>
                     </mat-select>
@@ -140,7 +140,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Ano</mat-label>
-                    <mat-select formControlName="ano" (click)="confereSoma()" required>
+                    <mat-select formControlName="ano" (selectionChange)="hrRestantes(0)" (click)="confereSoma()" required>
                       <mat-option value="{{ ano }}">{{ ano }}</mat-option>
                       <mat-option value="{{ ano+1 }}">{{ ano+1 }}</mat-option>
                       <mat-option value="{{ ano+2 }}">{{ ano+2 }}</mat-option>
@@ -148,20 +148,26 @@
                     </mat-select>
                   </mat-form-field>
                 </div>
+                
+                <div class="hr-disponiveis">
+                  <mat-icon matBadge="{{max_hr_semestrais_convenio-extra[0]}}" matBadgeColor="accent" matTooltip="Horas disponíveis nesse semestre para Convênios">assessment</mat-icon>
+                </div>
+                
                 <div class="col">
-                  <mat-form-field class="full-width" style="width: 80%; margin-right: 5px;" appearance="outline">
+                  <mat-form-field class="full-width" style="width: 80%; margin-right: 5px;" appearance="outline">                     
                     <mat-label>Horas</mat-label>
                     <input matInput placeholder="Horas" type="number" (keyup)="confereSoma()" (change)="confereSoma()"
-                      formControlName="horasSolicitadas" required />
-                    <mat-error *ngIf="convenioForm.controls['horasSolicitadas'].hasError('max')">Máximo são
-                      <strong>{{max_hr_semestrais_convenio}}h/semestre.</strong>
+                      formControlName="horasSolicitadas" required /> 
+                    <mat-error *ngIf="convenioForm.controls['horasSolicitadas'].hasError('max')">Máximo são <strong>{{max_hr_semestrais_convenio}}h/semestre.</strong>
                     </mat-error>
                   </mat-form-field>
+                  
                   <button mat-button type="button" mat-icon-button (click)="alocacaoExtra = !alocacaoExtra"
                     *ngIf="!alocacaoExtra" [disabled]="convenioForm.controls.horasSolicitadas.errors?.max">
                     <mat-icon>add_circle</mat-icon>
                   </button>
                 </div>
+                
               </div>
 
               <!-- Alocação Extra -->
@@ -169,7 +175,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Semestre</mat-label>
-                    <mat-select formControlName="semestre1" (click)="confereSoma()" required>
+                    <mat-select formControlName="semestre1" (click)="confereSoma()" (selectionChange)="hrRestantes(1)" required>
                       <mat-option value="1">1o Semestre</mat-option>
                       <mat-option value="2">2o Semestre</mat-option>
                     </mat-select>
@@ -178,7 +184,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Ano</mat-label>
-                    <mat-select formControlName="ano1" (click)="confereSoma()" required>
+                    <mat-select formControlName="ano1" (click)="confereSoma()" (selectionChange)="hrRestantes(1)" required>
                       <mat-option value="{{ ano }}">{{ ano }}</mat-option>
                       <mat-option value="{{ ano+1 }}">{{ ano+1 }}</mat-option>
                       <mat-option value="{{ ano+2 }}">{{ ano+2 }}</mat-option>
@@ -186,12 +192,17 @@
                     </mat-select>
                   </mat-form-field>
                 </div>
+
+                <div class="hr-disponiveis">
+                  <mat-icon matBadge="{{max_hr_semestrais_convenio-extra1[0]}}" matBadgeColor="accent" matTooltip="Horas disponíveis nesse semestre para Convênios">assessment</mat-icon>
+                </div>
+
                 <div class="col">
                   <mat-form-field class="full-width" style="width: 80%; margin-right: 5px;" appearance="outline">
                     <mat-label>Horas</mat-label>
                     <input matInput min="1" placeholder="Horas" type="number" (keyup)="confereSoma()"
                       (change)="confereSoma()" formControlName="horasSolicitadas1" required />
-                    <mat-error *ngIf="convenioForm.controls['horasSolicitadas1'].hasError('max')">
+                    <mat-error *ngIf="convenioForm.controls['horasSolicitadas1'].hasError('max')"> 
                       Máximo são <strong>60h/semestre.</strong>
                     </mat-error>
                   </mat-form-field>
@@ -211,7 +222,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Semestre</mat-label>
-                    <mat-select formControlName="semestre2" (click)="confereSoma()" required>
+                    <mat-select formControlName="semestre2" (click)="confereSoma()" (selectionChange)="hrRestantes(2)" required>
                       <mat-option value="1">1o Semestre</mat-option>
                       <mat-option value="2">2o Semestre</mat-option>
                     </mat-select>
@@ -220,7 +231,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Ano</mat-label>
-                    <mat-select formControlName="ano2" (click)="confereSoma()" required>
+                    <mat-select formControlName="ano2" (click)="confereSoma()" (selectionChange)="hrRestantes(2)" required>
                       <mat-option value="{{ ano }}">{{ ano }}</mat-option>
                       <mat-option value="{{ ano+1 }}">{{ ano+1 }}</mat-option>
                       <mat-option value="{{ ano+2 }}">{{ ano+2 }}</mat-option>
@@ -228,11 +239,16 @@
                     </mat-select>
                   </mat-form-field>
                 </div>
+
+                <div class="hr-disponiveis">
+                  <mat-icon matBadge="{{max_hr_semestrais_convenio-extra2[0]}}" matBadgeColor="accent" matTooltip="Horas disponíveis nesse semestre para Convênios">assessment</mat-icon>
+                </div>
+
                 <div class="col">
                   <mat-form-field class="full-width" style="width: 80%; margin-right: 5px;" appearance="outline">
                     <mat-label>Horas</mat-label>
                     <input matInput min="1" placeholder="Horas" type="number" formControlName="horasSolicitadas2"
-                      (keyup)="confereSoma()" (change)="confereSoma()" required />
+                      (keyup)="confereSoma()" (change)="confereSoma()" required /> 
                     <mat-error *ngIf="convenioForm.controls['horasSolicitadas2'].hasError('max')">
                       Máximo são <strong>60h/semestre.</strong>
                     </mat-error>
@@ -253,7 +269,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Semestre</mat-label>
-                    <mat-select formControlName="semestre3" (click)="confereSoma()" required>
+                    <mat-select formControlName="semestre3" (click)="confereSoma(3)" (selectionChange)="hrRestantes(3)" required>
                       <mat-option value="1">1o Semestre</mat-option>
                       <mat-option value="2">2o Semestre</mat-option>
                     </mat-select>
@@ -262,7 +278,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Ano</mat-label>
-                    <mat-select formControlName="ano3" (click)="confereSoma()" required>
+                    <mat-select formControlName="ano3" (click)="confereSoma()" (selectionChange)="hrRestantes(3)" required>
                       <mat-option value="{{ ano }}">{{ ano }}</mat-option>
                       <mat-option value="{{ ano+1 }}">{{ ano+1 }}</mat-option>
                       <mat-option value="{{ ano+2 }}">{{ ano+2 }}</mat-option>
@@ -270,11 +286,16 @@
                     </mat-select>
                   </mat-form-field>
                 </div>
+
+                <div class="hr-disponiveis">
+                  <mat-icon matBadge="{{max_hr_semestrais_convenio-extra3[0]}}" matBadgeColor="accent" matTooltip="Horas disponíveis nesse semestre para Convênios">assessment</mat-icon>
+                </div>
+
                 <div class="col">
                   <mat-form-field class="full-width" style="width: 80%; margin-right: 5px;" appearance="outline">
                     <mat-label>Horas</mat-label>
                     <input matInput min="1" placeholder="Horas" type="number" formControlName="horasSolicitadas3"
-                      (keyup)="confereSoma()" (change)="confereSoma()" required />
+                      (keyup)="confereSoma()" (change)="confereSoma()" required /> 
                     <mat-error *ngIf="convenioForm.controls['horasSolicitadas3'].hasError('max')">
                       Máximo são <strong>60h/semestre.</strong>
                     </mat-error>
@@ -295,7 +316,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Semestre</mat-label>
-                    <mat-select formControlName="semestre4" (click)="confereSoma()" required>
+                    <mat-select formControlName="semestre4" (click)="confereSoma()" (selectionChange)="hrRestantes(4)" required>
                       <mat-option value="1">1o Semestre</mat-option>
                       <mat-option value="2">2o Semestre</mat-option>
                     </mat-select>
@@ -304,7 +325,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Ano</mat-label>
-                    <mat-select formControlName="ano4" (click)="confereSoma()" required>
+                    <mat-select formControlName="ano4" (click)="confereSoma()" (selectionChange)="hrRestantes(4)" required>
                       <mat-option value="{{ ano }}">{{ ano }}</mat-option>
                       <mat-option value="{{ ano+1 }}">{{ ano+1 }}</mat-option>
                       <mat-option value="{{ ano+2 }}">{{ ano+2 }}</mat-option>
@@ -312,11 +333,16 @@
                     </mat-select>
                   </mat-form-field>
                 </div>
+
+                <div class="hr-disponiveis">
+                  <mat-icon matBadge="{{max_hr_semestrais_convenio-extra4[0]}}" matBadgeColor="accent" matTooltip="Horas disponíveis nesse semestre para Convênios">assessment</mat-icon>
+                </div>
+
                 <div class="col">
                   <mat-form-field class="full-width" style="width: 80%; margin-right: 5px;" appearance="outline">
                     <mat-label>Horas</mat-label>
                     <input matInput min="1" placeholder="Horas" type="number" formControlName="horasSolicitadas4"
-                      (keyup)="confereSoma()" (change)="confereSoma()" required />
+                      (keyup)="confereSoma()" (change)="confereSoma()" required /> 
                     <mat-error *ngIf="convenioForm.controls['horasSolicitadas4'].hasError('max')">
                       Máximo são <strong>60h/semestre.</strong>
                     </mat-error>
@@ -337,7 +363,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Semestre</mat-label>
-                    <mat-select formControlName="semestre5" (click)="confereSoma()" required>
+                    <mat-select formControlName="semestre5" (click)="confereSoma()" (selectionChange)="hrRestantes(5)" required>
                       <mat-option value="1">1o Semestre</mat-option>
                       <mat-option value="2">2o Semestre</mat-option>
                     </mat-select>
@@ -346,7 +372,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Ano</mat-label>
-                    <mat-select formControlName="ano5" (click)="confereSoma()" required>
+                    <mat-select formControlName="ano5" (click)="confereSoma()" (selectionChange)="hrRestantes(5)" required>
                       <mat-option value="{{ ano }}">{{ ano }}</mat-option>
                       <mat-option value="{{ ano+1 }}">{{ ano+1 }}</mat-option>
                       <mat-option value="{{ ano+2 }}">{{ ano+2 }}</mat-option>
@@ -354,11 +380,16 @@
                     </mat-select>
                   </mat-form-field>
                 </div>
+
+                <div class="hr-disponiveis">
+                  <mat-icon matBadge="{{max_hr_semestrais_convenio-extra5[0]}}" matBadgeColor="accent" matTooltip="Horas disponíveis nesse semestre para Convênios">assessment</mat-icon>
+                </div>
+
                 <div class="col">
                   <mat-form-field class="full-width" style="width: 80%; margin-right: 5px;" appearance="outline">
                     <mat-label>Horas</mat-label>
                     <input matInput min="1" placeholder="Horas" type="number" formControlName="horasSolicitadas5"
-                      (keyup)="confereSoma()" (change)="confereSoma()" required />
+                      (keyup)="confereSoma()" (change)="confereSoma()" required /> 
                     <mat-error *ngIf="convenioForm.controls['horasSolicitadas5'].hasError('max')">
                       Máximo são <strong>60h/semestre.</strong>
                     </mat-error>

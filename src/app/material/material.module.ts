@@ -26,6 +26,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MAT_DATE_LOCALE} from '@angular/material/core';
+import {MatBadgeModule} from '@angular/material/badge';
 
 const MODULES = [
   MatToolbarModule,
@@ -51,7 +52,8 @@ const MODULES = [
   MatNativeDateModule,
   MatProgressBarModule,
   MatSlideToggleModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatBadgeModule
 ];
 
 @NgModule({

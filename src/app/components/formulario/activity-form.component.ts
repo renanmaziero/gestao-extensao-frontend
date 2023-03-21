@@ -14,6 +14,10 @@ import { AtividadeService } from 'src/app/services/atividade/atividade.service';
 import { Parametrizacao } from 'src/app/models/parametrizacao.model';
 import { ParametrizacaoService } from 'src/app/services/parametrizacao/parametrizacao.service';
 import { ToastrService } from 'ngx-toastr';
+import { ConsultaAlocacoes } from 'src/app/models/consulta-alocacoes.model';
+import { ConsultaAlocacoesService } from './../../services/consulta-alocacoes/consulta-alocacoes.service';
+import { TotalHorasAprovadas } from "src/app/models/total-horas-aprovadas.model";
+import { TokenStorageService } from 'src/app/core/auth/token-storage.service';
 
 @Component({
   selector: 'app-activity-form',
@@ -22,6 +26,8 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ActivityFormComponent implements OnInit {
   parametrizacao: Parametrizacao;
+  totalHorasAlocacoes = new TotalHorasAprovadas();  
+  consultaAlocacoes = new ConsultaAlocacoes();
   hoje = new Date();
   //minDateIni = new Date(this.hoje.getFullYear(), this.hoje.getMonth(), this.hoje.getDate());
   //maxDateIni = new Date(this.hoje.getFullYear(), this.hoje.getMonth(), this.hoje.getDate());
@@ -50,6 +56,7 @@ export class ActivityFormComponent implements OnInit {
   msgInfo: string;
   msgSomaZero: string = 'Defina a quantidade de horas, depois distribua nas alocações.'
 
+  formEscolhido: FormGroup; 
   convenioForm: FormGroup;
   cursoForm: FormGroup;
   regenciaForm: FormGroup;
@@ -75,6 +82,13 @@ export class ActivityFormComponent implements OnInit {
   alocacao4: Alocacao;
   alocacao5: Alocacao;
 
+  extra: number[] = new Array(0,0,0);
+  extra1: number[] = new Array(0,0,0);
+  extra2: number[] = new Array(0,0,0);
+  extra3: number[] = new Array(0,0,0);
+  extra4: number[] = new Array(0,0,0);
+  extra5: number[] = new Array(0,0,0);
+
   panelOpenState = false;
 
   max_hr_semanais_convenio: number;
@@ -84,11 +98,24 @@ export class ActivityFormComponent implements OnInit {
   max_hr_semestrais_curso: number;
   max_hr_semestrais_regencia: number;
 
+  conveniosConsulta: number = 0;
+  cursosConsulta: number = 0;
+  regenciasConsulta: number = 0;
+
+  porcCursos:number = 0;
+  porcConvenios:number = 0;
+  porcRegencias:number = 0;
+
+  semestreSelecionado: number = 1;
+  anoSelecionado: number = this.ano;
+
+  idLogado: string = this.tokenStorage.getUserId();
+
   @ViewChild(FormGroupDirective, { static: true }) form: FormGroupDirective;
 
   // tslint:disable-next-line: max-line-length
   constructor(private snackBar: MatSnackBar, private fb: FormBuilder, private convenioService: ConvenioService,
-    private cursoService: CursoService,
+    private cursoService: CursoService, private consultaAlocacoesService: ConsultaAlocacoesService, private tokenStorage: TokenStorageService,
     private uploadService: UploadArquivoService, private atividadeService: AtividadeService, private parametrizacaoService: ParametrizacaoService, private router: Router, private toast: ToastrService) { }
 
   ngOnInit(): void {
@@ -125,6 +152,64 @@ export class ActivityFormComponent implements OnInit {
     this.msgSucesso = 'Horas informadas batem com o total de ' + this.msgHr + 'h.';
     this.msgErro = 'Total de horas informadas ultrapassam ' + this.msgHr + 'h.';
     this.msgInfo = 'Você precisa distribuir ' + this.msgHr + 'h.';
+  }
+
+  consultaHrAlocacoes(extra: number) {
+    this.consultaAlocacoesService.consultarAlocacoes(parseInt(this.idLogado), this.semestreSelecionado, this.anoSelecionado).subscribe(
+      (data) => {
+        this.consultaAlocacoes = data;
+        this.conveniosConsulta = this.consultaAlocacoes[0];
+        this.cursosConsulta = this.consultaAlocacoes[1];
+        this.regenciasConsulta = this.consultaAlocacoes[2];
+        this.porcCursos = parseFloat(((this.cursosConsulta/this.max_hr_semestrais_curso)*100).toFixed(2));
+        this.porcRegencias = parseFloat(((this.regenciasConsulta/this.max_hr_semestrais_regencia)*100).toFixed(2));
+        this.porcConvenios = parseFloat(((this.conveniosConsulta/this.max_hr_semestrais_convenio)*100).toFixed(2));
+
+        //horas disponiveis 
+        switch (extra) {
+          case 0:
+            this.extra[0] = this.conveniosConsulta;
+            this.extra[1] = this.cursosConsulta;
+            this.extra[2] = this.regenciasConsulta;
+            
+            break;
+            
+          case 1:
+            this.extra1[0] = this.conveniosConsulta;
+            this.extra1[1] = this.cursosConsulta;
+            this.extra1[2] = this.regenciasConsulta;        
+            break;    
+          
+          case 2:
+            this.extra2[0] = this.conveniosConsulta;
+            this.extra2[1] = this.cursosConsulta;
+            this.extra2[2] = this.regenciasConsulta;       
+            break;
+          
+          case 3:
+            this.extra3[0] = this.conveniosConsulta;
+            this.extra3[1] = this.cursosConsulta;
+            this.extra3[2] = this.regenciasConsulta;        
+            break;
+            
+          case 4:
+            this.extra4[0] = this.conveniosConsulta;
+            this.extra4[1] = this.cursosConsulta;
+            this.extra4[2] = this.regenciasConsulta;        
+            break;
+    
+          case 5:
+            this.extra5[0] = this.conveniosConsulta;
+            this.extra5[1] = this.cursosConsulta;
+            this.extra5[2] = this.regenciasConsulta;        
+            break;
+        }
+
+      },
+      (erro) => {
+        console.log(erro);
+      }
+    );
   }
  
   confereSoma() {
@@ -171,6 +256,47 @@ export class ActivityFormComponent implements OnInit {
     this.cursoForm.get('ano' + extra).setValue(this.ano.toString());
     this.regenciaForm.get('ano' + extra).setValue(this.ano.toString());
     this.confereSoma();
+  }
+
+  hrRestantes(extra: number){
+    if (this.tipoAtividade == 'Convênios') {this.formEscolhido = this.convenioForm;}
+    if (this.tipoAtividade == 'Cursos') {this.formEscolhido = this.cursoForm;}
+    if (this.tipoAtividade == 'Regência Concomitante') {this.formEscolhido = this.regenciaForm;}
+
+    switch (extra) {
+      case 0:
+        this.semestreSelecionado = this.formEscolhido.get('semestre').value;
+        this.anoSelecionado = this.formEscolhido.get('ano').value;
+        break;
+        
+      case 1:
+        this.semestreSelecionado = this.formEscolhido.get('semestre' + extra).value;
+        this.anoSelecionado = this.formEscolhido.get('ano' + extra).value;
+        break;    
+      
+      case 2:
+        this.semestreSelecionado = this.formEscolhido.get('semestre' + extra).value;
+        this.anoSelecionado = this.formEscolhido.get('ano' + extra).value;
+        break;
+      
+      case 3:
+        this.semestreSelecionado = this.formEscolhido.get('semestre' + extra).value;
+        this.anoSelecionado = this.formEscolhido.get('ano' + extra).value;
+        break;
+        
+      case 4:
+        this.semestreSelecionado = this.formEscolhido.get('semestre' + extra).value;
+        this.anoSelecionado = this.formEscolhido.get('ano' + extra).value;
+        break;
+
+      case 5:
+        this.semestreSelecionado = this.formEscolhido.get('semestre' + extra).value;
+        this.anoSelecionado = this.formEscolhido.get('ano' + extra).value;
+        break;
+    }
+    
+    this.consultaHrAlocacoes(extra);    
+    
   }
 
   definetipoAtividade(tipo: string): void {
