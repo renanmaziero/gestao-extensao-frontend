@@ -424,7 +424,9 @@
                 Enviar
               </button>
             </mat-card-actions>
-            <mat-card-actions><mat-error *ngIf="!convenioForm.valid">Existem campos obrigatórios sem preencher. <button mat-button (click)="convenioForm.markAllAsTouched();">Quais?</button></mat-error></mat-card-actions>
+            <mat-card-actions><mat-error *ngIf="!convenioForm.valid">Existem campos obrigatórios sem preencher ou incorretos. <button mat-button (click)="convenioForm.markAllAsTouched();">Quais?</button></mat-error>
+              <mat-error *ngIf="totalHrSolicitadas != somaHrConvenio">Total de horas alocadas não batem.</mat-error>
+            </mat-card-actions>
           </mat-card>
         </form>
       </mat-expansion-panel>
@@ -846,7 +848,10 @@
               <button [disabled]="!cursoForm.valid || totalHrSolicitadas != somaHrCurso" mat-raised-button color="primary"
                 (click)="submeterCurso(); cursoForm.reset()">Enviar</button>
             </mat-card-actions>
-            <mat-card-actions><mat-error *ngIf="!cursoForm.valid">Existem campos obrigatórios sem preencher. <button mat-button (click)="cursoForm.markAllAsTouched();">Quais?</button></mat-error></mat-card-actions>
+            <mat-card-actions>
+              <mat-error *ngIf="!cursoForm.valid">Existem campos obrigatórios sem preencher ou incorretos. <button mat-button (click)="cursoForm.markAllAsTouched();">Quais?</button></mat-error>
+              <mat-error *ngIf="totalHrSolicitadas != somaHrCurso">Total de horas alocadas não batem.</mat-error>
+            </mat-card-actions>
           </mat-card>
         </form>
       </mat-expansion-panel>
@@ -1296,7 +1301,10 @@
                 Enviar
               </button>
             </mat-card-actions>
-            <mat-card-actions><mat-error *ngIf="!regenciaForm.valid">Existem campos obrigatórios sem preencher. <button mat-button (click)="regenciaForm.markAllAsTouched();">Quais?</button></mat-error></mat-card-actions>
+            <mat-card-actions>
+              <mat-error *ngIf="!regenciaForm.valid">Existem campos obrigatórios sem preencher ou incorretos. <button mat-button (click)="regenciaForm.markAllAsTouched();">Quais?</button></mat-error>
+              <mat-error *ngIf="totalHrSolicitadas != somaHrRegencia">Total de horas alocadas não batem.</mat-error>
+            </mat-card-actions>
           </mat-card>
         </form>
       </mat-expansion-panel>
