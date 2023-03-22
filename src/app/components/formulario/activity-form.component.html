@@ -107,7 +107,7 @@
                     <mat-label>Qtd. Horas semanais (obrigatório):</mat-label>
                     <input matInput placeholder="Qtd. Horas semanais (obrigatório)" type="number"
                       formControlName="horaSemanal" [(ngModel)]="hrSemanalConvenio"
-                      (keyup)="updateMensalConvenio($event)" (change)="updateMensalConvenio($event)" required />
+                      (keyup)="updateMensalConvenio($event)" required />
                     <mat-error *ngIf="convenioForm.controls['horaSemanal'].hasError('max')">
                       Máximo são <strong>{{max_hr_semanais_convenio}}h/semanais.</strong>
                     </mat-error>
@@ -118,7 +118,7 @@
                     <mat-label>Qtd. Horas mensais (obrigatório):</mat-label>
                     <input matInput min="4" placeholder="Qtd. Horas mensais (obrigatório)" type="number"
                       formControlName="horaMensal" [(ngModel)]="hrMensalConvenio"
-                      (keyup)="updateSemanalConvenio($event)" (change)="updateSemanalConvenio($event)" required />
+                      (keyup)="updateSemanalConvenio($event)" required />
                     <mat-error *ngIf="convenioForm.controls['horaMensal'].hasError('max')">
                       Máximo são <strong>{{max_hr_mensais_convenio}}h/mensais.</strong>
                     </mat-error>
@@ -131,7 +131,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Semestre</mat-label>
-                    <mat-select formControlName="semestre" (selectionChange)="hrRestantes(0)" (click)="confereSoma()" required>
+                    <mat-select formControlName="semestre" (selectionChange)="hrRestantes(0)" required>
                       <mat-option value="1">1o Semestre</mat-option>
                       <mat-option value="2">2o Semestre</mat-option>
                     </mat-select>
@@ -140,7 +140,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Ano</mat-label>
-                    <mat-select formControlName="ano" (selectionChange)="hrRestantes(0)" (click)="confereSoma()" required>
+                    <mat-select formControlName="ano" (selectionChange)="hrRestantes(0)" required>
                       <mat-option value="{{ ano }}">{{ ano }}</mat-option>
                       <mat-option value="{{ ano+1 }}">{{ ano+1 }}</mat-option>
                       <mat-option value="{{ ano+2 }}">{{ ano+2 }}</mat-option>
@@ -156,8 +156,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" style="width: 80%; margin-right: 5px;" appearance="outline">                     
                     <mat-label>Horas</mat-label>
-                    <input matInput placeholder="Horas" type="number" (keyup)="confereSoma()" (change)="confereSoma()"
-                      formControlName="horasSolicitadas" required /> 
+                    <input matInput placeholder="Horas" type="number" (keyup)="confereSoma()" formControlName="horasSolicitadas" required /> 
                     <mat-error *ngIf="convenioForm.controls['horasSolicitadas'].hasError('max')">Máximo são <strong>{{max_hr_semestrais_convenio}}h/semestre.</strong>
                     </mat-error>
                   </mat-form-field>
@@ -175,7 +174,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Semestre</mat-label>
-                    <mat-select formControlName="semestre1" (click)="confereSoma()" (selectionChange)="hrRestantes(1)" required>
+                    <mat-select formControlName="semestre1" (selectionChange)="hrRestantes(1)" required>
                       <mat-option value="1">1o Semestre</mat-option>
                       <mat-option value="2">2o Semestre</mat-option>
                     </mat-select>
@@ -184,7 +183,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Ano</mat-label>
-                    <mat-select formControlName="ano1" (click)="confereSoma()" (selectionChange)="hrRestantes(1)" required>
+                    <mat-select formControlName="ano1" (selectionChange)="hrRestantes(1)" required>
                       <mat-option value="{{ ano }}">{{ ano }}</mat-option>
                       <mat-option value="{{ ano+1 }}">{{ ano+1 }}</mat-option>
                       <mat-option value="{{ ano+2 }}">{{ ano+2 }}</mat-option>
@@ -200,19 +199,18 @@
                 <div class="col">
                   <mat-form-field class="full-width" style="width: 80%; margin-right: 5px;" appearance="outline">
                     <mat-label>Horas</mat-label>
-                    <input matInput min="1" placeholder="Horas" type="number" (keyup)="confereSoma()"
-                      (change)="confereSoma()" formControlName="horasSolicitadas1" required />
+                    <input matInput min="1" placeholder="Horas" type="number" (keyup)="confereSoma()" formControlName="horasSolicitadas1" required />
                     <mat-error *ngIf="convenioForm.controls['horasSolicitadas1'].hasError('max')"> 
                       Máximo são <strong>60h/semestre.</strong>
                     </mat-error>
                   </mat-form-field>
                   <button mat-button type="button" mat-icon-button (click)="alocacaoExtra2 = !alocacaoExtra2"
                     *ngIf="!alocacaoExtra2" [disabled]="convenioForm.controls.horasSolicitadas1.errors?.max"
-                    (click)="confereSoma()">
+                   >
                     <mat-icon>add_circle</mat-icon>
                   </button>
                   <button mat-button type="button" mat-icon-button aria-label="Clear" (click)="resetHrExtra(1)"
-                    (click)="alocacaoExtra = !alocacaoExtra" (click)="confereSoma()">
+                    (click)="alocacaoExtra = !alocacaoExtra">
                     <mat-icon>remove_circle_outline</mat-icon>
                   </button>
                 </div>
@@ -222,7 +220,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Semestre</mat-label>
-                    <mat-select formControlName="semestre2" (click)="confereSoma()" (selectionChange)="hrRestantes(2)" required>
+                    <mat-select formControlName="semestre2" (selectionChange)="hrRestantes(2)" required>
                       <mat-option value="1">1o Semestre</mat-option>
                       <mat-option value="2">2o Semestre</mat-option>
                     </mat-select>
@@ -231,7 +229,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Ano</mat-label>
-                    <mat-select formControlName="ano2" (click)="confereSoma()" (selectionChange)="hrRestantes(2)" required>
+                    <mat-select formControlName="ano2" (selectionChange)="hrRestantes(2)" required>
                       <mat-option value="{{ ano }}">{{ ano }}</mat-option>
                       <mat-option value="{{ ano+1 }}">{{ ano+1 }}</mat-option>
                       <mat-option value="{{ ano+2 }}">{{ ano+2 }}</mat-option>
@@ -247,19 +245,18 @@
                 <div class="col">
                   <mat-form-field class="full-width" style="width: 80%; margin-right: 5px;" appearance="outline">
                     <mat-label>Horas</mat-label>
-                    <input matInput min="1" placeholder="Horas" type="number" formControlName="horasSolicitadas2"
-                      (keyup)="confereSoma()" (change)="confereSoma()" required /> 
+                    <input matInput min="1" placeholder="Horas" type="number" formControlName="horasSolicitadas2" (keyup)="confereSoma()" required /> 
                     <mat-error *ngIf="convenioForm.controls['horasSolicitadas2'].hasError('max')">
                       Máximo são <strong>60h/semestre.</strong>
                     </mat-error>
                   </mat-form-field>
-                  <button mat-button type="button" mat-icon-button (click)="confereSoma()"
+                  <button mat-button type="button" mat-icon-button
                     (click)="alocacaoExtra3 = !alocacaoExtra3" *ngIf="!alocacaoExtra3"
                     [disabled]="convenioForm.controls.horasSolicitadas2.errors?.max">
                     <mat-icon>add_circle</mat-icon>
                   </button>
                   <button mat-button type="button" mat-icon-button aria-label="Clear"
-                    (click)="alocacaoExtra2 = !alocacaoExtra2" (click)="confereSoma()" (click)="resetHrExtra(2)">
+                    (click)="alocacaoExtra2 = !alocacaoExtra2" (click)="resetHrExtra(2)">
                     <mat-icon>remove_circle_outline</mat-icon>
                   </button>
                 </div>
@@ -269,7 +266,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Semestre</mat-label>
-                    <mat-select formControlName="semestre3" (click)="confereSoma(3)" (selectionChange)="hrRestantes(3)" required>
+                    <mat-select formControlName="semestre3" (selectionChange)="hrRestantes(3)" required>
                       <mat-option value="1">1o Semestre</mat-option>
                       <mat-option value="2">2o Semestre</mat-option>
                     </mat-select>
@@ -278,7 +275,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Ano</mat-label>
-                    <mat-select formControlName="ano3" (click)="confereSoma()" (selectionChange)="hrRestantes(3)" required>
+                    <mat-select formControlName="ano3" (selectionChange)="hrRestantes(3)" required>
                       <mat-option value="{{ ano }}">{{ ano }}</mat-option>
                       <mat-option value="{{ ano+1 }}">{{ ano+1 }}</mat-option>
                       <mat-option value="{{ ano+2 }}">{{ ano+2 }}</mat-option>
@@ -294,19 +291,18 @@
                 <div class="col">
                   <mat-form-field class="full-width" style="width: 80%; margin-right: 5px;" appearance="outline">
                     <mat-label>Horas</mat-label>
-                    <input matInput min="1" placeholder="Horas" type="number" formControlName="horasSolicitadas3"
-                      (keyup)="confereSoma()" (change)="confereSoma()" required /> 
+                    <input matInput min="1" placeholder="Horas" type="number" formControlName="horasSolicitadas3" (keyup)="confereSoma()" required /> 
                     <mat-error *ngIf="convenioForm.controls['horasSolicitadas3'].hasError('max')">
                       Máximo são <strong>60h/semestre.</strong>
                     </mat-error>
                   </mat-form-field>
                   <button mat-button type="button" mat-icon-button (click)="alocacaoExtra4 = !alocacaoExtra4"
                     *ngIf="!alocacaoExtra4" [disabled]="convenioForm.controls.horasSolicitadas3.errors?.max"
-                    (click)="confereSoma()">
+                   >
                     <mat-icon>add_circle</mat-icon>
                   </button>
                   <button mat-button type="button" mat-icon-button aria-label="Clear"
-                    (click)="alocacaoExtra3 = !alocacaoExtra3" (click)="confereSoma()" (click)="resetHrExtra(3)">
+                    (click)="alocacaoExtra3 = !alocacaoExtra3" (click)="resetHrExtra(3)">
                     <mat-icon>remove_circle_outline</mat-icon>
                   </button>
                 </div>
@@ -316,7 +312,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Semestre</mat-label>
-                    <mat-select formControlName="semestre4" (click)="confereSoma()" (selectionChange)="hrRestantes(4)" required>
+                    <mat-select formControlName="semestre4" (selectionChange)="hrRestantes(4)" required>
                       <mat-option value="1">1o Semestre</mat-option>
                       <mat-option value="2">2o Semestre</mat-option>
                     </mat-select>
@@ -325,7 +321,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Ano</mat-label>
-                    <mat-select formControlName="ano4" (click)="confereSoma()" (selectionChange)="hrRestantes(4)" required>
+                    <mat-select formControlName="ano4" (selectionChange)="hrRestantes(4)" required>
                       <mat-option value="{{ ano }}">{{ ano }}</mat-option>
                       <mat-option value="{{ ano+1 }}">{{ ano+1 }}</mat-option>
                       <mat-option value="{{ ano+2 }}">{{ ano+2 }}</mat-option>
@@ -341,19 +337,18 @@
                 <div class="col">
                   <mat-form-field class="full-width" style="width: 80%; margin-right: 5px;" appearance="outline">
                     <mat-label>Horas</mat-label>
-                    <input matInput min="1" placeholder="Horas" type="number" formControlName="horasSolicitadas4"
-                      (keyup)="confereSoma()" (change)="confereSoma()" required /> 
+                    <input matInput min="1" placeholder="Horas" type="number" formControlName="horasSolicitadas4" (keyup)="confereSoma()" required /> 
                     <mat-error *ngIf="convenioForm.controls['horasSolicitadas4'].hasError('max')">
                       Máximo são <strong>60h/semestre.</strong>
                     </mat-error>
                   </mat-form-field>
                   <button mat-button type="button" mat-icon-button (click)="alocacaoExtra5 = !alocacaoExtra5"
                     *ngIf="!alocacaoExtra5" [disabled]="convenioForm.controls.horasSolicitadas4.errors?.max"
-                    (click)="confereSoma()">
+                   >
                     <mat-icon>add_circle</mat-icon>
                   </button>
                   <button mat-button type="button" mat-icon-button aria-label="Clear"
-                    (click)="alocacaoExtra4 = !alocacaoExtra4" (click)="confereSoma()" (click)="resetHrExtra(4)">
+                    (click)="alocacaoExtra4 = !alocacaoExtra4" (click)="resetHrExtra(4)">
                     <mat-icon>remove_circle_outline</mat-icon>
                   </button>
                 </div>
@@ -363,7 +358,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Semestre</mat-label>
-                    <mat-select formControlName="semestre5" (click)="confereSoma()" (selectionChange)="hrRestantes(5)" required>
+                    <mat-select formControlName="semestre5" (selectionChange)="hrRestantes(5)" required>
                       <mat-option value="1">1o Semestre</mat-option>
                       <mat-option value="2">2o Semestre</mat-option>
                     </mat-select>
@@ -372,7 +367,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Ano</mat-label>
-                    <mat-select formControlName="ano5" (click)="confereSoma()" (selectionChange)="hrRestantes(5)" required>
+                    <mat-select formControlName="ano5" (selectionChange)="hrRestantes(5)" required>
                       <mat-option value="{{ ano }}">{{ ano }}</mat-option>
                       <mat-option value="{{ ano+1 }}">{{ ano+1 }}</mat-option>
                       <mat-option value="{{ ano+2 }}">{{ ano+2 }}</mat-option>
@@ -388,14 +383,13 @@
                 <div class="col">
                   <mat-form-field class="full-width" style="width: 80%; margin-right: 5px;" appearance="outline">
                     <mat-label>Horas</mat-label>
-                    <input matInput min="1" placeholder="Horas" type="number" formControlName="horasSolicitadas5"
-                      (keyup)="confereSoma()" (change)="confereSoma()" required /> 
+                    <input matInput min="1" placeholder="Horas" type="number" formControlName="horasSolicitadas5" (keyup)="confereSoma()" required /> 
                     <mat-error *ngIf="convenioForm.controls['horasSolicitadas5'].hasError('max')">
                       Máximo são <strong>60h/semestre.</strong>
                     </mat-error>
                   </mat-form-field>
                   <button mat-button type="button" mat-icon-button aria-label="Clear"
-                    (click)="alocacaoExtra5 = !alocacaoExtra5" (click)="confereSoma()" (click)="resetHrExtra(5)"
+                    (click)="alocacaoExtra5 = !alocacaoExtra5" (click)="resetHrExtra(5)"
                     [disabled]="convenioForm.controls.horasSolicitadas5.errors?.max">
                     <mat-icon>remove_circle_outline</mat-icon>
                   </button>
@@ -503,7 +497,7 @@
                     <mat-label>Carga horária total de aulas ministradas:</mat-label>
                     <input matInput maxlength="3" min="1"
                       placeholder="Carga horária total de aulas ministradas" type="number"
-                      formControlName="totalHorasMinistradas" [(ngModel)]="hrTotalMinistradaCurso" (change)="updateSomaHrCurso()" (keyup)="updateSomaHrCurso()" />
+                      formControlName="totalHorasMinistradas" [(ngModel)]="hrTotalMinistradaCurso" (keyup)="updateSomaHrCurso()" />
                     <mat-error *ngIf="cursoForm.controls['totalHorasMinistradas'].hasError('max')">
                       Máximo são <strong>{{max_hr_ministradas_curso}} horas.</strong>
                     </mat-error>
@@ -514,7 +508,7 @@
                     <mat-label>Carga horária total de outras atividades (opcional):</mat-label>
                     <input matInput maxlength="5" min="1"
                       placeholder="Carga horária total de outras atividades (opcional)" type="number"
-                      formControlName="totalHorasOutrasAtividades" [(ngModel)]="hrTotalOutrasCurso" (change)="updateSomaHrCurso()" (keyup)="updateSomaHrCurso()" />
+                      formControlName="totalHorasOutrasAtividades" [(ngModel)]="hrTotalOutrasCurso" (keyup)="updateSomaHrCurso()" />
                     <mat-error *ngIf="cursoForm.controls['totalHorasOutrasAtividades'].hasError('max')">
                       Máximo são <strong>240 horas.</strong>
                     </mat-error>
@@ -564,7 +558,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Semestre</mat-label>
-                    <mat-select formControlName="semestre" (click)="confereSoma()" (selectionChange)="hrRestantes(0)" required>
+                    <mat-select formControlName="semestre" (selectionChange)="hrRestantes(0)" required>
                       <mat-option value="1">1o Semestre</mat-option>
                       <mat-option value="2">2o Semestre</mat-option>
                     </mat-select>
@@ -573,7 +567,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Ano</mat-label>
-                    <mat-select formControlName="ano" (click)="confereSoma()" (selectionChange)="hrRestantes(0)" required>
+                    <mat-select formControlName="ano" (selectionChange)="hrRestantes(0)" required>
                       <mat-option value="{{ ano }}">{{ ano }}</mat-option>
                       <mat-option value="{{ ano+1 }}">{{ ano+1 }}</mat-option>
                       <mat-option value="{{ ano+2 }}">{{ ano+2 }}</mat-option>
@@ -589,13 +583,12 @@
                 <div class="col">
                   <mat-form-field class="full-width" style="width: 80%; margin-right: 5px;" appearance="outline">
                     <mat-label>Horas</mat-label>
-                    <input matInput min="1" placeholder="Horas" type="number" (keyup)="confereSoma()"
-                      (change)="confereSoma()" formControlName="horasSolicitadas" required/>
+                    <input matInput min="1" placeholder="Horas" type="number" (keyup)="confereSoma()" formControlName="horasSolicitadas" required/>
                     <mat-error *ngIf="cursoForm.controls['horasSolicitadas'].hasError('max')">
                       Máximo são <strong>{{max_hr_semestrais_curso}}h/semestre.</strong>
                     </mat-error>
                   </mat-form-field>
-                  <button mat-button type="button" mat-icon-button (click)="alocacaoExtra = !alocacaoExtra" (click)="confereSoma()"
+                  <button mat-button type="button" mat-icon-button (click)="alocacaoExtra = !alocacaoExtra"
                     *ngIf="!alocacaoExtra" [disabled]="cursoForm.controls.horasSolicitadas.errors?.max">
                     <mat-icon>add_circle</mat-icon>
                   </button>
@@ -633,18 +626,17 @@
                   <div class="col">
                     <mat-form-field class="full-width" style="width: 80%; margin-right: 5px;" appearance="outline">
                       <mat-label>Horas</mat-label>
-                      <input matInput min="1" placeholder="Horas" type="number" (keyup)="confereSoma()"
-                        (change)="confereSoma()" formControlName="horasSolicitadas1" required/>
+                      <input matInput min="1" placeholder="Horas" type="number" (keyup)="confereSoma()" formControlName="horasSolicitadas1" required/>
                       <mat-error *ngIf="cursoForm.controls['horasSolicitadas1'].hasError('max')">
                         Máximo são <strong>60h/semestre.</strong>
                       </mat-error>
                     </mat-form-field>
-                    <button mat-button type="button" mat-icon-button (click)="alocacaoExtra2 = !alocacaoExtra2" (click)="confereSoma()"
+                    <button mat-button type="button" mat-icon-button (click)="alocacaoExtra2 = !alocacaoExtra2"
                       *ngIf="!alocacaoExtra2" [disabled]="cursoForm.controls.horasSolicitadas1.errors?.max">
                       <mat-icon>add_circle</mat-icon>
                     </button>
                     <button mat-button type="button" mat-icon-button aria-label="Clear"
-                      (click)="alocacaoExtra = !alocacaoExtra" (click)="confereSoma()" (click)="resetHrExtra(1)">
+                      (click)="alocacaoExtra = !alocacaoExtra" (click)="resetHrExtra(1)">
                       <mat-icon>remove_circle_outline</mat-icon>
                     </button>
                   </div>
@@ -655,7 +647,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Semestre</mat-label>
-                    <mat-select formControlName="semestre2" (click)="confereSoma()" (selectionChange)="hrRestantes(2)" required>
+                    <mat-select formControlName="semestre2" (selectionChange)="hrRestantes(2)" required>
                       <mat-option value="1">1o Semestre</mat-option>
                       <mat-option value="2">2o Semestre</mat-option>
                     </mat-select>
@@ -664,7 +656,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Ano</mat-label>
-                    <mat-select formControlName="ano2" (click)="confereSoma()" (selectionChange)="hrRestantes(2)" required>
+                    <mat-select formControlName="ano2" (selectionChange)="hrRestantes(2)" required>
                       <mat-option value="{{ ano }}">{{ ano }}</mat-option>
                       <mat-option value="{{ ano+1 }}">{{ ano+1 }}</mat-option>
                       <mat-option value="{{ ano+2 }}">{{ ano+2 }}</mat-option>
@@ -680,18 +672,17 @@
                 <div class="col">
                   <mat-form-field class="full-width" style="width: 80%; margin-right: 5px;" appearance="outline">
                     <mat-label>Horas</mat-label>
-                    <input matInput min="1" placeholder="Horas" type="number" (keyup)="confereSoma()"
-                      (change)="confereSoma()" formControlName="horasSolicitadas2" required/>
+                    <input matInput min="1" placeholder="Horas" type="number" (keyup)="confereSoma()" formControlName="horasSolicitadas2" required/>
                     <mat-error *ngIf="cursoForm.controls['horasSolicitadas2'].hasError('max')">
                       Máximo são <strong>60h/semestre.</strong>
                     </mat-error>
                   </mat-form-field>
-                  <button mat-button type="button" mat-icon-button (click)="alocacaoExtra3 = !alocacaoExtra3" (click)="confereSoma()"
+                  <button mat-button type="button" mat-icon-button (click)="alocacaoExtra3 = !alocacaoExtra3"
                     *ngIf="!alocacaoExtra3" [disabled]="cursoForm.controls.horasSolicitadas2.errors?.max">
                     <mat-icon>add_circle</mat-icon>
                   </button>
                   <button mat-button type="button" mat-icon-button aria-label="Clear"
-                    (click)="alocacaoExtra2 = !alocacaoExtra2" (click)="confereSoma()" (click)="resetHrExtra(2)">
+                    (click)="alocacaoExtra2 = !alocacaoExtra2" (click)="resetHrExtra(2)">
                     <mat-icon>remove_circle_outline</mat-icon>
                   </button>
                 </div>
@@ -701,7 +692,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Semestre</mat-label>
-                    <mat-select formControlName="semestre3" (click)="confereSoma()" (selectionChange)="hrRestantes(3)" required>
+                    <mat-select formControlName="semestre3" (selectionChange)="hrRestantes(3)" required>
                       <mat-option value="1">1o Semestre</mat-option>
                       <mat-option value="2">2o Semestre</mat-option>
                     </mat-select>
@@ -710,7 +701,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Ano</mat-label>
-                    <mat-select formControlName="ano3" (click)="confereSoma()" (selectionChange)="hrRestantes(3)" required>
+                    <mat-select formControlName="ano3" (selectionChange)="hrRestantes(3)" required>
                       <mat-option value="{{ ano }}">{{ ano }}</mat-option>
                       <mat-option value="{{ ano+1 }}">{{ ano+1 }}</mat-option>
                       <mat-option value="{{ ano+2 }}">{{ ano+2 }}</mat-option>
@@ -726,18 +717,17 @@
                 <div class="col">
                   <mat-form-field class="full-width" style="width: 80%; margin-right: 5px;" appearance="outline">
                     <mat-label>Horas</mat-label>
-                    <input matInput min="1" placeholder="horasSolicitadas3" type="number" (keyup)="confereSoma()"
-                      (change)="confereSoma()" formControlName="horasSolicitadas3" required/>
+                    <input matInput min="1" placeholder="horasSolicitadas3" type="number" (keyup)="confereSoma()" formControlName="horasSolicitadas3" required/>
                     <mat-error *ngIf="cursoForm.controls['horasSolicitadas3'].hasError('max')">
                       Máximo são <strong>60h/semestre.</strong>
                     </mat-error>
                   </mat-form-field>
-                  <button mat-button type="button" mat-icon-button (click)="alocacaoExtra4 = !alocacaoExtra4" (click)="confereSoma()"
+                  <button mat-button type="button" mat-icon-button (click)="alocacaoExtra4 = !alocacaoExtra4"
                     *ngIf="!alocacaoExtra4" [disabled]="cursoForm.controls.horasSolicitadas3.errors?.max">
                     <mat-icon>add_circle</mat-icon>
                   </button>
                   <button mat-button type="button" mat-icon-button aria-label="Clear"
-                    (click)="alocacaoExtra3 = !alocacaoExtra3" (click)="confereSoma()" (click)="resetHrExtra(3)">
+                    (click)="alocacaoExtra3 = !alocacaoExtra3" (click)="resetHrExtra(3)">
                     <mat-icon>remove_circle_outline</mat-icon>
                   </button>
                 </div>
@@ -747,7 +737,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Semestre</mat-label>
-                    <mat-select formControlName="semestre4" (click)="confereSoma()" (selectionChange)="hrRestantes(4)" required>
+                    <mat-select formControlName="semestre4" (selectionChange)="hrRestantes(4)" required>
                       <mat-option value="1">1o Semestre</mat-option>
                       <mat-option value="2">2o Semestre</mat-option>
                     </mat-select>
@@ -756,7 +746,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Ano</mat-label>
-                    <mat-select formControlName="ano4" (click)="confereSoma()" (selectionChange)="hrRestantes(4)" required>
+                    <mat-select formControlName="ano4" (selectionChange)="hrRestantes(4)" required>
                       <mat-option value="{{ ano }}">{{ ano }}</mat-option>
                       <mat-option value="{{ ano+1 }}">{{ ano+1 }}</mat-option>
                       <mat-option value="{{ ano+2 }}">{{ ano+2 }}</mat-option>
@@ -772,18 +762,17 @@
                 <div class="col">
                   <mat-form-field class="full-width" style="width: 80%; margin-right: 5px;" appearance="outline">
                     <mat-label>Horas</mat-label>
-                    <input matInput min="1" placeholder="horasSolicitadas4" type="number" (keyup)="confereSoma()"
-                      (change)="confereSoma()" formControlName="horasSolicitadas4" required/>
+                    <input matInput min="1" placeholder="horasSolicitadas4" type="number" (keyup)="confereSoma()" formControlName="horasSolicitadas4" required/>
                     <mat-error *ngIf="cursoForm.controls['horasSolicitadas4'].hasError('max')">
                       Máximo são <strong>60h/semestre.</strong>
                     </mat-error>
                   </mat-form-field>
-                  <button mat-button type="button" mat-icon-button (click)="alocacaoExtra5 = !alocacaoExtra5" (click)="confereSoma()"
+                  <button mat-button type="button" mat-icon-button (click)="alocacaoExtra5 = !alocacaoExtra5"
                     *ngIf="!alocacaoExtra5" [disabled]="cursoForm.controls.horasSolicitadas4.errors?.max">
                     <mat-icon>add_circle</mat-icon>
                   </button>
                   <button mat-button type="button" mat-icon-button aria-label="Clear"
-                    (click)="alocacaoExtra4 = !alocacaoExtra4" (click)="confereSoma()" (click)="resetHrExtra(4)">
+                    (click)="alocacaoExtra4 = !alocacaoExtra4" (click)="resetHrExtra(4)">
                     <mat-icon>remove_circle_outline</mat-icon>
                   </button>
                 </div>
@@ -793,7 +782,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Semestre</mat-label>
-                    <mat-select formControlName="semestre5" (click)="confereSoma()" (selectionChange)="hrRestantes(5)" required>
+                    <mat-select formControlName="semestre5" (selectionChange)="hrRestantes(5)" required>
                       <mat-option value="1">1o Semestre</mat-option>
                       <mat-option value="2">2o Semestre</mat-option>
                     </mat-select>
@@ -802,7 +791,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Ano</mat-label>
-                    <mat-select formControlName="ano5" (click)="confereSoma()" (selectionChange)="hrRestantes(5)" required>
+                    <mat-select formControlName="ano5" (selectionChange)="hrRestantes(5)" required>
                       <mat-option value="{{ ano }}">{{ ano }}</mat-option>
                       <mat-option value="{{ ano+1 }}">{{ ano+1 }}</mat-option>
                       <mat-option value="{{ ano+2 }}">{{ ano+2 }}</mat-option>
@@ -818,14 +807,13 @@
                 <div class="col">
                   <mat-form-field class="full-width" style="width: 80%; margin-right: 5px;" appearance="outline">
                     <mat-label>Horas</mat-label>
-                    <input matInput min="1" placeholder="horasSolicitadas5" type="number" (keyup)="confereSoma()"
-                      (change)="confereSoma()" formControlName="horasSolicitadas5" required/>
+                    <input matInput min="1" placeholder="horasSolicitadas5" type="number" (keyup)="confereSoma()" formControlName="horasSolicitadas5" required/>
                     <mat-error *ngIf="cursoForm.controls['horasSolicitadas5'].hasError('max')">
                       Máximo são <strong>60h/semestre.</strong>
                     </mat-error>
                   </mat-form-field>
                   <button mat-button type="button" mat-icon-button aria-label="Clear"
-                    (click)="alocacaoExtra5 = !alocacaoExtra5" (click)="confereSoma()" (click)="resetHrExtra(5)"
+                    (click)="alocacaoExtra5 = !alocacaoExtra5" (click)="resetHrExtra(5)"
                     [disabled]="cursoForm.controls.horasSolicitadas5.errors?.max">
                     <mat-icon>remove_circle_outline</mat-icon>
                   </button>
@@ -940,14 +928,14 @@
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Carga horária total de aulas ministradas (opcional):</mat-label>
                     <input matInput maxlength="5" min="1" placeholder="Carga horária total" type="number" [(ngModel)]="hrTotalMinistradaRegencia"
-                      formControlName="totalHorasMinistradas" (change)="updateSomaHrRegencia()" (keyup)="updateSomaHrRegencia()"/>
+                      formControlName="totalHorasMinistradas" (keyup)="updateSomaHrRegencia()"/>
                   </mat-form-field>
                 </div>
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Carga horária total de outras atividades (obrigatório):</mat-label>
                     <input matInput maxlength="5" min="1" placeholder="totalHorasOutrasAtividades" type="number" [(ngModel)]="hrTotalOutrasRegencia"
-                      formControlName="totalHorasOutrasAtividades" (change)="updateSomaHrRegencia()" (keyup)="updateSomaHrRegencia()" required/>
+                      formControlName="totalHorasOutrasAtividades" (keyup)="updateSomaHrRegencia()" required/>
                   </mat-form-field>
                 </div>
               </div>
@@ -1018,7 +1006,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Semestre</mat-label>
-                    <mat-select formControlName="semestre" (click)="confereSoma()" (selectionChange)="hrRestantes(0)" required>
+                    <mat-select formControlName="semestre" (selectionChange)="hrRestantes(0)" required>
                       <mat-option value="1">1o Semestre</mat-option>
                       <mat-option value="2">2o Semestre</mat-option>
                     </mat-select>
@@ -1027,7 +1015,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Ano</mat-label>
-                    <mat-select formControlName="ano" (click)="confereSoma()" (selectionChange)="hrRestantes(0)" required>
+                    <mat-select formControlName="ano" (selectionChange)="hrRestantes(0)" required>
                       <mat-option value="{{ ano }}">{{ ano }}</mat-option>
                       <mat-option value="{{ ano+1 }}">{{ ano+1 }}</mat-option>
                       <mat-option value="{{ ano+2 }}">{{ ano+2 }}</mat-option>
@@ -1043,13 +1031,12 @@
                 <div class="col">
                   <mat-form-field class="full-width" style="width: 80%; margin-right: 5px;" appearance="outline">
                     <mat-label>Horas</mat-label>
-                    <input matInput min="1" placeholder="horasSolicitadas" type="number" (keyup)="confereSoma()"
-                      (change)="confereSoma()" formControlName="horasSolicitadas" required/>
+                    <input matInput min="1" placeholder="horasSolicitadas" type="number" (keyup)="confereSoma()" formControlName="horasSolicitadas" required/>
                     <mat-error *ngIf="regenciaForm.controls['horasSolicitadas'].hasError('max')">
                       Máximo são <strong>{{max_hr_semestrais_regencia}}h/semestre.</strong>
                     </mat-error>
                   </mat-form-field>
-                  <button mat-button type="button" mat-icon-button (click)="alocacaoExtra = !alocacaoExtra" (click)="confereSoma()"
+                  <button mat-button type="button" mat-icon-button (click)="alocacaoExtra = !alocacaoExtra"
                     *ngIf="!alocacaoExtra" [disabled]="regenciaForm.controls.horasSolicitadas.errors?.max">
                     <mat-icon>add_circle</mat-icon>
                   </button>
@@ -1061,7 +1048,7 @@
                   <div class="col">
                     <mat-form-field class="full-width" appearance="outline">
                       <mat-label>Semestre</mat-label>
-                      <mat-select formControlName="semestre1" (click)="confereSoma()" (selectionChange)="hrRestantes(1)" required>
+                      <mat-select formControlName="semestre1" (selectionChange)="hrRestantes(1)" required>
                         <mat-option value="1">1o Semestre</mat-option>
                         <mat-option value="2">2o Semestre</mat-option>
                       </mat-select>
@@ -1070,7 +1057,7 @@
                   <div class="col">
                     <mat-form-field class="full-width" appearance="outline">
                       <mat-label>Ano</mat-label>
-                      <mat-select formControlName="ano1" (click)="confereSoma()" (selectionChange)="hrRestantes(1)" required>
+                      <mat-select formControlName="ano1" (selectionChange)="hrRestantes(1)" required>
                         <mat-option value="{{ ano }}">{{ ano }}</mat-option>
                         <mat-option value="{{ ano+1 }}">{{ ano+1 }}</mat-option>
                         <mat-option value="{{ ano+2 }}">{{ ano+2 }}</mat-option>
@@ -1086,18 +1073,17 @@
                   <div class="col">
                     <mat-form-field class="full-width" style="width: 80%; margin-right: 5px;" appearance="outline">
                       <mat-label>Horas</mat-label>
-                      <input matInput min="1" placeholder="horasSolicitadas1" type="number" (keyup)="confereSoma()"
-                        (change)="confereSoma()" formControlName="horasSolicitadas1" required/>
+                      <input matInput min="1" placeholder="horasSolicitadas1" type="number" (keyup)="confereSoma()" formControlName="horasSolicitadas1" required/>
                       <mat-error *ngIf="regenciaForm.controls['horasSolicitadas1'].hasError('max')">
                         Máximo são <strong>60h/semestre.</strong>
                       </mat-error>
                     </mat-form-field>
-                    <button mat-button type="button" mat-icon-button (click)="alocacaoExtra2 = !alocacaoExtra2" (click)="confereSoma()"
+                    <button mat-button type="button" mat-icon-button (click)="alocacaoExtra2 = !alocacaoExtra2"
                       *ngIf="!alocacaoExtra2" [disabled]="regenciaForm.controls.horasSolicitadas1.errors?.max">
                       <mat-icon>add_circle</mat-icon>
                     </button>
                     <button mat-button type="button" mat-icon-button aria-label="Clear"
-                      (click)="alocacaoExtra = !alocacaoExtra" (click)="confereSoma()" (click)="resetHrExtra(1)">
+                      (click)="alocacaoExtra = !alocacaoExtra" (click)="resetHrExtra(1)">
                       <mat-icon>remove_circle_outline</mat-icon>
                     </button>
                   </div>
@@ -1108,7 +1094,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Semestre</mat-label>
-                    <mat-select formControlName="semestre2" (click)="confereSoma()" (selectionChange)="hrRestantes(2)" required>
+                    <mat-select formControlName="semestre2" (selectionChange)="hrRestantes(2)" required>
                       <mat-option value="1">1o Semestre</mat-option>
                       <mat-option value="2">2o Semestre</mat-option>
                     </mat-select>
@@ -1117,7 +1103,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Ano</mat-label>
-                    <mat-select formControlName="ano2" (click)="confereSoma()" (selectionChange)="hrRestantes(2)" required>
+                    <mat-select formControlName="ano2" (selectionChange)="hrRestantes(2)" required>
                       <mat-option value="{{ ano }}">{{ ano }}</mat-option>
                       <mat-option value="{{ ano+1 }}">{{ ano+1 }}</mat-option>
                       <mat-option value="{{ ano+2 }}">{{ ano+2 }}</mat-option>
@@ -1133,18 +1119,17 @@
                 <div class="col">
                   <mat-form-field class="full-width" style="width: 80%; margin-right: 5px;" appearance="outline">
                     <mat-label>Horas</mat-label>
-                    <input matInput min="1" placeholder="horasSolicitadas2" type="number" (keyup)="confereSoma()"
-                      (change)="confereSoma()" formControlName="horasSolicitadas2" required/>
+                    <input matInput min="1" placeholder="horasSolicitadas2" type="number" (keyup)="confereSoma()" formControlName="horasSolicitadas2" required/>
                     <mat-error *ngIf="regenciaForm.controls['horasSolicitadas2'].hasError('max')">
                       Máximo são <strong>60h/semestre.</strong>
                     </mat-error>
                   </mat-form-field>
-                  <button mat-button type="button" mat-icon-button (click)="alocacaoExtra3 = !alocacaoExtra3" (click)="confereSoma()"
+                  <button mat-button type="button" mat-icon-button (click)="alocacaoExtra3 = !alocacaoExtra3"
                     *ngIf="!alocacaoExtra3" [disabled]="regenciaForm.controls.horasSolicitadas2.errors?.max">
                     <mat-icon>add_circle</mat-icon>
                   </button>
                   <button mat-button type="button" mat-icon-button aria-label="Clear"
-                    (click)="alocacaoExtra2 = !alocacaoExtra2" (click)="confereSoma()" (click)="resetHrExtra(2)">
+                    (click)="alocacaoExtra2 = !alocacaoExtra2" (click)="resetHrExtra(2)">
                     <mat-icon>remove_circle_outline</mat-icon>
                   </button>
                 </div>
@@ -1154,7 +1139,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Semestre</mat-label>
-                    <mat-select formControlName="semestre3" (click)="confereSoma()" (selectionChange)="hrRestantes(3)" required>
+                    <mat-select formControlName="semestre3" (selectionChange)="hrRestantes(3)" required>
                       <mat-option value="1">1o Semestre</mat-option>
                       <mat-option value="2">2o Semestre</mat-option>
                     </mat-select>
@@ -1163,7 +1148,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Ano</mat-label>
-                    <mat-select formControlName="ano3" (click)="confereSoma()" (selectionChange)="hrRestantes(3)" required>
+                    <mat-select formControlName="ano3" (selectionChange)="hrRestantes(3)" required>
                       <mat-option value="{{ ano }}">{{ ano }}</mat-option>
                       <mat-option value="{{ ano+1 }}">{{ ano+1 }}</mat-option>
                       <mat-option value="{{ ano+2 }}">{{ ano+2 }}</mat-option>
@@ -1179,18 +1164,17 @@
                 <div class="col">
                   <mat-form-field class="full-width" style="width: 80%; margin-right: 5px;" appearance="outline">
                     <mat-label>Horas</mat-label>
-                    <input matInput min="1" placeholder="horasSolicitadas3" type="number" (keyup)="confereSoma()"
-                      (change)="confereSoma()" formControlName="horasSolicitadas3" required/>
+                    <input matInput min="1" placeholder="horasSolicitadas3" type="number" (keyup)="confereSoma()" formControlName="horasSolicitadas3" required/>
                     <mat-error *ngIf="regenciaForm.controls['horasSolicitadas3'].hasError('max')">
                       Máximo são <strong>60h/semestre.</strong>
                     </mat-error>
                   </mat-form-field>
-                  <button mat-button type="button" mat-icon-button (click)="alocacaoExtra4 = !alocacaoExtra4" (click)="confereSoma()"
+                  <button mat-button type="button" mat-icon-button (click)="alocacaoExtra4 = !alocacaoExtra4"
                     *ngIf="!alocacaoExtra4" [disabled]="regenciaForm.controls.horasSolicitadas3.errors?.max">
                     <mat-icon>add_circle</mat-icon>
                   </button>
                   <button mat-button type="button" mat-icon-button aria-label="Clear"
-                    (click)="alocacaoExtra3 = !alocacaoExtra3" (click)="confereSoma()" (click)="resetHrExtra(3)">
+                    (click)="alocacaoExtra3 = !alocacaoExtra3" (click)="resetHrExtra(3)">
                     <mat-icon>remove_circle_outline</mat-icon>
                   </button>
                 </div>
@@ -1200,7 +1184,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Semestre</mat-label>
-                    <mat-select formControlName="semestre4" (click)="confereSoma()" (selectionChange)="hrRestantes(4)" required>
+                    <mat-select formControlName="semestre4" (selectionChange)="hrRestantes(4)" required>
                       <mat-option value="1">1o Semestre</mat-option>
                       <mat-option value="2">2o Semestre</mat-option>
                     </mat-select>
@@ -1209,7 +1193,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Ano</mat-label>
-                    <mat-select formControlName="ano4" (click)="confereSoma()" (selectionChange)="hrRestantes(4)" required>
+                    <mat-select formControlName="ano4" (selectionChange)="hrRestantes(4)" required>
                       <mat-option value="{{ ano }}">{{ ano }}</mat-option>
                       <mat-option value="{{ ano+1 }}">{{ ano+1 }}</mat-option>
                       <mat-option value="{{ ano+2 }}">{{ ano+2 }}</mat-option>
@@ -1225,18 +1209,17 @@
                 <div class="col">
                   <mat-form-field class="full-width" style="width: 80%; margin-right: 5px;" appearance="outline">
                     <mat-label>Horas</mat-label>
-                    <input matInput min="1" placeholder="horasSolicitadas4" type="number" (keyup)="confereSoma()"
-                      (change)="confereSoma()" formControlName="horasSolicitadas4" required/>
+                    <input matInput min="1" placeholder="horasSolicitadas4" type="number" (keyup)="confereSoma()" formControlName="horasSolicitadas4" required/>
                     <mat-error *ngIf="regenciaForm.controls['horasSolicitadas4'].hasError('max')">
                       Máximo são <strong>60h/semestre.</strong>
                     </mat-error>
                   </mat-form-field>
-                  <button mat-button type="button" mat-icon-button (click)="alocacaoExtra5 = !alocacaoExtra5" (click)="confereSoma()"
+                  <button mat-button type="button" mat-icon-button (click)="alocacaoExtra5 = !alocacaoExtra5"
                     *ngIf="!alocacaoExtra5" [disabled]="regenciaForm.controls.horasSolicitadas4.errors?.max">
                     <mat-icon>add_circle</mat-icon>
                   </button>
                   <button mat-button type="button" mat-icon-button aria-label="Clear"
-                    (click)="alocacaoExtra4 = !alocacaoExtra4" (click)="confereSoma()" (click)="resetHrExtra(4)">
+                    (click)="alocacaoExtra4 = !alocacaoExtra4" (click)="resetHrExtra(4)">
                     <mat-icon>remove_circle_outline</mat-icon>
                   </button>
                 </div>
@@ -1246,7 +1229,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Semestre</mat-label>
-                    <mat-select formControlName="semestre5" (click)="confereSoma()" (selectionChange)="hrRestantes(5)" required>
+                    <mat-select formControlName="semestre5" (selectionChange)="hrRestantes(5)" required>
                       <mat-option value="1">1o Semestre</mat-option>
                       <mat-option value="2">2o Semestre</mat-option>
                     </mat-select>
@@ -1255,7 +1238,7 @@
                 <div class="col">
                   <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Ano</mat-label>
-                    <mat-select formControlName="ano5" (click)="confereSoma()" (selectionChange)="hrRestantes(5)" required>
+                    <mat-select formControlName="ano5" (selectionChange)="hrRestantes(5)" required>
                       <mat-option value="{{ ano }}">{{ ano }}</mat-option>
                       <mat-option value="{{ ano+1 }}">{{ ano+1 }}</mat-option>
                       <mat-option value="{{ ano+2 }}">{{ ano+2 }}</mat-option>
@@ -1271,14 +1254,13 @@
                 <div class="col">
                   <mat-form-field class="full-width" style="width: 80%; margin-right: 5px;" appearance="outline">
                     <mat-label>Horas</mat-label>
-                    <input matInput min="1" placeholder="horasSolicitadas5" type="number" (keyup)="confereSoma()"
-                      (change)="confereSoma()" formControlName="horasSolicitadas5" required/>
+                    <input matInput min="1" placeholder="horasSolicitadas5" type="number" (keyup)="confereSoma()" formControlName="horasSolicitadas5" required/>
                     <mat-error *ngIf="regenciaForm.controls['horasSolicitadas5'].hasError('max')">
                       Máximo são <strong>60h/semestre.</strong>
                     </mat-error>
                   </mat-form-field>
                   <button mat-button type="button" mat-icon-button aria-label="Clear"
-                    (click)="alocacaoExtra5 = !alocacaoExtra5" (click)="confereSoma()" (click)="resetHrExtra(5)"
+                    (click)="alocacaoExtra5 = !alocacaoExtra5" (click)="resetHrExtra(5)"
                     [disabled]="regenciaForm.controls.horasSolicitadas5.errors?.max">
                     <mat-icon>remove_circle_outline</mat-icon>
                   </button>
