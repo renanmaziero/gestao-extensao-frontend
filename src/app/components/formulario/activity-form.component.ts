@@ -150,12 +150,23 @@ export class ActivityFormComponent implements OnInit {
   }
 
   updateMsg(){
-    this.msgSucesso = 'Horas informadas batem com o total de ' + this.msgHr + 'h.';
-    this.msgErro = 'Total de horas informadas ultrapassam ' + this.msgHr + 'h.';
+    this.msgSucesso = 'Horas distribuídas batem com ' + this.msgHr + 'h.';    
 
-    if (this.tipoAtividade == 'Convênios') {this.msgInfo = 'Você precisa distribuir ' + this.msgHr + 'h. Ainda faltam ' + (this.somaHrConvenio-this.totalHrSolicitadas) + 'h.';}
-    if (this.tipoAtividade == 'Cursos') {this.formEscolhido = this.cursoForm;}
-    if (this.tipoAtividade == 'Regência Concomitante') {this.formEscolhido = this.regenciaForm;}
+    if (this.tipoAtividade == 'Convênios') {
+      this.formEscolhido = this.convenioForm;
+      this.msgInfo = 'Você precisa distribuir ' + this.msgHr + 'h. Ainda faltam ' + (this.somaHrConvenio-this.totalHrSolicitadas) + 'h.';
+      this.msgErro = 'Horas distribuídas ultrapassam ' + this.msgHr + 'h. Retire ' + (this.somaHrConvenio-this.totalHrSolicitadas) + 'h.';
+    }
+    if (this.tipoAtividade == 'Cursos') {
+      this.formEscolhido = this.cursoForm;
+      this.msgInfo = 'Você precisa distribuir ' + this.msgHr + 'h. Ainda faltam ' + (this.somaHrCurso-this.totalHrSolicitadas) + 'h.';
+      this.msgErro = 'Horas distribuídas ultrapassam ' + this.msgHr + 'h. Retire ' + (this.somaHrCurso-this.totalHrSolicitadas) + 'h.';
+    }
+    if (this.tipoAtividade == 'Regência Concomitante') {
+      this.formEscolhido = this.regenciaForm;
+      this.msgInfo = 'Você precisa distribuir ' + this.msgHr + 'h. Ainda faltam ' + (this.somaHrRegencia-this.totalHrSolicitadas) + 'h.';
+      this.msgErro = 'Horas distribuídas ultrapassam ' + this.msgHr + 'h. Retire ' + (this.somaHrRegencia-this.totalHrSolicitadas) + 'h.';
+    }
     
   }
 
