@@ -5,20 +5,26 @@
 
     <div class="row">
       <div class="col">
-        <mat-form-field appearance="outline">
+        <mat-form-field class="full-width" appearance="outline">
           <mat-label>Ano</mat-label>
-          <input [(ngModel)]="alocacao.ano" type="number" min="2020" max="2120" formControlName="ano" matInput
-            placeholder="Ano" required>
+          <mat-select formControlName="ano" [(ngModel)]="alocacao.ano" required>
+            <mat-option value="{{ ano }}">{{ ano }}</mat-option>
+            <mat-option value="{{ ano+1 }}">{{ ano+1 }}</mat-option>
+            <mat-option value="{{ ano+2 }}">{{ ano+2 }}</mat-option>
+            <mat-option value="{{ ano+3 }}">{{ ano+3 }}</mat-option>
+          </mat-select>
         </mat-form-field>
       </div>
     </div>
 
     <div class="row">
       <div class="col">
-        <mat-form-field appearance="outline">
+        <mat-form-field class="full-width" appearance="outline">
           <mat-label>Semestre</mat-label>
-          <input [(ngModel)]="alocacao.semestre" type="number" min="1" max="2" formControlName="semestre" matInput
-            placeholder="Semestre" required>
+          <mat-select formControlName="semestre" [(ngModel)]="alocacao.semestre" required>
+            <mat-option value="1">1o Semestre</mat-option>
+            <mat-option value="2">2o Semestre</mat-option>
+          </mat-select>
         </mat-form-field>
       </div>
     </div>

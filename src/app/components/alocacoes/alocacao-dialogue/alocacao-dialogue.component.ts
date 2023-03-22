@@ -15,7 +15,7 @@ export class AlocacaoDialogueComponent implements OnInit {
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
 
   alocacao: Alocacao = new Alocacao();
-
+  ano: number = new Date().getFullYear();
   alocacaoForm: FormGroup;
 
   constructor(
