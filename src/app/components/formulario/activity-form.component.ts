@@ -152,7 +152,11 @@ export class ActivityFormComponent implements OnInit {
   updateMsg(){
     this.msgSucesso = 'Horas informadas batem com o total de ' + this.msgHr + 'h.';
     this.msgErro = 'Total de horas informadas ultrapassam ' + this.msgHr + 'h.';
-    this.msgInfo = 'Você precisa distribuir ' + this.msgHr + 'h.';
+
+    if (this.tipoAtividade == 'Convênios') {this.msgInfo = 'Você precisa distribuir ' + this.msgHr + 'h. Ainda faltam ' + (this.somaHrConvenio-this.totalHrSolicitadas) + 'h.';}
+    if (this.tipoAtividade == 'Cursos') {this.formEscolhido = this.cursoForm;}
+    if (this.tipoAtividade == 'Regência Concomitante') {this.formEscolhido = this.regenciaForm;}
+    
   }
 
   consultaHrAlocacoes(extra: number) {
