@@ -21,4 +21,5 @@ export class Atividade {
     alocacoes: Alocacao[];
     excedido: boolean;
     urgente: boolean;
+    excedeuLimiteHr: boolean;
 }
