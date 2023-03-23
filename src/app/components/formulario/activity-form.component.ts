@@ -19,6 +19,8 @@ import { ConsultaAlocacoesService } from './../../services/consulta-alocacoes/co
 import { TotalHorasAprovadas } from "src/app/models/total-horas-aprovadas.model";
 import { TokenStorageService } from 'src/app/core/auth/token-storage.service';
 import { LoaderService } from 'src/app/services/loader.service';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { DialogComponent } from './dialog/dialog.component';
 
 @Component({
   selector: 'app-activity-form',
@@ -27,12 +29,12 @@ import { LoaderService } from 'src/app/services/loader.service';
 })
 export class ActivityFormComponent implements OnInit {
   parametrizacao: Parametrizacao;
-  totalHorasAlocacoes = new TotalHorasAprovadas();  
+  totalHorasAlocacoes = new TotalHorasAprovadas();
   consultaAlocacoes = new ConsultaAlocacoes();
   hoje = new Date();
   //minDateIni = new Date(this.hoje.getFullYear(), this.hoje.getMonth(), this.hoje.getDate());
   //maxDateIni = new Date(this.hoje.getFullYear(), this.hoje.getMonth(), this.hoje.getDate());
-  minDateFim = new Date(this.hoje.getFullYear(), this.hoje.getMonth(), this.hoje.getDate()+1);
+  minDateFim = new Date(this.hoje.getFullYear(), this.hoje.getMonth(), this.hoje.getDate() + 1);
   //maxDateFim = new Date(this.hoje.getFullYear() + 2, this.hoje.getMonth(), this.hoje.getDate());
   dataEscolhida = new Date();
 
@@ -57,7 +59,7 @@ export class ActivityFormComponent implements OnInit {
   msgInfo: string;
   msgSomaZero: string = 'Defina a quantidade de horas, depois distribua nas alocações.'
   loading$ = this.loader.loading$;
-  formEscolhido: FormGroup; 
+  formEscolhido: FormGroup;
   convenioForm: FormGroup;
   cursoForm: FormGroup;
   regenciaForm: FormGroup;
@@ -83,12 +85,12 @@ export class ActivityFormComponent implements OnInit {
   alocacao4: Alocacao;
   alocacao5: Alocacao;
 
-  extra: number[] = new Array(0,0,0);
-  extra1: number[] = new Array(0,0,0);
-  extra2: number[] = new Array(0,0,0);
-  extra3: number[] = new Array(0,0,0);
-  extra4: number[] = new Array(0,0,0);
-  extra5: number[] = new Array(0,0,0);
+  extra: number[] = new Array(0, 0, 0);
+  extra1: number[] = new Array(0, 0, 0);
+  extra2: number[] = new Array(0, 0, 0);
+  extra3: number[] = new Array(0, 0, 0);
+  extra4: number[] = new Array(0, 0, 0);
+  extra5: number[] = new Array(0, 0, 0);
 
   panelOpenState = false;
 
@@ -103,19 +105,21 @@ export class ActivityFormComponent implements OnInit {
   cursosConsulta: number = 0;
   regenciasConsulta: number = 0;
 
-  porcCursos:number = 0;
-  porcConvenios:number = 0;
-  porcRegencias:number = 0;
+  porcCursos: number = 0;
+  porcConvenios: number = 0;
+  porcRegencias: number = 0;
 
   semestreSelecionado: number = 1;
   anoSelecionado: number = this.ano;
 
   idLogado: string = this.tokenStorage.getUserId();
+  confirmacaoDialogueRef: MatDialogRef<DialogComponent>;
+  excedeuLimiteHr: boolean;
 
   @ViewChild(FormGroupDirective, { static: true }) form: FormGroupDirective;
 
   // tslint:disable-next-line: max-line-length
-  constructor(private snackBar: MatSnackBar, private fb: FormBuilder, private convenioService: ConvenioService, private loader: LoaderService,
+  constructor(private snackBar: MatSnackBar, private fb: FormBuilder, private convenioService: ConvenioService, private loader: LoaderService, public dialog: MatDialog,
     private cursoService: CursoService, private consultaAlocacoesService: ConsultaAlocacoesService, private tokenStorage: TokenStorageService,
     private uploadService: UploadArquivoService, private atividadeService: AtividadeService, private parametrizacaoService: ParametrizacaoService, private router: Router, private toast: ToastrService) { }
 
@@ -125,6 +129,21 @@ export class ActivityFormComponent implements OnInit {
     console.log('Será exibido um erro de formGroup, mas está tudo bem.');
     console.log('Isso ocorre porque o formulário é renderizado antes da inicialização das variáveis.');
     console.log('Então ele busca por algo que não existe ainda, mas é feita a inicialização posteriormente.');
+  }
+
+  openDialog() {
+    this.confirmacaoDialogueRef = this.dialog.open(DialogComponent, {
+      disableClose: false
+    });
+    this.confirmacaoDialogueRef.componentInstance.semestre = this.semestreSelecionado;
+    this.confirmacaoDialogueRef.componentInstance.ano = this.anoSelecionado;
+    this.confirmacaoDialogueRef.componentInstance.tipo = this.tipoAtividade;
+
+    this.confirmacaoDialogueRef.afterClosed().subscribe(result => {
+      if (result) {
+
+      }
+    });
   }
 
   updateSemanalConvenio(horas: any) {
@@ -139,35 +158,35 @@ export class ActivityFormComponent implements OnInit {
     this.confereSoma();
   }
 
-  updateSomaHrCurso(){
+  updateSomaHrCurso() {
     this.somaHrCurso = this.hrTotalMinistradaCurso + this.hrTotalOutrasCurso;
     this.confereSoma();
   }
 
-  updateSomaHrRegencia(){
+  updateSomaHrRegencia() {
     this.somaHrRegencia = this.hrTotalMinistradaRegencia + this.hrTotalOutrasRegencia;
     this.confereSoma();
   }
 
-  updateMsg(){
-    this.msgSucesso = 'Horas distribuídas batem com ' + this.msgHr + 'h.';    
+  updateMsg() {
+    this.msgSucesso = 'Horas distribuídas batem com ' + this.msgHr + 'h.';
 
     if (this.tipoAtividade == 'Convênios') {
       this.formEscolhido = this.convenioForm;
-      this.msgInfo = 'Você precisa distribuir ' + this.msgHr + 'h. Ainda faltam ' + (this.somaHrConvenio-this.totalHrSolicitadas) + 'h.';
-      this.msgErro = 'Horas distribuídas ultrapassam ' + this.msgHr + 'h. Retire ' + (this.somaHrConvenio-this.totalHrSolicitadas) + 'h.';
+      this.msgInfo = 'Você precisa distribuir ' + this.msgHr + 'h. Ainda faltam ' + (this.somaHrConvenio - this.totalHrSolicitadas) + 'h.';
+      this.msgErro = 'Horas distribuídas ultrapassam ' + this.msgHr + 'h. Retire ' + (this.somaHrConvenio - this.totalHrSolicitadas) + 'h.';
     }
     if (this.tipoAtividade == 'Cursos') {
       this.formEscolhido = this.cursoForm;
-      this.msgInfo = 'Você precisa distribuir ' + this.msgHr + 'h. Ainda faltam ' + (this.somaHrCurso-this.totalHrSolicitadas) + 'h.';
-      this.msgErro = 'Horas distribuídas ultrapassam ' + this.msgHr + 'h. Retire ' + (this.somaHrCurso-this.totalHrSolicitadas) + 'h.';
+      this.msgInfo = 'Você precisa distribuir ' + this.msgHr + 'h. Ainda faltam ' + (this.somaHrCurso - this.totalHrSolicitadas) + 'h.';
+      this.msgErro = 'Horas distribuídas ultrapassam ' + this.msgHr + 'h. Retire ' + (this.somaHrCurso - this.totalHrSolicitadas) + 'h.';
     }
     if (this.tipoAtividade == 'Regência Concomitante') {
       this.formEscolhido = this.regenciaForm;
-      this.msgInfo = 'Você precisa distribuir ' + this.msgHr + 'h. Ainda faltam ' + (this.somaHrRegencia-this.totalHrSolicitadas) + 'h.';
-      this.msgErro = 'Horas distribuídas ultrapassam ' + this.msgHr + 'h. Retire ' + (this.somaHrRegencia-this.totalHrSolicitadas) + 'h.';
+      this.msgInfo = 'Você precisa distribuir ' + this.msgHr + 'h. Ainda faltam ' + (this.somaHrRegencia - this.totalHrSolicitadas) + 'h.';
+      this.msgErro = 'Horas distribuídas ultrapassam ' + this.msgHr + 'h. Retire ' + (this.somaHrRegencia - this.totalHrSolicitadas) + 'h.';
     }
-    
+
   }
 
   consultaHrAlocacoes(extra: number) {
@@ -177,48 +196,42 @@ export class ActivityFormComponent implements OnInit {
         this.conveniosConsulta = this.consultaAlocacoes[0];
         this.cursosConsulta = this.consultaAlocacoes[1];
         this.regenciasConsulta = this.consultaAlocacoes[2];
-        this.porcCursos = parseFloat(((this.cursosConsulta/this.max_hr_semestrais_curso)*100).toFixed(2));
-        this.porcRegencias = parseFloat(((this.regenciasConsulta/this.max_hr_semestrais_regencia)*100).toFixed(2));
-        this.porcConvenios = parseFloat(((this.conveniosConsulta/this.max_hr_semestrais_convenio)*100).toFixed(2));
+        this.porcCursos = parseFloat(((this.cursosConsulta / this.max_hr_semestrais_curso) * 100).toFixed(2));
+        this.porcRegencias = parseFloat(((this.regenciasConsulta / this.max_hr_semestrais_regencia) * 100).toFixed(2));
+        this.porcConvenios = parseFloat(((this.conveniosConsulta / this.max_hr_semestrais_convenio) * 100).toFixed(2));
 
-        //horas disponiveis 
-        switch (extra) {
-          case 0:
-            this.extra[0] = this.conveniosConsulta;
-            this.extra[1] = this.cursosConsulta;
-            this.extra[2] = this.regenciasConsulta;
-            
-            break;
-            
-          case 1:
-            this.extra1[0] = this.conveniosConsulta;
-            this.extra1[1] = this.cursosConsulta;
-            this.extra1[2] = this.regenciasConsulta;        
-            break;    
-          
-          case 2:
-            this.extra2[0] = this.conveniosConsulta;
-            this.extra2[1] = this.cursosConsulta;
-            this.extra2[2] = this.regenciasConsulta;       
-            break;
-          
-          case 3:
-            this.extra3[0] = this.conveniosConsulta;
-            this.extra3[1] = this.cursosConsulta;
-            this.extra3[2] = this.regenciasConsulta;        
-            break;
-            
-          case 4:
-            this.extra4[0] = this.conveniosConsulta;
-            this.extra4[1] = this.cursosConsulta;
-            this.extra4[2] = this.regenciasConsulta;        
-            break;
-    
-          case 5:
-            this.extra5[0] = this.conveniosConsulta;
-            this.extra5[1] = this.cursosConsulta;
-            this.extra5[2] = this.regenciasConsulta;        
-            break;
+        if (this.tipoAtividade == 'Convênios') {
+          //total horas aprovadas Convênios
+          switch (extra) {
+            case 0: this.checaLimite(this.extra[0] = this.conveniosConsulta); break;
+            case 1: this.checaLimite(this.extra1[0] = this.conveniosConsulta); break;
+            case 2: this.checaLimite(this.extra2[0] = this.conveniosConsulta); break;
+            case 3: this.checaLimite(this.extra3[0] = this.conveniosConsulta); break;
+            case 4: this.checaLimite(this.extra4[0] = this.conveniosConsulta); break;
+            case 5: this.checaLimite(this.extra5[0] = this.conveniosConsulta); break;
+          }
+        }
+        if (this.tipoAtividade == 'Cursos') {
+          //total horas aprovadas Cursos
+          switch (extra) {
+            case 0: this.checaLimite(this.extra[1] = this.cursosConsulta); break;
+            case 1: this.checaLimite(this.extra1[1] = this.cursosConsulta); break;
+            case 2: this.checaLimite(this.extra2[1] = this.cursosConsulta); break;
+            case 3: this.checaLimite(this.extra3[1] = this.cursosConsulta); break;
+            case 4: this.checaLimite(this.extra4[1] = this.cursosConsulta); break;
+            case 5: this.checaLimite(this.extra5[1] = this.cursosConsulta); break;
+          }
+        }
+        if (this.tipoAtividade == 'Regência Concomitante') {
+          //total horas aprovadas Regência Concomitante
+          switch (extra) {
+            case 0: this.checaLimite(this.extra[2] = this.regenciasConsulta); break;
+            case 1: this.checaLimite(this.extra1[2] = this.regenciasConsulta); break;
+            case 2: this.checaLimite(this.extra2[2] = this.regenciasConsulta); break;
+            case 3: this.checaLimite(this.extra3[2] = this.regenciasConsulta); break;
+            case 4: this.checaLimite(this.extra4[2] = this.regenciasConsulta); break;
+            case 5: this.checaLimite(this.extra5[2] = this.regenciasConsulta); break;
+          }
         }
 
       },
@@ -227,36 +240,58 @@ export class ActivityFormComponent implements OnInit {
       }
     );
   }
- 
+
+  checaLimite(hrAprovadas: number) {
+    if (this.tipoAtividade == 'Convênios') {
+      if ((this.max_hr_semestrais_convenio - hrAprovadas) <= 59) {
+        this.excedeuLimiteHr = true;
+        this.openDialog();
+      }
+    }
+
+    if (this.tipoAtividade == 'Cursos') {
+      if ((this.max_hr_semestrais_curso - hrAprovadas) <= 59) {
+        this.excedeuLimiteHr = true;
+        this.openDialog();
+      }
+    }
+    if (this.tipoAtividade == 'Regência Concomitante') {
+      if ((this.max_hr_semestrais_regencia - hrAprovadas) <= 59) {
+        this.excedeuLimiteHr = true;
+        this.openDialog();
+      }
+    }
+  }
+
   confereSoma() {
     if (this.tipoAtividade == 'Convênios') {
       this.totalHrSolicitadas = this.convenioForm.get('horasSolicitadas').value + this.convenioForm.get('horasSolicitadas1').value + this.convenioForm.get('horasSolicitadas2').value + this.convenioForm.get('horasSolicitadas3').value + this.convenioForm.get('horasSolicitadas4').value + this.convenioForm.get('horasSolicitadas5').value;
       this.msgHr = this.somaHrConvenio.toString();
       this.updateMsg();
-      if (this.totalHrSolicitadas > this.somaHrConvenio && this.somaHrConvenio > 0) {this.toast.error(this.msgErro);}
-      if (this.totalHrSolicitadas == this.somaHrConvenio && this.totalHrSolicitadas > 0) {this.toast.success(this.msgSucesso);}
-      if (this.totalHrSolicitadas < this.somaHrConvenio) {this.toast.info(this.msgInfo);}
-      if(this.somaHrConvenio == 0){this.toast.info(this.msgSomaZero);}
+      if (this.totalHrSolicitadas > this.somaHrConvenio && this.somaHrConvenio > 0) { this.toast.error(this.msgErro); }
+      if (this.totalHrSolicitadas == this.somaHrConvenio && this.totalHrSolicitadas > 0) { this.toast.success(this.msgSucesso); }
+      if (this.totalHrSolicitadas < this.somaHrConvenio) { this.toast.info(this.msgInfo); }
+      if (this.somaHrConvenio == 0) { this.toast.info(this.msgSomaZero); }
     }
 
     if (this.tipoAtividade == 'Cursos') {
       this.totalHrSolicitadas = this.cursoForm.get('horasSolicitadas').value + this.cursoForm.get('horasSolicitadas1').value + this.cursoForm.get('horasSolicitadas2').value + this.cursoForm.get('horasSolicitadas3').value + this.cursoForm.get('horasSolicitadas4').value + this.cursoForm.get('horasSolicitadas5').value;
       this.msgHr = this.somaHrCurso.toString();
       this.updateMsg();
-      if (this.totalHrSolicitadas > this.somaHrCurso && this.somaHrCurso > 0) {this.toast.error(this.msgErro);}
-      if (this.totalHrSolicitadas == this.somaHrCurso && this.totalHrSolicitadas > 0) {this.toast.success(this.msgSucesso);}
-      if (this.totalHrSolicitadas < this.somaHrCurso) {this.toast.info(this.msgInfo);}
-      if(this.somaHrCurso == 0){this.toast.info(this.msgSomaZero);}
+      if (this.totalHrSolicitadas > this.somaHrCurso && this.somaHrCurso > 0) { this.toast.error(this.msgErro); }
+      if (this.totalHrSolicitadas == this.somaHrCurso && this.totalHrSolicitadas > 0) { this.toast.success(this.msgSucesso); }
+      if (this.totalHrSolicitadas < this.somaHrCurso) { this.toast.info(this.msgInfo); }
+      if (this.somaHrCurso == 0) { this.toast.info(this.msgSomaZero); }
     }
 
     if (this.tipoAtividade == 'Regência Concomitante') {
       this.totalHrSolicitadas = this.regenciaForm.get('horasSolicitadas').value + this.regenciaForm.get('horasSolicitadas1').value + this.regenciaForm.get('horasSolicitadas2').value + this.regenciaForm.get('horasSolicitadas3').value + this.regenciaForm.get('horasSolicitadas4').value + this.regenciaForm.get('horasSolicitadas5').value;
       this.msgHr = this.somaHrRegencia.toString();
       this.updateMsg();
-      if (this.totalHrSolicitadas > this.somaHrRegencia && this.somaHrRegencia > 0) {this.toast.error(this.msgErro);}
-      if (this.totalHrSolicitadas == this.somaHrRegencia && this.totalHrSolicitadas > 0) {this.toast.success(this.msgSucesso);}
-      if (this.totalHrSolicitadas < this.somaHrRegencia) {this.toast.info(this.msgInfo);}
-      if(this.somaHrRegencia == 0){this.toast.info(this.msgSomaZero);}
+      if (this.totalHrSolicitadas > this.somaHrRegencia && this.somaHrRegencia > 0) { this.toast.error(this.msgErro); }
+      if (this.totalHrSolicitadas == this.somaHrRegencia && this.totalHrSolicitadas > 0) { this.toast.success(this.msgSucesso); }
+      if (this.totalHrSolicitadas < this.somaHrRegencia) { this.toast.info(this.msgInfo); }
+      if (this.somaHrRegencia == 0) { this.toast.info(this.msgSomaZero); }
     }
   }
 
@@ -274,57 +309,33 @@ export class ActivityFormComponent implements OnInit {
     this.confereSoma();
   }
 
-  hrRestantes(extra: number){
-    if (this.tipoAtividade == 'Convênios') {this.formEscolhido = this.convenioForm;}
-    if (this.tipoAtividade == 'Cursos') {this.formEscolhido = this.cursoForm;}
-    if (this.tipoAtividade == 'Regência Concomitante') {this.formEscolhido = this.regenciaForm;}
+  hrRestantes(extra: number) {
+    if (this.tipoAtividade == 'Convênios') { this.formEscolhido = this.convenioForm; }
+    if (this.tipoAtividade == 'Cursos') { this.formEscolhido = this.cursoForm; }
+    if (this.tipoAtividade == 'Regência Concomitante') { this.formEscolhido = this.regenciaForm; }
 
-    switch (extra) {
-      case 0:
-        this.semestreSelecionado = this.formEscolhido.get('semestre').value;
-        this.anoSelecionado = this.formEscolhido.get('ano').value;
-        break;
-        
-      case 1:
-        this.semestreSelecionado = this.formEscolhido.get('semestre' + extra).value;
-        this.anoSelecionado = this.formEscolhido.get('ano' + extra).value;
-        break;    
-      
-      case 2:
-        this.semestreSelecionado = this.formEscolhido.get('semestre' + extra).value;
-        this.anoSelecionado = this.formEscolhido.get('ano' + extra).value;
-        break;
-      
-      case 3:
-        this.semestreSelecionado = this.formEscolhido.get('semestre' + extra).value;
-        this.anoSelecionado = this.formEscolhido.get('ano' + extra).value;
-        break;
-        
-      case 4:
-        this.semestreSelecionado = this.formEscolhido.get('semestre' + extra).value;
-        this.anoSelecionado = this.formEscolhido.get('ano' + extra).value;
-        break;
-
-      case 5:
-        this.semestreSelecionado = this.formEscolhido.get('semestre' + extra).value;
-        this.anoSelecionado = this.formEscolhido.get('ano' + extra).value;
-        break;
+    if (extra == 0) {
+      this.semestreSelecionado = this.formEscolhido.get('semestre').value;
+      this.anoSelecionado = this.formEscolhido.get('ano').value;
+    } else {
+      this.semestreSelecionado = this.formEscolhido.get('semestre' + extra).value;
+      this.anoSelecionado = this.formEscolhido.get('ano' + extra).value;
     }
-    
-    this.consultaHrAlocacoes(extra);    
-    
+
+    this.consultaHrAlocacoes(extra);
+
   }
 
   definetipoAtividade(tipo: string): void {
     this.tipoAtividade = tipo;
     this.toast.success(tipo);
-    if (this.tipoAtividade == 'Convênios') {this.cursoForm.reset(); this.regenciaForm.reset();}
-    if (this.tipoAtividade == 'Cursos') {this.convenioForm.reset(); this.regenciaForm.reset();}
-    if (this.tipoAtividade == 'Regência Concomitante') {this.convenioForm.reset(); this.cursoForm.reset();}
+    if (this.tipoAtividade == 'Convênios') { this.cursoForm.reset(); this.regenciaForm.reset(); }
+    if (this.tipoAtividade == 'Cursos') { this.convenioForm.reset(); this.regenciaForm.reset(); }
+    if (this.tipoAtividade == 'Regência Concomitante') { this.convenioForm.reset(); this.cursoForm.reset(); }
   }
 
-  setRequired(){
-    if (this.cursoForm.get('participacao').value == 'COORDENACAO'){
+  setRequired() {
+    if (this.cursoForm.get('participacao').value == 'COORDENACAO') {
       this.cursoForm.get('totalHorasMinistradas').setValidators([Validators.max(this.max_hr_ministradas_curso)]);
       this.cursoForm.get('totalHorasMinistradas').updateValueAndValidity();
     } else {
@@ -485,6 +496,7 @@ export class ActivityFormComponent implements OnInit {
     this.alocacao.ano = this.convenioForm.get('ano').value;
     this.alocacao.semestre = this.convenioForm.get('semestre').value;
     this.alocacao.horasSolicitadas = this.convenioForm.get('horasSolicitadas').value;
+    this.convenioModel.excedeuLimiteHr = this.excedeuLimiteHr;
     this.convenioModel.alocacoes.push(this.alocacao);
 
     if (this.alocacaoExtra) {
