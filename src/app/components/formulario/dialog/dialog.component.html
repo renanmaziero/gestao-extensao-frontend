@@ -1,0 +1,9 @@
+<h1 mat-dialog-title>Atenção</h1>
+<div mat-dialog-content>
+    <p>Você atingiu o limite de horas aprovadas em {{semestre}}S{{ano}} para {{tipo}}.</p>
+</div>
+
+<div mat-dialog-actions>
+    <button mat-button (click)="dialogRef.close(false)">Ciente</button>
+    <!--<button mat-button (click)="dialogRef.close(true)">Sim</button>-->
+  </div>
