@@ -43,6 +43,7 @@ import { ConfirmacaoDialogueComponent } from './shared/confirmacao-dialogue/conf
 import { PermissaoPipe } from './shared/pipes/permissao.pipe';
 import { ParametrizacaoComponent } from './components/parametrizacao/parametrizacao.component';
 import { ConsultaAlocacoesComponent } from './components/consulta-alocacoes/consulta-alocacoes.component';
+import { DialogComponent } from './components/formulario/dialog/dialog.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { ConsultaAlocacoesComponent } from './components/consulta-alocacoes/cons
     PermissaoPipe,
     ParametrizacaoComponent,
     ConsultaAlocacoesComponent,
+    DialogComponent,
   ],
   imports: [
     CommonModule,
