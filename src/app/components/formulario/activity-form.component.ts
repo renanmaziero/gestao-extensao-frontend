@@ -243,20 +243,20 @@ export class ActivityFormComponent implements OnInit {
 
   checaLimite(hrAprovadas: number) {
     if (this.tipoAtividade == 'Convênios') {
-      if ((this.max_hr_semestrais_convenio - hrAprovadas) <= 59) {
+      if ((this.max_hr_semestrais_convenio - hrAprovadas) <= 0) {
         this.excedeuLimiteHr = true;
         this.openDialog();
       }
     }
 
     if (this.tipoAtividade == 'Cursos') {
-      if ((this.max_hr_semestrais_curso - hrAprovadas) <= 59) {
+      if ((this.max_hr_semestrais_curso - hrAprovadas) <= 0) {
         this.excedeuLimiteHr = true;
         this.openDialog();
       }
     }
     if (this.tipoAtividade == 'Regência Concomitante') {
-      if ((this.max_hr_semestrais_regencia - hrAprovadas) <= 59) {
+      if ((this.max_hr_semestrais_regencia - hrAprovadas) <= 0) {
         this.excedeuLimiteHr = true;
         this.openDialog();
       }
