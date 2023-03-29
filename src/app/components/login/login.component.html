@@ -16,7 +16,7 @@
             <div class="form-group">
                 <mat-form-field appearance="outline" style="width: 100%;">
                     <mat-label>Matricula (apenas números)</mat-label>
-                    <input matInput placeholder="Matricula" [(ngModel)]="form.matricula" name="matricula"
+                    <input matInput placeholder="Matricula" autofocus [(ngModel)]="form.matricula" name="matricula"
                         #username="ngModel" required maxlength="6" pattern="[0-9]{6}" title="Nro. da matrícula com 6 números de 0 a 9.">
                         <mat-error>Obrigatória matrícula. Somente 6 números.</mat-error>
                 </mat-form-field>
