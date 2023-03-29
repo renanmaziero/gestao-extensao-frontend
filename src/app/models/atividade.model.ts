@@ -19,7 +19,7 @@ export class Atividade {
     tipoAtividade: string;
     revisao: string;
     alocacoes: Alocacao[];
-    excedido: boolean;
+    excedeu: boolean;
     urgente: boolean;
-    excedeuLimiteHr: boolean;
+    excedido: boolean;
 }

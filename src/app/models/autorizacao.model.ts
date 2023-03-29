@@ -1,6 +1,7 @@
 export class Autorizacao {
 
     id: number;
+    excedeu: boolean;
     status: string;
     dataCriacao: string;
     docente: string;
