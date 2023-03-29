@@ -28,7 +28,7 @@ export class AutorizacaoComponent implements OnInit {
   autorizacao: Autorizacao = new Autorizacao();
   autorizacoes: MatTableDataSource<Autorizacao>;
   errorMsg: string;
-  displayedColumns = ['id', 'status', 'dataCriacao', 'docente', 'urgente', 'tipoAtividade', 'acoes'];
+  displayedColumns = ['id', 'excedeu', 'status', 'dataCriacao', 'docente', 'urgente', 'tipoAtividade', 'acoes'];
   dataGrid: Autorizacao[];
   filtro: string;
 
