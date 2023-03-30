@@ -12,14 +12,14 @@
       <!-- Position Column -->
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
-        <td mat-cell *matCellDef="let element" (click)="consultarDetalheAutorizacao(element)"> {{element.id}} </td>
+        <td mat-cell *matCellDef="let element" (click)="consultarDetalheAutorizacao(element)" class="coluna-justa"> {{element.id}} </td>
       </ng-container>
 
       <ng-container matColumnDef="excedeu">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Excedeu</th>
-        <td mat-cell *matCellDef="let element" (click)="consultarDetalheAutorizacao(element)">
-          <mat-icon aria-hidden="false" aria-label="Ok" fontIcon="check_circle" matTooltip="Tudo certo" *ngIf="!element.excedeu" style="color: green;">check_circle</mat-icon>
-          <mat-icon fontIcon="warning" matTooltip="Excedeu máx. de horas no semestre" *ngIf="element.excedeu" style="color: tomato;">warning</mat-icon>
+        <td mat-cell *matCellDef="let element" (click)="consultarDetalheAutorizacao(element)" class="coluna-justa">
+          <mat-icon aria-hidden="false" aria-label="Ok" fontIcon="check_circle" matTooltip="Tudo certo" *ngIf="!element.excedeu" style="color: green;">done</mat-icon>
+          <mat-icon fontIcon="warning" matTooltip="Excedeu máx. de horas no semestre" *ngIf="element.excedeu" style="color: tomato;">warning_amber</mat-icon>
         </td>
       </ng-container>
 
