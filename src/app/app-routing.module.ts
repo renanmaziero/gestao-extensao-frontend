@@ -18,6 +18,7 @@ import { RegenciaComponent } from './components/atividades/regencia/regencia.com
 import { CursoExtensao } from './models/curso.model';
 import { CursoExtensaoComponent } from './components/atividades/curso-extensao/curso-extensao.component';
 import { AlocacaoComponentComponent } from './components/alocacoes/alocacao-component/alocacao-component.component';
+import { SuporteComponent } from './components/suporte/suporte.component';
 
 
 const routes: Routes = [
@@ -74,6 +75,9 @@ const routes: Routes = [
   },
   {
     path: 'consulta-alocacoes', component: ConsultaAlocacoesComponent, canActivate: [AuthGuardService]
+  },
+  {
+    path: 'suporte', component: SuporteComponent, canActivate: [AuthGuardService]
   },
 ];
 

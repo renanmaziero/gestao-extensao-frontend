@@ -1,0 +1,28 @@
+<div class="grid-container">
+    <h1>Suporte</h1>
+    <mat-card>
+        <mat-card-content>
+            <h2>Manuais</h2>
+            <p *ngIf="admin"><a mat-list-item href="../../../assets/suporte/manual-gas-admin.pdf"><mat-icon>picture_as_pdf</mat-icon> Manual (Admin)</a></p>
+            <p *ngIf="user || admin"><a mat-list-item href="../../../assets/suporte/manual-gas-docente.pdf"><mat-icon>picture_as_pdf</mat-icon> Manual (Docente)</a></p>
+            <p *ngIf="admin"><a mat-list-item href="../../../assets/suporte/guia-dev-gas.pdf"><mat-icon>picture_as_pdf</mat-icon> Manual (Desenvolvedor)</a></p>                       
+        </mat-card-content>
+    </mat-card>
+
+    <mat-divider></mat-divider>
+
+    <mat-card>
+        <mat-card-content>
+            <h2>Contato</h2>
+            <p>Autor: Lucas Watanuki - <a href="mailto:lucaswatanuki@gmail.com">lucaswatanuki@gmail.com</a></p>
+            <p>Contribuição: Renan F. Maziero - <a href="mailto:renanfmaziero@gmail.com">renanfmaziero@gmail.com</a></p></mat-card-content>
+    </mat-card>
+
+    <mat-divider></mat-divider>
+
+    <mat-card>
+        <mat-card-content>
+            <h2>Sobre</h2>
+            <p>Gestão de Atividades Simultâneas - GAS v1.01.6 <br>© 2023 Lucas Watanuki. Todos os direitos reservados.</p> </mat-card-content>
+    </mat-card>
+</div>

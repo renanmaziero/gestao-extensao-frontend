@@ -46,6 +46,11 @@
         <mat-icon>data_object</mat-icon>Parametrização
       </a>
 
+      <a mat-list-item routerLink="/suporte" *ngIf="user || admin">
+        <mat-icon>support</mat-icon>
+        Suporte
+      </a>
+
       <mat-divider></mat-divider>
 
       <a mat-list-item routerLink="/configuracao" *ngIf="admin || user">
